@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>groupmems command - Linux Command</title>
+    <meta name="description" content="Manage members of a user&#39;s own group.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>groupmems</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Permissions</p>
+          <h1>groupmems</h1>
+          <p>Manage members of a user&#39;s own group.</p>
+          <div class="tag-row"><span>group</span><span>user</span><span>membership</span><span>shadow</span><span>permissions</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>groupmems</code> allows a user to manage the membership of their own primary group without requiring root privileges. It is part of the shadow password suite and provides a controlled way to add or remove users from a group, as long as the user running it is the group owner.</p>
+<p>The command is typically restricted to root and the group owner, as defined in the <code>/etc/gshadow</code> file. The group owner entry in the last field of <code>/etc/gshadow</code> determines who is allowed to manage membership. This is useful for delegating group administration to non-root users.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>groupmems [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>groupmems</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-g group</code>, <code>--group group</code>: Specify the group to manage. The group must have an owner set in <code>/etc/gshadow</code>.</li>
+<li><code>-a user</code>, <code>--add user</code>: Add a user to the group.</li>
+<li><code>-d user</code>, <code>--delete user</code>: Remove a user from the group.</li>
+<li><code>-p</code>, <code>--purge</code>: Remove all members from the group.</li>
+<li><code>-l</code>, <code>--list</code>: List the members of the group.</li>
+<li><code>-R</code>, <code>--root directory</code>: Apply changes in a different root directory (for chroot environments).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sudo groupmems -g developers -a alice</code></pre>
+<p>Add <code>alice</code> to the <code>developers</code> group.</p>
+<pre><code>sudo groupmems -g developers -d bob</code></pre>
+<p>Remove <code>bob</code> from the <code>developers</code> group.</p>
+<pre><code>groupmems -g developers -l</code></pre>
+<p>List all members of the <code>developers</code> group.</p>
+<pre><code>sudo groupmems -g oldgroup -p</code></pre>
+<p>Remove all members from <code>oldgroup</code>.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>The group must have an owner defined in the <code>/etc/gshadow</code> file (the last field). Without an owner, only root can manage membership.</li>
+<li><code>groupmems</code> modifies <code>/etc/group</code> and <code>/etc/gshadow</code> directly; users must log out and back in for the group membership change to take effect.</li>
+<li>The <code>newgrp</code> or <code>sg</code> commands can be used to switch the active group to a new one after membership changes.</li>
+<li>For most group management tasks, <code>gpasswd</code> and <code>usermod -aG</code> are more commonly used.</li>
+<li><code>groupmems</code> is rarely used on modern systems compared to <code>usermod</code> and <code>gpasswd</code>.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../chage/index.html"><strong>chage</strong><span>View and change user password aging information.</span></a>
+<a href="../chfn/index.html"><strong>chfn</strong><span>Change user finger information.</span></a>
+<a href="../chgrp/index.html"><strong>chgrp</strong><span>Change group ownership of files and directories.</span></a>
+<a href="../chown/index.html"><strong>chown</strong><span>Change file owner and group.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

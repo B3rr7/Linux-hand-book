@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pfctl command - Linux Command</title>
+    <meta name="description" content="Control the OpenBSD Packet Filter firewall.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>pfctl</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>pfctl</h1>
+          <p>Control the OpenBSD Packet Filter firewall.</p>
+          <div class="tag-row"><span>firewall</span><span>packet filter</span><span>bsd</span><span>openbsd</span><span>network security</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>pfctl</code> is the command-line tool for controlling the Packet Filter (PF) firewall on BSD systems (OpenBSD, FreeBSD, macOS). PF is a stateful firewall that provides packet filtering, network address translation (NAT), traffic shaping, and bandwidth management.</p>
+<p>While <code>pfctl</code> is native to BSD systems, it may appear on Linux systems that use the pf kernel module (via <code>pf-kernel</code> or similar projects) or on macOS. The tool controls firewall rules, displays state tables, logs traffic, and manages the PF configuration. On Linux, <code>iptables</code>/<code>nftables</code> are more common, but understanding <code>pfctl</code> is useful for cross-platform network administration.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>pfctl [options] [ruleset-file]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>pfctl</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-e</code>: Enable the Packet Filter firewall.</li>
+<li><code>-d</code>: Disable the Packet Filter firewall.</li>
+<li><code>-f file</code>: Load rules from a configuration file.</li>
+<li><code>-N</code>: Load only the NAT rules.</li>
+<li><code>-R</code>: Load only the filter rules.</li>
+<li><code>-s</code>: Show PF status information. Combined with keywords like <code>rules</code>, <code>nat</code>, <code>states</code>, <code>queue</code>.</li>
+<li><code>-sr</code>: Show the currently loaded filter rules.</li>
+<li><code>-sn</code>: Show the currently loaded NAT rules.</li>
+<li><code>-ss</code>: Show the current state table.</li>
+<li><code>-si</code>: Show interface statistics.</li>
+<li><code>-sa</code>: Show all PF information.</li>
+<li><code>-F</code>: Flush PF components. Combined with <code>states</code>, <code>rules</code>, <code>nat</code>, <code>info</code>, <code>all</code>.</li>
+<li><code>-k host</code>: Kill all states matching the specified host.</li>
+<li><code>-K host</code>: Kill all states matching the specified gateway.</li>
+<li><code>-t table</code>: Operate on a PF table (add, delete, replace, test, show).</li>
+<li><code>-T add/delete/replace/test/show</code>: Table operations.</li>
+<li><code>-v</code>: Verbose output.</li>
+<li><code>-o</code>: Enable optimization (skip rules when possible).</li>
+<li><code>-q</code>: Quiet mode (less output).</li>
+<li><code>-p device</code>: Specify the alternate device for /dev/pf.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>pfctl -e</code></pre>
+<p>Enable the PF firewall.</p>
+<pre><code>pfctl -d</code></pre>
+<p>Disable the PF firewall.</p>
+<pre><code>pfctl -f /etc/pf.conf</code></pre>
+<p>Load firewall rules from the default configuration file.</p>
+<pre><code>pfctl -sr</code></pre>
+<p>Display currently loaded filter rules.</p>
+<pre><code>pfctl -sn</code></pre>
+<p>Display currently loaded NAT rules.</p>
+<pre><code>pfctl -ss</code></pre>
+<p>Show the current state table (active connections tracked by PF).</p>
+<pre><code>pfctl -sa</code></pre>
+<p>Show all PF information (stats, rules, states, queues, tables).</p>
+<pre><code>pfctl -F all</code></pre>
+<p>Flush all states, rules, NAT rules, and queue definitions.</p>
+<pre><code>pfctl -F states</code></pre>
+<p>Flush all connection states without changing rules.</p>
+<pre><code>pfctl -t blocked_hosts -T add 192.168.1.100</code></pre>
+<p>Add an IP address to a table named <code>blocked_hosts</code>.</p>
+<pre><code>pfctl -t blocked_hosts -T show</code></pre>
+<p>Show all entries in the <code>blocked_hosts</code> table.</p>
+<pre><code>pfctl -k 10.0.0.5</code></pre>
+<p>Kill all states involving the host <code>10.0.0.5</code>.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>pfctl</code> requires root privileges. Use <code>sudo</code> or run as root.</li>
+<li>On macOS, PF is built-in and managed with <code>pfctl</code>, but it is disabled by default. Enable with <code>pfctl -e</code>.</li>
+<li>The PF configuration file is typically <code>/etc/pf.conf</code>. Always test configuration with <code>pfctl -nf /etc/pf.conf</code> before loading.</li>
+<li>After making changes to <code>pf.conf</code>, load the new rules with <code>pfctl -f /etc/pf.conf</code>.</li>
+<li>On Linux, the equivalent functionality is provided by <code>iptables</code> or <code>nftables</code>. <code>pfctl</code> is not installed by default on most Linux distributions.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

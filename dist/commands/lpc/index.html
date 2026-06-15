@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lpc command - Linux Command</title>
+    <meta name="description" content="Line printer control; manage printer queues in CUPS/LPD.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>lpc</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Administration</p>
+          <h1>lpc</h1>
+          <p>Line printer control; manage printer queues in CUPS/LPD.</p>
+          <div class="tag-row"><span>printer</span><span>queue</span><span>lpd</span><span>cups</span><span>control</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>lpc</code> is a printer control command that provides an interactive interface for managing printer queues. It can start, stop, enable, disable, and check the status of print queues on a CUPS or LPD printing system.</p>
+<p>While largely a legacy command from the Berkeley LPD system, <code>lpc</code> is still available in CUPS for backward compatibility. Most functionality is now available through <code>lpadmin</code>, <code>lpstat</code>, and <code>cupsenable</code>/<code>cupsdisable</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>lpc [command [arguments]]</code></pre>
+<p>When run without arguments, <code>lpc</code> enters interactive mode.</p>
+<h2 id="interactive-commands">Interactive Commands</h2>
+<ul>
+<li><code>status [printer]</code>: Show the current status of a printer queue.</li>
+<li><code>start [printer]</code>: Start a printer queue.</li>
+<li><code>stop [printer]</code>: Stop a printer queue (no new jobs accepted).</li>
+<li><code>enable [printer]</code>: Enable the queue so it can accept jobs.</li>
+<li><code>disable [printer]</code>: Disable the queue so it does not accept jobs.</li>
+<li><code>restart [printer]</code>: Stop and restart the printer queue.</li>
+<li><code>down [printer] [message]</code>: Take the queue down with a status message.</li>
+<li><code>up [printer]</code>: Bring the queue back up.</li>
+<li><code>topq printer job-id</code>: Move a job to the top of the queue.</li>
+<li><code>clean [printer]</code>: Remove temporary files.</li>
+<li><code>help [command]</code>: Show help.</li>
+<li><code>exit</code> or <code>quit</code>: Leave interactive mode.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>lpc</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>lpc status all</code></pre>
+<p>Show the status of all printer queues.</p>
+<pre><code>lpc status OfficePrinter</code></pre>
+<p>Show the status of a specific printer.</p>
+<pre><code>lpc stop OfficePrinter</code></pre>
+<p>Stop the printer queue; jobs remain in the queue but are not processed.</p>
+<pre><code>lpc disable OfficePrinter</code></pre>
+<p>Prevent the queue from accepting new jobs.</p>
+<pre><code>lpc start OfficePrinter</code></pre>
+<p>Restart processing jobs in the queue.</p>
+<pre><code>lpc topq OfficePrinter 42</code></pre>
+<p>Move job ID 42 to the top of the queue.</p>
+<pre><code>lpc</code></pre>
+<p>Enter interactive mode for multiple commands.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>lpc</code> is part of CUPS for LPD compatibility but many tasks are better done with <code>cupsenable</code>, <code>cupsdisable</code>, <code>lpstat</code>, and <code>lpadmin</code>.</li>
+<li><code>stop</code> pauses queue processing but does not affect job acceptance; <code>disable</code> stops job acceptance.</li>
+<li>Some LPD-only features of <code>lpc</code> may not work with CUPS backends.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../logsave/index.html"><strong>logsave</strong><span>Save command output to a log file while displaying on the terminal.</span></a>
+<a href="../logwatch/index.html"><strong>logwatch</strong><span>Summarize and report system log activity.</span></a>
+<a href="../lpadmin/index.html"><strong>lpadmin</strong><span>Configure CUPS printers and classes.</span></a>
+<a href="../mail/index.html"><strong>mail</strong><span>Send and receive email from the command line.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

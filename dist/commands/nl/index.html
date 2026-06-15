@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nl command - Linux Command</title>
+    <meta name="description" content="Number lines of files.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>nl</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Text</p>
+          <h1>nl</h1>
+          <p>Number lines of files.</p>
+          <div class="tag-row"><span>line-numbers</span><span>numbering</span><span>text</span><span>file</span><span>format</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>nl</code> numbers the lines of a file. It is the line-numbering counterpart of <code>cat -n</code>, but offers much more control over the numbering format, including the ability to number only non-empty lines, use different numbering styles, custom separators, and page-wise numbering (headers, footers, and body).</p>
+<p>It is useful for printing source code with line numbers, creating numbered reference lists, or formatting documents where line numbers are needed. The number format, width, and separator are all configurable.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>nl [options] [file...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>file</code>: One or more files to number. Reads from stdin if no file is given.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-b style</code>, <code>--body-numbering=style</code>: Line numbering style for the body.</li>
+<li><code>a</code>: Number all lines.</li>
+<li><code>t</code>: Number only non-empty lines (default).</li>
+<li><code>n</code>: No line numbering.</li>
+<li><code>pREGEX</code>: Number only lines matching a regular expression.</li>
+<li><code>-n format</code>, <code>--number-format=format</code>: Number format.</li>
+<li><code>ln</code>: Left-justified, no leading zeros.</li>
+<li><code>rn</code>: Right-justified, no leading zeros (default).</li>
+<li><code>rz</code>: Right-justified, with leading zeros.</li>
+<li><code>-w width</code>, <code>--number-width=width</code>: Set the number column width (default 6).</li>
+<li><code>-s string</code>, <code>--number-separator=string</code>: String to separate the number from the text (default is tab).</li>
+<li><code>-i number</code>, <code>--line-increment=number</code>: Increment line numbers by <code>number</code> (default 1).</li>
+<li><code>-v number</code>, <code>--starting-line-number=number</code>: Starting line number (default 1).</li>
+<li><code>-p</code>, <code>--page-increment</code>: Do not reset line numbers at page boundaries.</li>
+<li><code>-l n</code>, <code>--join-blank-lines=n</code>: Group <code>n</code> blank lines into one.</li>
+<li><code>-d xy</code>, <code>--section-delimiter=xy</code>: Set the delimiter characters for page sections (default <code>:\:</code>).</li>
+</ul>
+<h2 id="page-sections">Page Sections</h2>
+<p><code>nl</code> treats input as composed of three sections: header, body, and footer. Each section starts with a delimiter line:</p>
+<ul>
+<li><code>\:\:\:</code>: Start of header.</li>
+<li><code>\:\:</code>: Start of body (also resets line numbers).</li>
+<li><code>\:</code>: Start of footer.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>nl file.txt</code></pre>
+<p>Number lines of <code>file.txt</code>, skipping blank lines (default).</p>
+<pre><code>nl -b a file.txt</code></pre>
+<p>Number all lines, including blank ones (like <code>cat -n</code>).</p>
+<pre><code>nl -b a -w 3 -s &quot;: &quot; file.txt</code></pre>
+<p>Number all lines; use a 3-character wide number with <code>: </code> as separator.</p>
+<pre><code>nl -b p^# config.conf</code></pre>
+<p>Number only lines that start with <code>#</code> (comments).</p>
+<pre><code>nl -n rz -w 4 file.txt</code></pre>
+<p>Number with zero-padded, right-justified format (width 4).</p>
+<pre><code>nl -v 10 -i 5 file.txt</code></pre>
+<p>Start numbering at 10, increment by 5.</p>
+<pre><code>nl -b t -s &quot;. &quot; notes.txt</code></pre>
+<p>Number non-empty lines with a period and space as separator.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>cat -n</code> is simpler but less flexible; use <code>nl</code> when you need control over formatting.</li>
+<li>The default style (<code>-b t</code>) skips empty lines, which is useful for source code.</li>
+<li>For quick line numbering of files that also show non-printing characters, use <code>cat -An</code>.</li>
+<li>The official <code>nl</code> behavior is defined by POSIX, so it should work identically across different Unix systems.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ack/index.html"><strong>ack</strong><span>Search source code with an ack-style text searcher.</span></a>
+<a href="../ag/index.html"><strong>ag</strong><span>Search source code quickly with The Silver Searcher.</span></a>
+<a href="../awk/index.html"><strong>awk</strong><span>Process text files by fields and patterns.</span></a>
+<a href="../base64/index.html"><strong>base64</strong><span>Encode or decode Base64 data.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>swapon command - Linux Command</title>
+    <meta name="description" content="Enable a swap device or file.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>swapon</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">System</p>
+          <h1>swapon</h1>
+          <p>Enable a swap device or file.</p>
+          <div class="tag-row"><span>swap</span><span>memory</span><span>disk</span><span>storage</span><span>virtual-memory</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>swapon</code> activates a swap device or swap file, adding it to the kernel&#39;s pool of swap space. The system uses swap space as virtual memory, paging out infrequently accessed memory pages to disk to free physical memory for active processes. Linux supports both swap partitions and swap files.</p>
+<p>Swap space is commonly configured during installation, but can be added later without rebooting. Swap files are convenient for adding swap without repartitioning. The <code>swapon -a</code> command (run at boot) enables all swap areas listed in <code>/etc/fstab</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>swapon [options] [device_or_file]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>device_or_file</code>: The swap partition or swap file to activate (e.g., <code>/dev/sda2</code>, <code>/swapfile</code>).</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-a</code>, <code>--all</code>: Enable all swap devices and files listed in <code>/etc/fstab</code>.</li>
+<li><code>-s</code>: Show swap usage summary by device (deprecated; use <code>--show</code>).</li>
+<li><code>--show</code>: Display a formatted table of active swap areas.</li>
+<li><code>-p</code>, <code>--priority priority</code>: Set the swap priority (higher number = used first). Range is typically -1 to 32767.</li>
+<li><code>-L label</code>: Enable the swap device with the specified LABEL.</li>
+<li><code>-U uuid</code>: Enable the swap device with the specified UUID.</li>
+<li><code>-v</code>, <code>--verbose</code>: Show detailed output while enabling swap.</li>
+<li><code>-e</code>, <code>--ifexists</code>: Skip nonexistent devices without error.</li>
+<li><code>--fixpgsz</code>: Reinitialize swap space if the page size has changed (used after migration).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>swapon /dev/sda2</code></pre>
+<p>Enable the swap partition <code>/dev/sda2</code>.</p>
+<pre><code>swapon /swapfile</code></pre>
+<p>Enable a swap file.</p>
+<pre><code>swapon -a</code></pre>
+<p>Enable all swap areas listed in <code>/etc/fstab</code>.</p>
+<pre><code>swapon --show</code></pre>
+<p>Show all active swap areas with size and usage information.</p>
+<pre><code>swapon -p 10 /swapfile</code></pre>
+<p>Enable a swap file with priority 10.</p>
+<pre><code>swapon -v /dev/sda2</code></pre>
+<p>Enable swap with verbose output.</p>
+<pre><code>swapon -s</code></pre>
+<p>Show a summary of active swap areas (legacy format).</p>
+<h2 id="creating-a-swap-file">Creating a Swap File</h2>
+<pre><code># Create 1GB swap file
+dd if=/dev/zero of=/swapfile bs=1M count=1024
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile</code></pre>
+<p>Then add to <code>/etc/fstab</code>:</p>
+<pre><code>/swapfile none swap defaults 0 0</code></pre>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>swapon --show</code> to verify which swap areas are active and their sizes.</li>
+<li>Swap priority determines which swap area is used first; higher priorities are preferred.</li>
+<li>Swap files require <code>chmod 600</code> for security; the kernel refuses swap files with insecure permissions.</li>
+<li>For swap files, the underlying filesystem must support the file as a swap backing store (ext4, xfs).</li>
+<li>Btrfs does not support swap files (with some exceptions on recent kernels).</li>
+<li>The total available swap can be increased or decreased at any time.</li>
+<li>Running without swap can cause the kernel&#39;s Out-Of-Memory (OOM) killer to terminate processes under memory pressure.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../apachectl/index.html"><strong>apachectl</strong><span>Control and inspect the Apache HTTP server.</span></a>
+<a href="../arch/index.html"><strong>arch</strong><span>Print the machine hardware architecture.</span></a>
+<a href="../at/index.html"><strong>at</strong><span>Schedule a command to run once at a later time.</span></a>
+<a href="../atq/index.html"><strong>atq</strong><span>List queued jobs scheduled with at.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

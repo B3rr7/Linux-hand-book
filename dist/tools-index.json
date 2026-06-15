@@ -1,0 +1,1828 @@
+[
+  {
+    "name": "Hashcat",
+    "slug": "hashcat",
+    "category": "Password Auditing",
+    "summary": "Advanced password recovery for authorized hash-auditing labs and defensive password-strength testing.",
+    "focus": "Use for understanding password policy weaknesses, hash exposure risk, and why strong password storage matters.",
+    "keywords": [
+      "password",
+      "passwd",
+      "hash",
+      "cracking",
+      "audit",
+      "gpu",
+      "credential"
+    ],
+    "link": "https://hashcat.net/hashcat/",
+    "searchText": "hashcat password auditing advanced password recovery for authorized hash-auditing labs and defensive password-strength testing. use for understanding password policy weaknesses, hash exposure risk, and why strong password storage matters. password passwd hash cracking audit gpu credential"
+  },
+  {
+    "name": "John the Ripper",
+    "slug": "john-the-ripper",
+    "category": "Password Auditing",
+    "summary": "Offline password auditing tool used to test password policy and hash exposure in controlled environments.",
+    "focus": "Good for learning classic password-auditing workflows in lab datasets and defensive policy checks.",
+    "keywords": [
+      "password",
+      "passwd",
+      "hash",
+      "cracking",
+      "audit",
+      "john",
+      "credential"
+    ],
+    "link": "https://www.openwall.com/john/",
+    "searchText": "john the ripper password auditing offline password auditing tool used to test password policy and hash exposure in controlled environments. good for learning classic password-auditing workflows in lab datasets and defensive policy checks. password passwd hash cracking audit john credential"
+  },
+  {
+    "name": "Nmap",
+    "slug": "nmap",
+    "category": "Network Discovery",
+    "summary": "Network mapper for host discovery, service inventory, and security auditing on networks you are allowed to assess.",
+    "focus": "Use for building an inventory of hosts, ports, and services in an authorized lab or internal network.",
+    "keywords": [
+      "network",
+      "scan",
+      "ports",
+      "service",
+      "host",
+      "discovery",
+      "enumeration"
+    ],
+    "link": "https://nmap.org/",
+    "searchText": "nmap network discovery network mapper for host discovery, service inventory, and security auditing on networks you are allowed to assess. use for building an inventory of hosts, ports, and services in an authorized lab or internal network. network scan ports service host discovery enumeration"
+  },
+  {
+    "name": "Wireshark",
+    "slug": "wireshark",
+    "category": "Packet Analysis",
+    "summary": "Network protocol analyzer for learning traffic patterns, troubleshooting, and packet-level investigation.",
+    "focus": "Good for studying protocols, reading packet captures, and explaining what happened on the wire.",
+    "keywords": [
+      "network",
+      "packet",
+      "pcap",
+      "traffic",
+      "protocol",
+      "analysis",
+      "forensics"
+    ],
+    "link": "https://www.wireshark.org/",
+    "searchText": "wireshark packet analysis network protocol analyzer for learning traffic patterns, troubleshooting, and packet-level investigation. good for studying protocols, reading packet captures, and explaining what happened on the wire. network packet pcap traffic protocol analysis forensics"
+  },
+  {
+    "name": "tcpdump",
+    "slug": "tcpdump",
+    "category": "Packet Analysis",
+    "summary": "Command-line packet capture tool for collecting network evidence and troubleshooting traffic.",
+    "focus": "Useful when you need a lightweight capture workflow on servers or remote Linux systems.",
+    "keywords": [
+      "network",
+      "packet",
+      "pcap",
+      "capture",
+      "traffic",
+      "cli"
+    ],
+    "link": "https://www.tcpdump.org/",
+    "searchText": "tcpdump packet analysis command-line packet capture tool for collecting network evidence and troubleshooting traffic. useful when you need a lightweight capture workflow on servers or remote linux systems. network packet pcap capture traffic cli"
+  },
+  {
+    "name": "OWASP ZAP",
+    "slug": "owasp-zap",
+    "category": "Web Security",
+    "summary": "Free web application security testing proxy and scanner from the OWASP ecosystem.",
+    "focus": "Good for learning web request inspection, passive findings, and defensive web testing basics.",
+    "keywords": [
+      "web",
+      "http",
+      "proxy",
+      "scanner",
+      "owasp",
+      "appsec",
+      "vulnerability"
+    ],
+    "link": "https://www.zaproxy.org/",
+    "searchText": "owasp zap web security free web application security testing proxy and scanner from the owasp ecosystem. good for learning web request inspection, passive findings, and defensive web testing basics. web http proxy scanner owasp appsec vulnerability"
+  },
+  {
+    "name": "Burp Suite Community",
+    "slug": "burp-suite-community",
+    "category": "Web Security",
+    "summary": "Manual web testing proxy for learning request interception, replay, and application security workflows.",
+    "focus": "Best for understanding how browsers, APIs, sessions, and web requests behave during authorized testing.",
+    "keywords": [
+      "web",
+      "http",
+      "proxy",
+      "burp",
+      "appsec",
+      "request",
+      "repeater"
+    ],
+    "link": "https://portswigger.net/burp/communitydownload",
+    "searchText": "burp suite community web security manual web testing proxy for learning request interception, replay, and application security workflows. best for understanding how browsers, apis, sessions, and web requests behave during authorized testing. web http proxy burp appsec request repeater"
+  },
+  {
+    "name": "sqlmap",
+    "slug": "sqlmap",
+    "category": "Web Security",
+    "summary": "Automated SQL injection testing tool for controlled labs and explicitly authorized assessments.",
+    "focus": "Use in training environments to understand SQL injection impact and validate remediation.",
+    "keywords": [
+      "web",
+      "sql",
+      "database",
+      "injection",
+      "scanner",
+      "appsec"
+    ],
+    "link": "https://sqlmap.org/",
+    "searchText": "sqlmap web security automated sql injection testing tool for controlled labs and explicitly authorized assessments. use in training environments to understand sql injection impact and validate remediation. web sql database injection scanner appsec"
+  },
+  {
+    "name": "Nikto",
+    "slug": "nikto",
+    "category": "Web Security",
+    "summary": "Web server scanner for finding common server issues, risky files, and configuration problems.",
+    "focus": "Useful for learning baseline web-server checks before deeper manual testing.",
+    "keywords": [
+      "web",
+      "server",
+      "scanner",
+      "headers",
+      "misconfiguration"
+    ],
+    "link": "https://github.com/sullo/nikto",
+    "searchText": "nikto web security web server scanner for finding common server issues, risky files, and configuration problems. useful for learning baseline web-server checks before deeper manual testing. web server scanner headers misconfiguration"
+  },
+  {
+    "name": "Gobuster",
+    "slug": "gobuster",
+    "category": "Web Discovery",
+    "summary": "Fast discovery tool for directories, DNS names, virtual hosts, and related web assets.",
+    "focus": "Use in labs to understand content discovery and why hidden paths still need access control.",
+    "keywords": [
+      "web",
+      "directory",
+      "dns",
+      "vhost",
+      "content",
+      "discovery",
+      "enumeration"
+    ],
+    "link": "https://github.com/OJ/gobuster",
+    "searchText": "gobuster web discovery fast discovery tool for directories, dns names, virtual hosts, and related web assets. use in labs to understand content discovery and why hidden paths still need access control. web directory dns vhost content discovery enumeration"
+  },
+  {
+    "name": "CyberChef",
+    "slug": "cyberchef",
+    "category": "Analysis",
+    "summary": "Browser-based workspace for decoding, encoding, hashing, compression, and data transformation exercises.",
+    "focus": "Good for quick analysis of encoded strings, hashes, timestamps, and small data transformations.",
+    "keywords": [
+      "decode",
+      "encode",
+      "hash",
+      "base64",
+      "analysis",
+      "transform",
+      "data"
+    ],
+    "link": "https://gchq.github.io/CyberChef/",
+    "searchText": "cyberchef analysis browser-based workspace for decoding, encoding, hashing, compression, and data transformation exercises. good for quick analysis of encoded strings, hashes, timestamps, and small data transformations. decode encode hash base64 analysis transform data"
+  },
+  {
+    "name": "Metasploit Framework",
+    "slug": "metasploit-framework",
+    "category": "Lab Validation",
+    "summary": "Security testing framework best used in legal labs to understand vulnerability validation and remediation.",
+    "focus": "Use in intentionally vulnerable labs to understand risk, exploitability, and defensive fixes.",
+    "keywords": [
+      "lab",
+      "validation",
+      "exploit",
+      "module",
+      "vulnerability",
+      "metasploit"
+    ],
+    "link": "https://docs.metasploit.com/",
+    "searchText": "metasploit framework lab validation security testing framework best used in legal labs to understand vulnerability validation and remediation. use in intentionally vulnerable labs to understand risk, exploitability, and defensive fixes. lab validation exploit module vulnerability metasploit"
+  },
+  {
+    "name": "Ghidra",
+    "slug": "ghidra",
+    "category": "Reverse Engineering",
+    "summary": "Software reverse-engineering suite for binary analysis, disassembly, and decompilation learning.",
+    "focus": "Useful for malware-analysis labs and understanding compiled program behavior.",
+    "keywords": [
+      "reverse",
+      "malware",
+      "binary",
+      "disassembly",
+      "decompiler",
+      "analysis"
+    ],
+    "link": "https://github.com/NationalSecurityAgency/ghidra",
+    "searchText": "ghidra reverse engineering software reverse-engineering suite for binary analysis, disassembly, and decompilation learning. useful for malware-analysis labs and understanding compiled program behavior. reverse malware binary disassembly decompiler analysis"
+  },
+  {
+    "name": "Volatility",
+    "slug": "volatility",
+    "category": "Forensics",
+    "summary": "Memory forensics framework for analyzing RAM images during incident response and malware labs.",
+    "focus": "Good for learning how memory artifacts reveal processes, network traces, and suspicious activity.",
+    "keywords": [
+      "forensics",
+      "memory",
+      "ram",
+      "malware",
+      "incident",
+      "analysis"
+    ],
+    "link": "https://volatilityfoundation.org/",
+    "searchText": "volatility forensics memory forensics framework for analyzing ram images during incident response and malware labs. good for learning how memory artifacts reveal processes, network traces, and suspicious activity. forensics memory ram malware incident analysis"
+  },
+  {
+    "name": "Autopsy",
+    "slug": "autopsy",
+    "category": "Forensics",
+    "summary": "Open source digital forensics platform for analyzing disk images, filesystems, and investigation artifacts.",
+    "focus": "Useful for student forensics cases involving disk images, timelines, and file recovery concepts.",
+    "keywords": [
+      "forensics",
+      "disk",
+      "image",
+      "investigation",
+      "timeline",
+      "files"
+    ],
+    "link": "https://www.autopsy.com/",
+    "searchText": "autopsy forensics open source digital forensics platform for analyzing disk images, filesystems, and investigation artifacts. useful for student forensics cases involving disk images, timelines, and file recovery concepts. forensics disk image investigation timeline files"
+  },
+  {
+    "name": "The Sleuth Kit",
+    "slug": "the-sleuth-kit",
+    "category": "Forensics",
+    "summary": "Command-line forensic tools and libraries for analyzing disk images and filesystems.",
+    "focus": "Good for learning the lower-level tools behind many disk-forensics workflows.",
+    "keywords": [
+      "forensics",
+      "disk",
+      "filesystem",
+      "image",
+      "cli",
+      "evidence"
+    ],
+    "link": "https://sleuthkit.org/",
+    "searchText": "the sleuth kit forensics command-line forensic tools and libraries for analyzing disk images and filesystems. good for learning the lower-level tools behind many disk-forensics workflows. forensics disk filesystem image cli evidence"
+  },
+  {
+    "name": "Aircrack-ng",
+    "slug": "aircrack-ng",
+    "category": "Wireless Security",
+    "summary": "Wireless security assessment suite for authorized Wi-Fi labs and defensive wireless auditing.",
+    "focus": "Use only with networks you own or have permission to test; useful for understanding wireless security basics.",
+    "keywords": [
+      "wifi",
+      "wireless",
+      "password",
+      "passwd",
+      "audit",
+      "capture"
+    ],
+    "link": "https://www.aircrack-ng.org/",
+    "searchText": "aircrack-ng wireless security wireless security assessment suite for authorized wi-fi labs and defensive wireless auditing. use only with networks you own or have permission to test; useful for understanding wireless security basics. wifi wireless password passwd audit capture"
+  },
+  {
+    "name": "THC Hydra",
+    "slug": "thc-hydra",
+    "category": "Authentication Testing",
+    "summary": "Authentication testing tool for controlled labs and authorized checks of login hardening.",
+    "focus": "Use to learn why rate limiting, lockouts, MFA, and strong authentication controls matter.",
+    "keywords": [
+      "password",
+      "passwd",
+      "login",
+      "authentication",
+      "credential",
+      "audit"
+    ],
+    "link": "https://github.com/vanhauser-thc/thc-hydra",
+    "searchText": "thc hydra authentication testing authentication testing tool for controlled labs and authorized checks of login hardening. use to learn why rate limiting, lockouts, mfa, and strong authentication controls matter. password passwd login authentication credential audit"
+  },
+  {
+    "name": "Masscan",
+    "slug": "masscan",
+    "category": "Network Discovery",
+    "summary": "High-speed port scanner for large authorized address ranges before deeper service review.",
+    "focus": "Use for fast lab or internal inventory sweeps, then validate interesting hosts with slower detailed tools.",
+    "keywords": [
+      "network",
+      "scan",
+      "ports",
+      "large-scale",
+      "recon",
+      "inventory"
+    ],
+    "link": "https://github.com/robertdavidgraham/masscan",
+    "searchText": "masscan network discovery high-speed port scanner for large authorized address ranges before deeper service review. use for fast lab or internal inventory sweeps, then validate interesting hosts with slower detailed tools. network scan ports large-scale recon inventory"
+  },
+  {
+    "name": "Netcat",
+    "slug": "netcat",
+    "category": "Network Utilities",
+    "summary": "Small networking utility for opening TCP/UDP connections, banner checks, and lab troubleshooting.",
+    "focus": "Good for learning how raw network connections behave and for simple service checks in safe environments.",
+    "keywords": [
+      "network",
+      "nc",
+      "banner",
+      "socket",
+      "tcp",
+      "udp",
+      "troubleshooting"
+    ],
+    "link": "https://nc110.sourceforge.io/",
+    "searchText": "netcat network utilities small networking utility for opening tcp/udp connections, banner checks, and lab troubleshooting. good for learning how raw network connections behave and for simple service checks in safe environments. network nc banner socket tcp udp troubleshooting"
+  },
+  {
+    "name": "Ncat",
+    "slug": "ncat",
+    "category": "Network Utilities",
+    "summary": "Modern Netcat-style utility from the Nmap project with SSL, proxy, and connection brokering support.",
+    "focus": "Useful when basic socket testing needs encrypted connections or cleaner modern options.",
+    "keywords": [
+      "network",
+      "ncat",
+      "ssl",
+      "proxy",
+      "socket",
+      "nmap"
+    ],
+    "link": "https://nmap.org/ncat/",
+    "searchText": "ncat network utilities modern netcat-style utility from the nmap project with ssl, proxy, and connection brokering support. useful when basic socket testing needs encrypted connections or cleaner modern options. network ncat ssl proxy socket nmap"
+  },
+  {
+    "name": "Bettercap",
+    "slug": "bettercap",
+    "category": "Network Security",
+    "summary": "Network security framework for studying traffic interception and local-network attack paths in labs.",
+    "focus": "Use only on owned lab networks to understand why segmentation, encrypted protocols, and monitoring matter.",
+    "keywords": [
+      "network",
+      "mitm",
+      "arp",
+      "dns",
+      "wifi",
+      "traffic",
+      "lab"
+    ],
+    "link": "https://www.bettercap.org/",
+    "searchText": "bettercap network security network security framework for studying traffic interception and local-network attack paths in labs. use only on owned lab networks to understand why segmentation, encrypted protocols, and monitoring matter. network mitm arp dns wifi traffic lab"
+  },
+  {
+    "name": "Responder",
+    "slug": "responder",
+    "category": "Active Directory",
+    "summary": "Windows network lab tool for demonstrating name-resolution poisoning and credential exposure risk.",
+    "focus": "Good for learning why LLMNR/NBT-NS hardening and credential protections are important in internal networks.",
+    "keywords": [
+      "windows",
+      "active directory",
+      "llmnr",
+      "nbt-ns",
+      "hash",
+      "credential"
+    ],
+    "link": "https://github.com/lgandx/Responder",
+    "searchText": "responder active directory windows network lab tool for demonstrating name-resolution poisoning and credential exposure risk. good for learning why llmnr/nbt-ns hardening and credential protections are important in internal networks. windows active directory llmnr nbt-ns hash credential"
+  },
+  {
+    "name": "Scapy",
+    "slug": "scapy",
+    "category": "Network Security",
+    "summary": "Python library for crafting, sending, receiving, and analyzing packets in custom network experiments.",
+    "focus": "Best for students writing small protocol labs, packet parsers, and defensive network experiments.",
+    "keywords": [
+      "python",
+      "packet",
+      "crafting",
+      "fuzzing",
+      "protocol",
+      "network"
+    ],
+    "link": "https://scapy.net/",
+    "searchText": "scapy network security python library for crafting, sending, receiving, and analyzing packets in custom network experiments. best for students writing small protocol labs, packet parsers, and defensive network experiments. python packet crafting fuzzing protocol network"
+  },
+  {
+    "name": "Kismet",
+    "slug": "kismet",
+    "category": "Wireless Security",
+    "summary": "Wireless network detector and sniffer for passive Wi-Fi and radio environment observation.",
+    "focus": "Use with your own equipment to learn wireless discovery, channel behavior, and passive monitoring.",
+    "keywords": [
+      "wifi",
+      "wireless",
+      "sniffer",
+      "recon",
+      "monitoring",
+      "bluetooth"
+    ],
+    "link": "https://www.kismetwireless.net/",
+    "searchText": "kismet wireless security wireless network detector and sniffer for passive wi-fi and radio environment observation. use with your own equipment to learn wireless discovery, channel behavior, and passive monitoring. wifi wireless sniffer recon monitoring bluetooth"
+  },
+  {
+    "name": "Nuclei",
+    "slug": "nuclei",
+    "category": "Vulnerability Scanning",
+    "summary": "Template-based scanner for quickly checking known exposures and misconfigurations in authorized scopes.",
+    "focus": "Good for repeatable defensive checks when you understand each template's purpose and validate findings manually.",
+    "keywords": [
+      "vulnerability",
+      "scanner",
+      "templates",
+      "cve",
+      "misconfiguration",
+      "web"
+    ],
+    "link": "https://nuclei.projectdiscovery.io/",
+    "searchText": "nuclei vulnerability scanning template-based scanner for quickly checking known exposures and misconfigurations in authorized scopes. good for repeatable defensive checks when you understand each template's purpose and validate findings manually. vulnerability scanner templates cve misconfiguration web"
+  },
+  {
+    "name": "ffuf",
+    "slug": "ffuf",
+    "category": "Web Discovery",
+    "summary": "Fast web fuzzer for content discovery, virtual-host checks, and parameter testing in labs.",
+    "focus": "Use with safe wordlists and rate limits to learn how hidden paths and inputs should still be protected.",
+    "keywords": [
+      "web",
+      "fuzz",
+      "directory",
+      "vhost",
+      "parameter",
+      "content",
+      "discovery"
+    ],
+    "link": "https://github.com/ffuf/ffuf",
+    "searchText": "ffuf web discovery fast web fuzzer for content discovery, virtual-host checks, and parameter testing in labs. use with safe wordlists and rate limits to learn how hidden paths and inputs should still be protected. web fuzz directory vhost parameter content discovery"
+  },
+  {
+    "name": "WFuzz",
+    "slug": "wfuzz",
+    "category": "Web Discovery",
+    "summary": "Flexible web fuzzer for experimenting with headers, cookies, forms, and request parameters.",
+    "focus": "Useful for learning controlled input testing patterns across authenticated and unauthenticated lab apps.",
+    "keywords": [
+      "web",
+      "fuzz",
+      "headers",
+      "cookies",
+      "post",
+      "parameters",
+      "testing"
+    ],
+    "link": "https://github.com/xmendez/wfuzz",
+    "searchText": "wfuzz web discovery flexible web fuzzer for experimenting with headers, cookies, forms, and request parameters. useful for learning controlled input testing patterns across authenticated and unauthenticated lab apps. web fuzz headers cookies post parameters testing"
+  },
+  {
+    "name": "WPScan",
+    "slug": "wpscan",
+    "category": "Web Security",
+    "summary": "WordPress security scanner for checking versions, plugins, themes, users, and known issues.",
+    "focus": "Use for defensive review of WordPress sites you manage and to understand common CMS risk patterns.",
+    "keywords": [
+      "wordpress",
+      "cms",
+      "plugins",
+      "themes",
+      "users",
+      "vulnerability"
+    ],
+    "link": "https://wpscan.com/wordpress-security-scanner",
+    "searchText": "wpscan web security wordpress security scanner for checking versions, plugins, themes, users, and known issues. use for defensive review of wordpress sites you manage and to understand common cms risk patterns. wordpress cms plugins themes users vulnerability"
+  },
+  {
+    "name": "Commix",
+    "slug": "commix",
+    "category": "Web Security",
+    "summary": "Command-injection testing tool for controlled web application labs and authorized assessments.",
+    "focus": "Use to understand OS command injection impact and how input validation and command isolation reduce risk.",
+    "keywords": [
+      "web",
+      "command injection",
+      "testing",
+      "appsec",
+      "owasp"
+    ],
+    "link": "https://github.com/commixproject/commix",
+    "searchText": "commix web security command-injection testing tool for controlled web application labs and authorized assessments. use to understand os command injection impact and how input validation and command isolation reduce risk. web command injection testing appsec owasp"
+  },
+  {
+    "name": "DVWA",
+    "slug": "dvwa",
+    "category": "Practice Labs",
+    "summary": "Intentionally vulnerable PHP/MySQL web app for practicing common web vulnerabilities locally.",
+    "focus": "Best for safe beginner practice before touching any real application or public target.",
+    "keywords": [
+      "web",
+      "lab",
+      "dvwa",
+      "sqli",
+      "xss",
+      "csrf",
+      "practice"
+    ],
+    "link": "https://github.com/digininja/DVWA",
+    "searchText": "dvwa practice labs intentionally vulnerable php/mysql web app for practicing common web vulnerabilities locally. best for safe beginner practice before touching any real application or public target. web lab dvwa sqli xss csrf practice"
+  },
+  {
+    "name": "MSFvenom",
+    "slug": "msfvenom",
+    "category": "Lab Validation",
+    "summary": "Metasploit payload generation utility for controlled exploit-development and detection labs.",
+    "focus": "Use in isolated training environments to understand payload formats, detection, and defensive controls.",
+    "keywords": [
+      "metasploit",
+      "payload",
+      "shellcode",
+      "lab",
+      "validation",
+      "exploit"
+    ],
+    "link": "https://docs.metasploit.com/docs/using-metasploit/basics/how-to-use-msfvenom.html",
+    "searchText": "msfvenom lab validation metasploit payload generation utility for controlled exploit-development and detection labs. use in isolated training environments to understand payload formats, detection, and defensive controls. metasploit payload shellcode lab validation exploit"
+  },
+  {
+    "name": "pwntools",
+    "slug": "pwntools",
+    "category": "Exploit Development",
+    "summary": "Python library that simplifies CTF exploit scripts, process interaction, and binary challenge automation.",
+    "focus": "Good for learning repeatable exploit-development workflows in legal CTF and classroom binaries.",
+    "keywords": [
+      "python",
+      "ctf",
+      "binary",
+      "exploit",
+      "rop",
+      "debugging"
+    ],
+    "link": "https://docs.pwntools.com/",
+    "searchText": "pwntools exploit development python library that simplifies ctf exploit scripts, process interaction, and binary challenge automation. good for learning repeatable exploit-development workflows in legal ctf and classroom binaries. python ctf binary exploit rop debugging"
+  },
+  {
+    "name": "ROPgadget",
+    "slug": "ropgadget",
+    "category": "Exploit Development",
+    "summary": "Binary analysis helper for finding return-oriented programming gadgets in exploit-development labs.",
+    "focus": "Use with vulnerable practice binaries to understand modern memory-protection bypass concepts.",
+    "keywords": [
+      "rop",
+      "binary",
+      "exploit",
+      "gadgets",
+      "assembly",
+      "ctf"
+    ],
+    "link": "https://github.com/JonathanSalwan/ROPgadget",
+    "searchText": "ropgadget exploit development binary analysis helper for finding return-oriented programming gadgets in exploit-development labs. use with vulnerable practice binaries to understand modern memory-protection bypass concepts. rop binary exploit gadgets assembly ctf"
+  },
+  {
+    "name": "GDB with GEF/pwndbg",
+    "slug": "gdb-with-gef-pwndbg",
+    "category": "Exploit Development",
+    "summary": "GNU Debugger plus security-focused plugins for inspecting crashes, memory, registers, and heap state.",
+    "focus": "Essential for understanding vulnerable binaries and debugging your own CTF exploit attempts.",
+    "keywords": [
+      "gdb",
+      "debugger",
+      "gef",
+      "pwndbg",
+      "heap",
+      "binary",
+      "ctf"
+    ],
+    "link": "https://www.gnu.org/software/gdb/",
+    "searchText": "gdb with gef/pwndbg exploit development gnu debugger plus security-focused plugins for inspecting crashes, memory, registers, and heap state. essential for understanding vulnerable binaries and debugging your own ctf exploit attempts. gdb debugger gef pwndbg heap binary ctf"
+  },
+  {
+    "name": "BeEF",
+    "slug": "beef",
+    "category": "Web Security",
+    "summary": "Browser security framework for studying client-side risk in intentionally vulnerable web labs.",
+    "focus": "Use only in isolated training apps to understand why XSS and browser trust boundaries matter.",
+    "keywords": [
+      "browser",
+      "xss",
+      "client-side",
+      "web",
+      "lab",
+      "security"
+    ],
+    "link": "https://beefproject.com/",
+    "searchText": "beef web security browser security framework for studying client-side risk in intentionally vulnerable web labs. use only in isolated training apps to understand why xss and browser trust boundaries matter. browser xss client-side web lab security"
+  },
+  {
+    "name": "Exploit DB",
+    "slug": "exploit-db",
+    "category": "Research",
+    "summary": "Public exploit and proof-of-concept archive useful for vulnerability research and lab reproduction.",
+    "focus": "Use for studying known issues, checking affected versions, and learning how remediation is validated.",
+    "keywords": [
+      "exploit",
+      "cve",
+      "research",
+      "searchsploit",
+      "vulnerability",
+      "reference"
+    ],
+    "link": "https://www.exploit-db.com/",
+    "searchText": "exploit db research public exploit and proof-of-concept archive useful for vulnerability research and lab reproduction. use for studying known issues, checking affected versions, and learning how remediation is validated. exploit cve research searchsploit vulnerability reference"
+  },
+  {
+    "name": "Impacket",
+    "slug": "impacket",
+    "category": "Active Directory",
+    "summary": "Python network protocol toolkit widely used for Windows and Active Directory security labs.",
+    "focus": "Good for learning protocol-level behavior and why AD hardening, logging, and least privilege matter.",
+    "keywords": [
+      "windows",
+      "active directory",
+      "smb",
+      "kerberos",
+      "python",
+      "protocol"
+    ],
+    "link": "https://github.com/fortra/impacket",
+    "searchText": "impacket active directory python network protocol toolkit widely used for windows and active directory security labs. good for learning protocol-level behavior and why ad hardening, logging, and least privilege matter. windows active directory smb kerberos python protocol"
+  },
+  {
+    "name": "Medusa",
+    "slug": "medusa",
+    "category": "Authentication Testing",
+    "summary": "Parallel login-auditing tool for controlled checks against authorized lab services.",
+    "focus": "Use to compare authentication controls such as lockouts, MFA, rate limits, and logging.",
+    "keywords": [
+      "password",
+      "login",
+      "authentication",
+      "audit",
+      "network",
+      "credential"
+    ],
+    "link": "https://github.com/jmk-foofus/medusa",
+    "searchText": "medusa authentication testing parallel login-auditing tool for controlled checks against authorized lab services. use to compare authentication controls such as lockouts, mfa, rate limits, and logging. password login authentication audit network credential"
+  },
+  {
+    "name": "SecLists",
+    "slug": "seclists",
+    "category": "Wordlists",
+    "summary": "Large collection of security testing wordlists for passwords, discovery, DNS, and fuzzing labs.",
+    "focus": "Use responsibly with rate limits and permission; it is a companion dataset for many tools.",
+    "keywords": [
+      "wordlist",
+      "password",
+      "directory",
+      "dns",
+      "payloads",
+      "fuzzing"
+    ],
+    "link": "https://github.com/danielmiessler/SecLists",
+    "searchText": "seclists wordlists large collection of security testing wordlists for passwords, discovery, dns, and fuzzing labs. use responsibly with rate limits and permission; it is a companion dataset for many tools. wordlist password directory dns payloads fuzzing"
+  },
+  {
+    "name": "RainbowCrack",
+    "slug": "rainbowcrack",
+    "category": "Password Auditing",
+    "summary": "Rainbow-table hash recovery tool mainly useful for understanding legacy unsalted hash weaknesses.",
+    "focus": "Good for demonstrating why salts and modern password hashing designs are necessary.",
+    "keywords": [
+      "password",
+      "hash",
+      "rainbow table",
+      "legacy",
+      "cracking"
+    ],
+    "link": "http://project-rainbowcrack.com/",
+    "searchText": "rainbowcrack password auditing rainbow-table hash recovery tool mainly useful for understanding legacy unsalted hash weaknesses. good for demonstrating why salts and modern password hashing designs are necessary. password hash rainbow table legacy cracking"
+  },
+  {
+    "name": "CrackStation",
+    "slug": "crackstation",
+    "category": "Password Auditing",
+    "summary": "Online hash lookup resource for quick checks of common unsalted hashes in training contexts.",
+    "focus": "Useful for CTF triage and for explaining why common passwords and unsalted hashes fail quickly.",
+    "keywords": [
+      "password",
+      "hash",
+      "lookup",
+      "ctf",
+      "unsalted",
+      "audit"
+    ],
+    "link": "https://crackstation.net/",
+    "searchText": "crackstation password auditing online hash lookup resource for quick checks of common unsalted hashes in training contexts. useful for ctf triage and for explaining why common passwords and unsalted hashes fail quickly. password hash lookup ctf unsalted audit"
+  },
+  {
+    "name": "Kerbrute",
+    "slug": "kerbrute",
+    "category": "Active Directory",
+    "summary": "Kerberos account-enumeration and authentication-testing tool for controlled AD lab environments.",
+    "focus": "Use to understand AD account exposure risk and why lockout policy and monitoring design matter.",
+    "keywords": [
+      "kerberos",
+      "active directory",
+      "username",
+      "password",
+      "spray",
+      "windows"
+    ],
+    "link": "https://github.com/ropnop/kerbrute",
+    "searchText": "kerbrute active directory kerberos account-enumeration and authentication-testing tool for controlled ad lab environments. use to understand ad account exposure risk and why lockout policy and monitoring design matter. kerberos active directory username password spray windows"
+  },
+  {
+    "name": "Binwalk",
+    "slug": "binwalk",
+    "category": "Forensics",
+    "summary": "Firmware analysis utility for finding embedded filesystems, compressed data, and known signatures.",
+    "focus": "Useful for IoT and embedded security labs where firmware layout and extracted artifacts matter.",
+    "keywords": [
+      "firmware",
+      "forensics",
+      "embedded",
+      "iot",
+      "extract",
+      "reverse"
+    ],
+    "link": "https://github.com/ReFirmLabs/binwalk",
+    "searchText": "binwalk forensics firmware analysis utility for finding embedded filesystems, compressed data, and known signatures. useful for iot and embedded security labs where firmware layout and extracted artifacts matter. firmware forensics embedded iot extract reverse"
+  },
+  {
+    "name": "Foremost",
+    "slug": "foremost",
+    "category": "Forensics",
+    "summary": "File-carving tool for recovering known file types from raw images and damaged media.",
+    "focus": "Good for learning evidence recovery concepts and the limits of signature-based file carving.",
+    "keywords": [
+      "forensics",
+      "carving",
+      "recovery",
+      "deleted",
+      "files",
+      "disk"
+    ],
+    "link": "https://foremost.sourceforge.net/",
+    "searchText": "foremost forensics file-carving tool for recovering known file types from raw images and damaged media. good for learning evidence recovery concepts and the limits of signature-based file carving. forensics carving recovery deleted files disk"
+  },
+  {
+    "name": "ExifTool",
+    "slug": "exiftool",
+    "category": "Forensics",
+    "summary": "Metadata reader and writer for images, PDFs, documents, audio, and video files.",
+    "focus": "Use for evidence review, privacy checks, and learning what metadata can reveal.",
+    "keywords": [
+      "metadata",
+      "forensics",
+      "image",
+      "pdf",
+      "timestamp",
+      "gps"
+    ],
+    "link": "https://exiftool.org/",
+    "searchText": "exiftool forensics metadata reader and writer for images, pdfs, documents, audio, and video files. use for evidence review, privacy checks, and learning what metadata can reveal. metadata forensics image pdf timestamp gps"
+  },
+  {
+    "name": "FTK Imager",
+    "slug": "ftk-imager",
+    "category": "Forensics",
+    "summary": "Forensic imaging utility for creating and verifying disk images during evidence collection practice.",
+    "focus": "Good for learning careful acquisition, hashing, and chain-of-custody style workflows.",
+    "keywords": [
+      "forensics",
+      "disk",
+      "image",
+      "evidence",
+      "hash",
+      "collection"
+    ],
+    "link": "https://www.exterro.com/ftk-imager",
+    "searchText": "ftk imager forensics forensic imaging utility for creating and verifying disk images during evidence collection practice. good for learning careful acquisition, hashing, and chain-of-custody style workflows. forensics disk image evidence hash collection"
+  },
+  {
+    "name": "IDA Free",
+    "slug": "ida-free",
+    "category": "Reverse Engineering",
+    "summary": "Free edition of the IDA reverse-engineering platform for studying binaries and disassembly basics.",
+    "focus": "Useful for comparing professional RE workflows with Ghidra, Cutter, and debugger-based analysis.",
+    "keywords": [
+      "reverse",
+      "disassembler",
+      "decompiler",
+      "debugger",
+      "binary",
+      "malware"
+    ],
+    "link": "https://hex-rays.com/ida-free/",
+    "searchText": "ida free reverse engineering free edition of the ida reverse-engineering platform for studying binaries and disassembly basics. useful for comparing professional re workflows with ghidra, cutter, and debugger-based analysis. reverse disassembler decompiler debugger binary malware"
+  },
+  {
+    "name": "Radare2",
+    "slug": "radare2",
+    "category": "Reverse Engineering",
+    "summary": "Scriptable open source reverse-engineering framework for binary analysis and low-level inspection.",
+    "focus": "Good for students who want a powerful command-line RE workflow and automation path.",
+    "keywords": [
+      "reverse",
+      "binary",
+      "forensics",
+      "disassembler",
+      "cli",
+      "scripting"
+    ],
+    "link": "https://rada.re/n/",
+    "searchText": "radare2 reverse engineering scriptable open source reverse-engineering framework for binary analysis and low-level inspection. good for students who want a powerful command-line re workflow and automation path. reverse binary forensics disassembler cli scripting"
+  },
+  {
+    "name": "Binary Ninja",
+    "slug": "binary-ninja",
+    "category": "Reverse Engineering",
+    "summary": "Commercial reverse-engineering platform with a strong API and modern binary-analysis workflow.",
+    "focus": "Useful for learning plugin-driven analysis and comparing decompiler output across tools.",
+    "keywords": [
+      "reverse",
+      "binary",
+      "decompiler",
+      "api",
+      "vulnerability",
+      "analysis"
+    ],
+    "link": "https://binary.ninja/",
+    "searchText": "binary ninja reverse engineering commercial reverse-engineering platform with a strong api and modern binary-analysis workflow. useful for learning plugin-driven analysis and comparing decompiler output across tools. reverse binary decompiler api vulnerability analysis"
+  },
+  {
+    "name": "x64dbg",
+    "slug": "x64dbg",
+    "category": "Reverse Engineering",
+    "summary": "Open source Windows debugger for dynamic analysis of x86 and x64 programs.",
+    "focus": "Best for Windows RE labs where stepping through behavior is more useful than static inspection alone.",
+    "keywords": [
+      "windows",
+      "debugger",
+      "reverse",
+      "malware",
+      "binary",
+      "dynamic"
+    ],
+    "link": "https://x64dbg.com/",
+    "searchText": "x64dbg reverse engineering open source windows debugger for dynamic analysis of x86 and x64 programs. best for windows re labs where stepping through behavior is more useful than static inspection alone. windows debugger reverse malware binary dynamic"
+  },
+  {
+    "name": "Cutter",
+    "slug": "cutter",
+    "category": "Reverse Engineering",
+    "summary": "Graphical reverse-engineering interface built around Radare2 and Rizin-style workflows.",
+    "focus": "Good bridge for students who want GUI assistance while learning command-line RE concepts.",
+    "keywords": [
+      "reverse",
+      "radare2",
+      "gui",
+      "binary",
+      "analysis",
+      "decompiler"
+    ],
+    "link": "https://cutter.re/",
+    "searchText": "cutter reverse engineering graphical reverse-engineering interface built around radare2 and rizin-style workflows. good bridge for students who want gui assistance while learning command-line re concepts. reverse radare2 gui binary analysis decompiler"
+  },
+  {
+    "name": "PE-bear",
+    "slug": "pe-bear",
+    "category": "Reverse Engineering",
+    "summary": "Portable executable viewer and editor for inspecting Windows binary structure.",
+    "focus": "Useful for first-pass PE analysis, import review, section inspection, and malware triage.",
+    "keywords": [
+      "windows",
+      "pe",
+      "malware",
+      "headers",
+      "imports",
+      "static"
+    ],
+    "link": "https://github.com/hasherezade/pe-bear",
+    "searchText": "pe-bear reverse engineering portable executable viewer and editor for inspecting windows binary structure. useful for first-pass pe analysis, import review, section inspection, and malware triage. windows pe malware headers imports static"
+  },
+  {
+    "name": "DIE",
+    "slug": "die",
+    "category": "Reverse Engineering",
+    "summary": "Detect-It-Easy identifies compilers, packers, and file characteristics in unknown binaries.",
+    "focus": "Good first step before deeper malware or reverse-engineering analysis.",
+    "keywords": [
+      "detect it easy",
+      "packer",
+      "compiler",
+      "binary",
+      "malware",
+      "triage"
+    ],
+    "link": "https://github.com/horsicq/Detect-It-Easy",
+    "searchText": "die reverse engineering detect-it-easy identifies compilers, packers, and file characteristics in unknown binaries. good first step before deeper malware or reverse-engineering analysis. detect it easy packer compiler binary malware triage"
+  },
+  {
+    "name": "Maltego",
+    "slug": "maltego",
+    "category": "OSINT",
+    "summary": "Graph-based OSINT platform for mapping relationships between infrastructure, identities, and public data.",
+    "focus": "Use for structured investigations where visual relationships help explain the evidence trail.",
+    "keywords": [
+      "osint",
+      "graph",
+      "recon",
+      "domains",
+      "people",
+      "link analysis"
+    ],
+    "link": "https://www.maltego.com/",
+    "searchText": "maltego osint graph-based osint platform for mapping relationships between infrastructure, identities, and public data. use for structured investigations where visual relationships help explain the evidence trail. osint graph recon domains people link analysis"
+  },
+  {
+    "name": "theHarvester",
+    "slug": "theharvester",
+    "category": "OSINT",
+    "summary": "Reconnaissance tool for collecting public emails, names, domains, hosts, and related metadata.",
+    "focus": "Good for learning first-pass external recon using only public, passive sources where possible.",
+    "keywords": [
+      "osint",
+      "email",
+      "subdomain",
+      "domain",
+      "recon",
+      "search"
+    ],
+    "link": "https://github.com/laramies/theHarvester",
+    "searchText": "theharvester osint reconnaissance tool for collecting public emails, names, domains, hosts, and related metadata. good for learning first-pass external recon using only public, passive sources where possible. osint email subdomain domain recon search"
+  },
+  {
+    "name": "Shodan",
+    "slug": "shodan",
+    "category": "OSINT",
+    "summary": "Search engine for internet-connected services, devices, banners, and exposed infrastructure.",
+    "focus": "Use for defensive exposure checks and to understand what public service banners reveal.",
+    "keywords": [
+      "osint",
+      "internet",
+      "devices",
+      "services",
+      "exposure",
+      "recon"
+    ],
+    "link": "https://www.shodan.io/",
+    "searchText": "shodan osint search engine for internet-connected services, devices, banners, and exposed infrastructure. use for defensive exposure checks and to understand what public service banners reveal. osint internet devices services exposure recon"
+  },
+  {
+    "name": "Censys",
+    "slug": "censys",
+    "category": "OSINT",
+    "summary": "Internet search platform focused on exposed services, certificates, and infrastructure discovery.",
+    "focus": "Useful for mapping owned public assets and certificate-linked infrastructure.",
+    "keywords": [
+      "osint",
+      "internet",
+      "certificates",
+      "services",
+      "cloud",
+      "recon"
+    ],
+    "link": "https://censys.com/",
+    "searchText": "censys osint internet search platform focused on exposed services, certificates, and infrastructure discovery. useful for mapping owned public assets and certificate-linked infrastructure. osint internet certificates services cloud recon"
+  },
+  {
+    "name": "Recon-ng",
+    "slug": "recon-ng",
+    "category": "OSINT",
+    "summary": "Modular web reconnaissance framework for organizing repeatable OSINT collection workflows.",
+    "focus": "Good for learning how recon data is gathered, stored, and reused across an assessment.",
+    "keywords": [
+      "osint",
+      "recon",
+      "framework",
+      "automation",
+      "domain",
+      "database"
+    ],
+    "link": "https://github.com/lanmaster53/recon-ng",
+    "searchText": "recon-ng osint modular web reconnaissance framework for organizing repeatable osint collection workflows. good for learning how recon data is gathered, stored, and reused across an assessment. osint recon framework automation domain database"
+  },
+  {
+    "name": "SpiderFoot",
+    "slug": "spiderfoot",
+    "category": "OSINT",
+    "summary": "Automated OSINT platform for collecting public information about domains, IPs, emails, and entities.",
+    "focus": "Use for broad defensive recon and then manually validate important findings.",
+    "keywords": [
+      "osint",
+      "automation",
+      "domain",
+      "ip",
+      "email",
+      "breach"
+    ],
+    "link": "https://www.spiderfoot.net/",
+    "searchText": "spiderfoot osint automated osint platform for collecting public information about domains, ips, emails, and entities. use for broad defensive recon and then manually validate important findings. osint automation domain ip email breach"
+  },
+  {
+    "name": "Amass",
+    "slug": "amass",
+    "category": "OSINT",
+    "summary": "OWASP tool for subdomain enumeration and external attack-surface discovery.",
+    "focus": "Useful for understanding public DNS exposure and keeping asset inventories current.",
+    "keywords": [
+      "osint",
+      "subdomain",
+      "dns",
+      "owasp",
+      "recon",
+      "enumeration"
+    ],
+    "link": "https://owasp.org/www-project-amass/",
+    "searchText": "amass osint owasp tool for subdomain enumeration and external attack-surface discovery. useful for understanding public dns exposure and keeping asset inventories current. osint subdomain dns owasp recon enumeration"
+  },
+  {
+    "name": "OSINT Framework",
+    "slug": "osint-framework",
+    "category": "OSINT",
+    "summary": "Browser-based directory of OSINT resources organized by investigation category.",
+    "focus": "Good starting point when you need to choose the right public-data source for a research question.",
+    "keywords": [
+      "osint",
+      "reference",
+      "directory",
+      "people",
+      "domains",
+      "research"
+    ],
+    "link": "https://osintframework.com/",
+    "searchText": "osint framework osint browser-based directory of osint resources organized by investigation category. good starting point when you need to choose the right public-data source for a research question. osint reference directory people domains research"
+  },
+  {
+    "name": "ANY.RUN",
+    "slug": "any-run",
+    "category": "Malware Analysis",
+    "summary": "Interactive online malware sandbox for observing process, file, registry, and network behavior.",
+    "focus": "Use for triage and learning dynamic analysis concepts without running samples on your host.",
+    "keywords": [
+      "malware",
+      "sandbox",
+      "dynamic",
+      "analysis",
+      "ioc",
+      "triage"
+    ],
+    "link": "https://any.run/",
+    "searchText": "any.run malware analysis interactive online malware sandbox for observing process, file, registry, and network behavior. use for triage and learning dynamic analysis concepts without running samples on your host. malware sandbox dynamic analysis ioc triage"
+  },
+  {
+    "name": "Cuckoo Sandbox",
+    "slug": "cuckoo-sandbox",
+    "category": "Malware Analysis",
+    "summary": "Self-hosted automated malware analysis sandbox for controlled behavioral reports.",
+    "focus": "Best for isolated lab setups where you control networking, samples, and generated artifacts.",
+    "keywords": [
+      "malware",
+      "sandbox",
+      "dynamic",
+      "analysis",
+      "behavior",
+      "report"
+    ],
+    "link": "https://cuckoosandbox.org/",
+    "searchText": "cuckoo sandbox malware analysis self-hosted automated malware analysis sandbox for controlled behavioral reports. best for isolated lab setups where you control networking, samples, and generated artifacts. malware sandbox dynamic analysis behavior report"
+  },
+  {
+    "name": "Hybrid Analysis",
+    "slug": "hybrid-analysis",
+    "category": "Malware Analysis",
+    "summary": "Online malware-analysis service for automated behavioral reports and indicator extraction.",
+    "focus": "Useful for quick triage when paired with careful handling of sensitive or private samples.",
+    "keywords": [
+      "malware",
+      "sandbox",
+      "dynamic",
+      "analysis",
+      "ioc",
+      "mitre"
+    ],
+    "link": "https://www.hybrid-analysis.com/",
+    "searchText": "hybrid analysis malware analysis online malware-analysis service for automated behavioral reports and indicator extraction. useful for quick triage when paired with careful handling of sensitive or private samples. malware sandbox dynamic analysis ioc mitre"
+  },
+  {
+    "name": "VirusTotal",
+    "slug": "virustotal",
+    "category": "Malware Analysis",
+    "summary": "Multi-engine file, URL, domain, and hash triage platform for suspicious artifacts.",
+    "focus": "Use to enrich indicators, but avoid uploading private files that should not become shared intelligence.",
+    "keywords": [
+      "malware",
+      "hash",
+      "url",
+      "scanner",
+      "ioc",
+      "triage"
+    ],
+    "link": "https://www.virustotal.com/",
+    "searchText": "virustotal malware analysis multi-engine file, url, domain, and hash triage platform for suspicious artifacts. use to enrich indicators, but avoid uploading private files that should not become shared intelligence. malware hash url scanner ioc triage"
+  },
+  {
+    "name": "YARA",
+    "slug": "yara",
+    "category": "Malware Analysis",
+    "summary": "Pattern-matching language for writing detection rules based on strings and binary features.",
+    "focus": "Good for learning how analysts turn malware traits into reusable detection logic.",
+    "keywords": [
+      "malware",
+      "rules",
+      "signature",
+      "strings",
+      "detection",
+      "threat intel"
+    ],
+    "link": "https://virustotal.github.io/yara/",
+    "searchText": "yara malware analysis pattern-matching language for writing detection rules based on strings and binary features. good for learning how analysts turn malware traits into reusable detection logic. malware rules signature strings detection threat intel"
+  },
+  {
+    "name": "PEStudio",
+    "slug": "pestudio",
+    "category": "Malware Analysis",
+    "summary": "Static Windows executable triage tool for imports, strings, indicators, entropy, and PE metadata.",
+    "focus": "Useful as a safe first look at suspicious Windows binaries before dynamic analysis.",
+    "keywords": [
+      "malware",
+      "windows",
+      "pe",
+      "static",
+      "imports",
+      "strings"
+    ],
+    "link": "https://www.winitor.com/",
+    "searchText": "pestudio malware analysis static windows executable triage tool for imports, strings, indicators, entropy, and pe metadata. useful as a safe first look at suspicious windows binaries before dynamic analysis. malware windows pe static imports strings"
+  },
+  {
+    "name": "PE-sieve",
+    "slug": "pe-sieve",
+    "category": "Malware Analysis",
+    "summary": "Process scanner for finding injected, replaced, or suspicious executable code in memory.",
+    "focus": "Use in malware labs and incident-response exercises to understand process injection artifacts.",
+    "keywords": [
+      "malware",
+      "process",
+      "injection",
+      "memory",
+      "windows",
+      "forensics"
+    ],
+    "link": "https://github.com/hasherezade/pe-sieve",
+    "searchText": "pe-sieve malware analysis process scanner for finding injected, replaced, or suspicious executable code in memory. use in malware labs and incident-response exercises to understand process injection artifacts. malware process injection memory windows forensics"
+  },
+  {
+    "name": "FLOSS",
+    "slug": "floss",
+    "category": "Malware Analysis",
+    "summary": "Mandiant string-extraction tool for recovering obfuscated strings from malware samples.",
+    "focus": "Good for finding hidden indicators and configuration values during static malware triage.",
+    "keywords": [
+      "malware",
+      "strings",
+      "obfuscation",
+      "flare",
+      "static",
+      "analysis"
+    ],
+    "link": "https://github.com/mandiant/flare-floss",
+    "searchText": "floss malware analysis mandiant string-extraction tool for recovering obfuscated strings from malware samples. good for finding hidden indicators and configuration values during static malware triage. malware strings obfuscation flare static analysis"
+  },
+  {
+    "name": "Pacu",
+    "slug": "pacu",
+    "category": "Cloud Security",
+    "summary": "AWS security testing framework for controlled cloud labs and authorized assessment workflows.",
+    "focus": "Use to understand IAM privilege paths and why least privilege matters in AWS environments.",
+    "keywords": [
+      "aws",
+      "cloud",
+      "iam",
+      "pentest",
+      "lab",
+      "misconfiguration"
+    ],
+    "link": "https://github.com/RhinoSecurityLabs/pacu",
+    "searchText": "pacu cloud security aws security testing framework for controlled cloud labs and authorized assessment workflows. use to understand iam privilege paths and why least privilege matters in aws environments. aws cloud iam pentest lab misconfiguration"
+  },
+  {
+    "name": "ScoutSuite",
+    "slug": "scoutsuite",
+    "category": "Cloud Security",
+    "summary": "Multi-cloud security posture review tool that reports risky configuration and permission patterns.",
+    "focus": "Good for defensive cloud audits and student labs across AWS, Azure, and Google Cloud.",
+    "keywords": [
+      "cloud",
+      "aws",
+      "azure",
+      "gcp",
+      "audit",
+      "misconfiguration"
+    ],
+    "link": "https://github.com/nccgroup/ScoutSuite",
+    "searchText": "scoutsuite cloud security multi-cloud security posture review tool that reports risky configuration and permission patterns. good for defensive cloud audits and student labs across aws, azure, and google cloud. cloud aws azure gcp audit misconfiguration"
+  },
+  {
+    "name": "Prowler",
+    "slug": "prowler",
+    "category": "Cloud Security",
+    "summary": "Cloud security and compliance assessment tool for common benchmark and best-practice checks.",
+    "focus": "Use to learn how cloud posture findings map to practical remediation work.",
+    "keywords": [
+      "cloud",
+      "aws",
+      "azure",
+      "gcp",
+      "compliance",
+      "cis",
+      "audit"
+    ],
+    "link": "https://prowler.com/",
+    "searchText": "prowler cloud security cloud security and compliance assessment tool for common benchmark and best-practice checks. use to learn how cloud posture findings map to practical remediation work. cloud aws azure gcp compliance cis audit"
+  },
+  {
+    "name": "CloudMapper",
+    "slug": "cloudmapper",
+    "category": "Cloud Security",
+    "summary": "AWS environment mapping tool for visualizing accounts, networks, and public exposure.",
+    "focus": "Useful for understanding cloud asset relationships and explaining attack paths defensively.",
+    "keywords": [
+      "aws",
+      "cloud",
+      "visualization",
+      "network",
+      "exposure",
+      "audit"
+    ],
+    "link": "https://github.com/duo-labs/cloudmapper",
+    "searchText": "cloudmapper cloud security aws environment mapping tool for visualizing accounts, networks, and public exposure. useful for understanding cloud asset relationships and explaining attack paths defensively. aws cloud visualization network exposure audit"
+  },
+  {
+    "name": "Trivy",
+    "slug": "trivy",
+    "category": "Container Security",
+    "summary": "Scanner for container images, filesystems, IaC, dependencies, secrets, and SBOMs.",
+    "focus": "Good for adding practical security checks to Docker, Kubernetes, and CI/CD learning workflows.",
+    "keywords": [
+      "container",
+      "docker",
+      "kubernetes",
+      "iac",
+      "sbom",
+      "vulnerability"
+    ],
+    "link": "https://trivy.dev/",
+    "searchText": "trivy container security scanner for container images, filesystems, iac, dependencies, secrets, and sboms. good for adding practical security checks to docker, kubernetes, and ci/cd learning workflows. container docker kubernetes iac sbom vulnerability"
+  },
+  {
+    "name": "Kube-hunter",
+    "slug": "kube-hunter",
+    "category": "Container Security",
+    "summary": "Kubernetes security tool for finding common cluster weaknesses in authorized environments.",
+    "focus": "Use in local or permitted clusters to learn Kubernetes hardening and exposure patterns.",
+    "keywords": [
+      "kubernetes",
+      "container",
+      "cluster",
+      "security",
+      "misconfiguration",
+      "audit"
+    ],
+    "link": "https://github.com/aquasecurity/kube-hunter",
+    "searchText": "kube-hunter container security kubernetes security tool for finding common cluster weaknesses in authorized environments. use in local or permitted clusters to learn kubernetes hardening and exposure patterns. kubernetes container cluster security misconfiguration audit"
+  },
+  {
+    "name": "CloudFox",
+    "slug": "cloudfox",
+    "category": "Cloud Security",
+    "summary": "Cloud enumeration tool that helps identify potentially risky paths across AWS environments.",
+    "focus": "Useful for understanding how permissions combine into practical cloud attack paths.",
+    "keywords": [
+      "cloud",
+      "aws",
+      "attack path",
+      "enumeration",
+      "iam",
+      "audit"
+    ],
+    "link": "https://github.com/BishopFox/cloudfox",
+    "searchText": "cloudfox cloud security cloud enumeration tool that helps identify potentially risky paths across aws environments. useful for understanding how permissions combine into practical cloud attack paths. cloud aws attack path enumeration iam audit"
+  },
+  {
+    "name": "S3Scanner",
+    "slug": "s3scanner",
+    "category": "Cloud Security",
+    "summary": "S3 bucket review tool for checking cloud storage exposure in authorized scopes.",
+    "focus": "Good for learning why public bucket policy, object ACLs, and data classification need review.",
+    "keywords": [
+      "aws",
+      "s3",
+      "bucket",
+      "cloud",
+      "misconfiguration",
+      "storage"
+    ],
+    "link": "https://github.com/sa7mon/S3Scanner",
+    "searchText": "s3scanner cloud security s3 bucket review tool for checking cloud storage exposure in authorized scopes. good for learning why public bucket policy, object acls, and data classification need review. aws s3 bucket cloud misconfiguration storage"
+  },
+  {
+    "name": "TryHackMe",
+    "slug": "tryhackme",
+    "category": "Practice Platforms",
+    "summary": "Guided cybersecurity learning platform with browser labs and structured beginner-to-intermediate paths.",
+    "focus": "Strong first platform for building fundamentals before moving to less guided machines.",
+    "keywords": [
+      "ctf",
+      "practice",
+      "beginner",
+      "training",
+      "labs",
+      "cybersecurity"
+    ],
+    "link": "https://tryhackme.com/",
+    "searchText": "tryhackme practice platforms guided cybersecurity learning platform with browser labs and structured beginner-to-intermediate paths. strong first platform for building fundamentals before moving to less guided machines. ctf practice beginner training labs cybersecurity"
+  },
+  {
+    "name": "Hack The Box",
+    "slug": "hack-the-box",
+    "category": "Practice Platforms",
+    "summary": "Hands-on security lab platform with vulnerable machines, challenges, and structured academy content.",
+    "focus": "Best after fundamentals, when you want realistic practice and a stronger portfolio signal.",
+    "keywords": [
+      "ctf",
+      "practice",
+      "machines",
+      "academy",
+      "pentest",
+      "labs"
+    ],
+    "link": "https://www.hackthebox.com/",
+    "searchText": "hack the box practice platforms hands-on security lab platform with vulnerable machines, challenges, and structured academy content. best after fundamentals, when you want realistic practice and a stronger portfolio signal. ctf practice machines academy pentest labs"
+  },
+  {
+    "name": "picoCTF",
+    "slug": "picoctf",
+    "category": "Practice Platforms",
+    "summary": "Student-friendly CTF platform with a large archive of beginner and intermediate challenges.",
+    "focus": "Good for learning core categories like web, crypto, forensics, reverse engineering, and binary basics.",
+    "keywords": [
+      "ctf",
+      "beginner",
+      "students",
+      "crypto",
+      "forensics",
+      "web"
+    ],
+    "link": "https://picoctf.org/",
+    "searchText": "picoctf practice platforms student-friendly ctf platform with a large archive of beginner and intermediate challenges. good for learning core categories like web, crypto, forensics, reverse engineering, and binary basics. ctf beginner students crypto forensics web"
+  },
+  {
+    "name": "OverTheWire",
+    "slug": "overthewire",
+    "category": "Practice Platforms",
+    "summary": "SSH-based wargames for learning Linux, shell usage, permissions, and security basics.",
+    "focus": "Start with Bandit if you need practical Linux confidence before broader cybersecurity labs.",
+    "keywords": [
+      "linux",
+      "wargame",
+      "beginner",
+      "ssh",
+      "bandit",
+      "practice"
+    ],
+    "link": "https://overthewire.org/wargames/",
+    "searchText": "overthewire practice platforms ssh-based wargames for learning linux, shell usage, permissions, and security basics. start with bandit if you need practical linux confidence before broader cybersecurity labs. linux wargame beginner ssh bandit practice"
+  },
+  {
+    "name": "pwn.college",
+    "slug": "pwn-college",
+    "category": "Practice Platforms",
+    "summary": "Systems security education platform focused on binary exploitation and low-level security.",
+    "focus": "Best for students moving into exploit development, reverse engineering, and systems security.",
+    "keywords": [
+      "ctf",
+      "binary",
+      "systems",
+      "exploitation",
+      "education",
+      "practice"
+    ],
+    "link": "https://pwn.college/",
+    "searchText": "pwn.college practice platforms systems security education platform focused on binary exploitation and low-level security. best for students moving into exploit development, reverse engineering, and systems security. ctf binary systems exploitation education practice"
+  },
+  {
+    "name": "VulnHub",
+    "slug": "vulnhub",
+    "category": "Practice Platforms",
+    "summary": "Archive of intentionally vulnerable virtual machines for offline local lab practice.",
+    "focus": "Useful when you want full local control, snapshots, and no dependency on a remote lab platform.",
+    "keywords": [
+      "ctf",
+      "vm",
+      "practice",
+      "vulnerable",
+      "offline",
+      "lab"
+    ],
+    "link": "https://www.vulnhub.com/",
+    "searchText": "vulnhub practice platforms archive of intentionally vulnerable virtual machines for offline local lab practice. useful when you want full local control, snapshots, and no dependency on a remote lab platform. ctf vm practice vulnerable offline lab"
+  },
+  {
+    "name": "Root-Me",
+    "slug": "root-me",
+    "category": "Practice Platforms",
+    "summary": "Challenge platform covering web, network, forensics, cryptography, reverse engineering, and more.",
+    "focus": "Good for targeted practice when you want many small challenges by category.",
+    "keywords": [
+      "ctf",
+      "practice",
+      "web",
+      "network",
+      "forensics",
+      "reverse"
+    ],
+    "link": "https://www.root-me.org/",
+    "searchText": "root-me practice platforms challenge platform covering web, network, forensics, cryptography, reverse engineering, and more. good for targeted practice when you want many small challenges by category. ctf practice web network forensics reverse"
+  },
+  {
+    "name": "WebGoat",
+    "slug": "webgoat",
+    "category": "Practice Labs",
+    "summary": "OWASP intentionally vulnerable web application with lessons for common web security flaws.",
+    "focus": "Use locally to study OWASP Top 10 concepts with explanations and repeatable exercises.",
+    "keywords": [
+      "web",
+      "owasp",
+      "lab",
+      "training",
+      "vulnerable",
+      "java"
+    ],
+    "link": "https://owasp.org/www-project-webgoat/",
+    "searchText": "webgoat practice labs owasp intentionally vulnerable web application with lessons for common web security flaws. use locally to study owasp top 10 concepts with explanations and repeatable exercises. web owasp lab training vulnerable java"
+  },
+  {
+    "name": "Metasploitable",
+    "slug": "metasploitable",
+    "category": "Practice Labs",
+    "summary": "Intentionally vulnerable Linux VM commonly used for safe Metasploit and network-security practice.",
+    "focus": "Good beginner target for local labs, snapshots, and understanding vulnerable service exposure.",
+    "keywords": [
+      "lab",
+      "vulnerable",
+      "vm",
+      "metasploit",
+      "practice",
+      "training"
+    ],
+    "link": "https://docs.rapid7.com/metasploit/metasploitable-2/",
+    "searchText": "metasploitable practice labs intentionally vulnerable linux vm commonly used for safe metasploit and network-security practice. good beginner target for local labs, snapshots, and understanding vulnerable service exposure. lab vulnerable vm metasploit practice training"
+  },
+  {
+    "name": "Git + GitHub",
+    "slug": "git-github",
+    "category": "Workflow Essentials",
+    "summary": "Version-control workflow for storing scripts, notes, reports, and a public learning portfolio.",
+    "focus": "Use from the start so your tools, writeups, and learning progress are organized and reviewable.",
+    "keywords": [
+      "git",
+      "github",
+      "version control",
+      "portfolio",
+      "notes",
+      "scripts"
+    ],
+    "link": "https://git-scm.com/",
+    "searchText": "git + github workflow essentials version-control workflow for storing scripts, notes, reports, and a public learning portfolio. use from the start so your tools, writeups, and learning progress are organized and reviewable. git github version control portfolio notes scripts"
+  },
+  {
+    "name": "Docker",
+    "slug": "docker",
+    "category": "Workflow Essentials",
+    "summary": "Container platform for running tools, vulnerable apps, databases, and repeatable lab environments.",
+    "focus": "Useful for lightweight local labs, but still treat containers as shared-kernel isolation.",
+    "keywords": [
+      "docker",
+      "container",
+      "lab",
+      "environment",
+      "devops",
+      "isolation"
+    ],
+    "link": "https://www.docker.com/",
+    "searchText": "docker workflow essentials container platform for running tools, vulnerable apps, databases, and repeatable lab environments. useful for lightweight local labs, but still treat containers as shared-kernel isolation. docker container lab environment devops isolation"
+  },
+  {
+    "name": "tmux",
+    "slug": "tmux",
+    "category": "Workflow Essentials",
+    "summary": "Terminal multiplexer for persistent sessions, panes, and organized command-line workflows.",
+    "focus": "Good for long labs, remote SSH work, and keeping notes, scans, and shells organized.",
+    "keywords": [
+      "terminal",
+      "multiplexer",
+      "linux",
+      "sessions",
+      "ssh",
+      "workflow"
+    ],
+    "link": "https://github.com/tmux/tmux/wiki",
+    "searchText": "tmux workflow essentials terminal multiplexer for persistent sessions, panes, and organized command-line workflows. good for long labs, remote ssh work, and keeping notes, scans, and shells organized. terminal multiplexer linux sessions ssh workflow"
+  },
+  {
+    "name": "VS Code",
+    "slug": "vs-code",
+    "category": "Workflow Essentials",
+    "summary": "Extensible code editor useful for security scripts, notes, remote editing, and lab automation.",
+    "focus": "Good daily editor for Python, Bash, markdown notes, API testing, and remote lab work.",
+    "keywords": [
+      "editor",
+      "code",
+      "python",
+      "bash",
+      "remote ssh",
+      "notes",
+      "debugging"
+    ],
+    "link": "https://code.visualstudio.com/",
+    "searchText": "vs code workflow essentials extensible code editor useful for security scripts, notes, remote editing, and lab automation. good daily editor for python, bash, markdown notes, api testing, and remote lab work. editor code python bash remote ssh notes debugging"
+  },
+  {
+    "name": "Obsidian",
+    "slug": "obsidian",
+    "category": "Workflow Essentials",
+    "summary": "Local markdown note-taking app for linked cybersecurity notes, CTF writeups, and study maps.",
+    "focus": "Use to turn labs into searchable long-term memory instead of disconnected screenshots.",
+    "keywords": [
+      "notes",
+      "markdown",
+      "knowledge base",
+      "writeups",
+      "learning",
+      "ctf"
+    ],
+    "link": "https://obsidian.md/",
+    "searchText": "obsidian workflow essentials local markdown note-taking app for linked cybersecurity notes, ctf writeups, and study maps. use to turn labs into searchable long-term memory instead of disconnected screenshots. notes markdown knowledge base writeups learning ctf"
+  },
+  {
+    "name": "OpenSSL",
+    "slug": "openssl",
+    "category": "Cryptography",
+    "summary": "Command-line toolkit for TLS, certificates, keys, hashes, and cryptographic troubleshooting.",
+    "focus": "Essential for understanding certificates, testing TLS behavior, and practicing safe crypto operations.",
+    "keywords": [
+      "tls",
+      "ssl",
+      "certificates",
+      "crypto",
+      "keys",
+      "hash",
+      "openssl"
+    ],
+    "link": "https://www.openssl.org/",
+    "searchText": "openssl cryptography command-line toolkit for tls, certificates, keys, hashes, and cryptographic troubleshooting. essential for understanding certificates, testing tls behavior, and practicing safe crypto operations. tls ssl certificates crypto keys hash openssl"
+  },
+  {
+    "name": "Flameshot",
+    "slug": "flameshot",
+    "category": "Workflow Essentials",
+    "summary": "Screenshot and annotation tool useful for clean lab notes, reports, and CTF documentation.",
+    "focus": "Use for clear evidence capture while avoiding accidental exposure of secrets or private data.",
+    "keywords": [
+      "screenshot",
+      "reporting",
+      "annotation",
+      "redaction",
+      "notes",
+      "evidence"
+    ],
+    "link": "https://flameshot.org/",
+    "searchText": "flameshot workflow essentials screenshot and annotation tool useful for clean lab notes, reports, and ctf documentation. use for clear evidence capture while avoiding accidental exposure of secrets or private data. screenshot reporting annotation redaction notes evidence"
+  },
+  {
+    "name": "KeePassXC",
+    "slug": "keepassxc",
+    "category": "Workflow Essentials",
+    "summary": "Offline password manager for lab credentials, API keys, SSH passphrases, and account hygiene.",
+    "focus": "Good default habit: unique credentials, local vaults, and no reused passwords even in labs.",
+    "keywords": [
+      "password",
+      "manager",
+      "secrets",
+      "keys",
+      "vault",
+      "security"
+    ],
+    "link": "https://keepassxc.org/",
+    "searchText": "keepassxc workflow essentials offline password manager for lab credentials, api keys, ssh passphrases, and account hygiene. good default habit: unique credentials, local vaults, and no reused passwords even in labs. password manager secrets keys vault security"
+  },
+  {
+    "name": "Swagger UI",
+    "slug": "swagger-ui",
+    "category": "API Security",
+    "summary": "Interactive OpenAPI documentation interface for understanding and testing API behavior.",
+    "focus": "Useful for learning API structure before security testing, validation review, and authorization checks.",
+    "keywords": [
+      "api",
+      "swagger",
+      "openapi",
+      "testing",
+      "documentation",
+      "web"
+    ],
+    "link": "https://swagger.io/tools/swagger-ui/",
+    "searchText": "swagger ui api security interactive openapi documentation interface for understanding and testing api behavior. useful for learning api structure before security testing, validation review, and authorization checks. api swagger openapi testing documentation web"
+  },
+  {
+    "name": "OWASP Top 10 for LLM Applications",
+    "slug": "owasp-top-10-for-llm-applications",
+    "category": "AI Security",
+    "summary": "Community risk framework for understanding common security failures in LLM-powered applications.",
+    "focus": "Use as the baseline checklist for AI app threat modeling, reviews, testing plans, and remediation notes.",
+    "keywords": [
+      "ai",
+      "llm",
+      "owasp",
+      "prompt injection",
+      "agent",
+      "governance",
+      "risk"
+    ],
+    "link": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+    "searchText": "owasp top 10 for llm applications ai security community risk framework for understanding common security failures in llm-powered applications. use as the baseline checklist for ai app threat modeling, reviews, testing plans, and remediation notes. ai llm owasp prompt injection agent governance risk"
+  },
+  {
+    "name": "garak",
+    "slug": "garak",
+    "category": "AI Security",
+    "summary": "Open source LLM vulnerability scanner for probing model and chatbot failure modes.",
+    "focus": "Good for authorized AI red-team labs that test hallucination, leakage, jailbreak, toxicity, and prompt-injection risk.",
+    "keywords": [
+      "ai",
+      "llm",
+      "scanner",
+      "red team",
+      "prompt injection",
+      "jailbreak",
+      "vulnerability"
+    ],
+    "link": "https://garak.ai/",
+    "searchText": "garak ai security open source llm vulnerability scanner for probing model and chatbot failure modes. good for authorized ai red-team labs that test hallucination, leakage, jailbreak, toxicity, and prompt-injection risk. ai llm scanner red team prompt injection jailbreak vulnerability"
+  },
+  {
+    "name": "PyRIT",
+    "slug": "pyrit",
+    "category": "AI Security",
+    "summary": "Microsoft's Python Risk Identification Tool for structured generative-AI red-team automation.",
+    "focus": "Use to organize repeatable AI risk tests, prompts, targets, scoring, and evidence in controlled assessments.",
+    "keywords": [
+      "ai",
+      "llm",
+      "red team",
+      "microsoft",
+      "risk",
+      "automation",
+      "generative ai"
+    ],
+    "link": "https://github.com/microsoft/PyRIT",
+    "searchText": "pyrit ai security microsoft's python risk identification tool for structured generative-ai red-team automation. use to organize repeatable ai risk tests, prompts, targets, scoring, and evidence in controlled assessments. ai llm red team microsoft risk automation generative ai"
+  },
+  {
+    "name": "Promptfoo",
+    "slug": "promptfoo",
+    "category": "AI Security",
+    "summary": "LLM testing and security platform for prompt evaluation, regression tests, and adversarial checks.",
+    "focus": "Useful for adding AI behavior tests to development workflows before deploying prompts or agents.",
+    "keywords": [
+      "ai",
+      "llm",
+      "prompt",
+      "evals",
+      "testing",
+      "red team",
+      "ci"
+    ],
+    "link": "https://www.promptfoo.dev/security/",
+    "searchText": "promptfoo ai security llm testing and security platform for prompt evaluation, regression tests, and adversarial checks. useful for adding ai behavior tests to development workflows before deploying prompts or agents. ai llm prompt evals testing red team ci"
+  },
+  {
+    "name": "Giskard",
+    "slug": "giskard",
+    "category": "AI Security",
+    "summary": "AI agent evaluation and red-teaming platform for finding security, hallucination, and business-failure risks.",
+    "focus": "Good for learning how AI systems are tested beyond accuracy, including safety, robustness, and policy failures.",
+    "keywords": [
+      "ai",
+      "llm",
+      "agent",
+      "evaluation",
+      "red team",
+      "hallucination",
+      "security"
+    ],
+    "link": "https://www.giskard.ai/",
+    "searchText": "giskard ai security ai agent evaluation and red-teaming platform for finding security, hallucination, and business-failure risks. good for learning how ai systems are tested beyond accuracy, including safety, robustness, and policy failures. ai llm agent evaluation red team hallucination security"
+  },
+  {
+    "name": "NeMo Guardrails",
+    "slug": "nemo-guardrails",
+    "category": "AI Security",
+    "summary": "NVIDIA open source Python toolkit for adding programmable guardrails to LLM applications.",
+    "focus": "Use to study input/output controls, topic boundaries, RAG grounding, jailbreak prevention, and policy enforcement.",
+    "keywords": [
+      "ai",
+      "llm",
+      "guardrails",
+      "nvidia",
+      "prompt injection",
+      "rag",
+      "safety"
+    ],
+    "link": "https://docs.nvidia.com/nemo/guardrails/latest/about/overview.html",
+    "searchText": "nemo guardrails ai security nvidia open source python toolkit for adding programmable guardrails to llm applications. use to study input/output controls, topic boundaries, rag grounding, jailbreak prevention, and policy enforcement. ai llm guardrails nvidia prompt injection rag safety"
+  },
+  {
+    "name": "ModelScan",
+    "slug": "modelscan",
+    "category": "AI Security",
+    "summary": "ML model security scanner focused on detecting risky model serialization artifacts.",
+    "focus": "Useful for learning AI supply-chain risk before loading models from hubs, vendors, or unknown sources.",
+    "keywords": [
+      "ai",
+      "ml",
+      "model",
+      "scanner",
+      "pickle",
+      "supply chain",
+      "serialization"
+    ],
+    "link": "https://github.com/protectai/modelscan",
+    "searchText": "modelscan ai security ml model security scanner focused on detecting risky model serialization artifacts. useful for learning ai supply-chain risk before loading models from hubs, vendors, or unknown sources. ai ml model scanner pickle supply chain serialization"
+  },
+  {
+    "name": "LLM Guard",
+    "slug": "llm-guard",
+    "category": "AI Security",
+    "summary": "Security toolkit for scanning and sanitizing LLM inputs and outputs.",
+    "focus": "Use to understand practical controls around prompt injection, secret leakage, PII handling, and response filtering.",
+    "keywords": [
+      "ai",
+      "llm",
+      "guardrails",
+      "prompt injection",
+      "pii",
+      "security",
+      "filtering"
+    ],
+    "link": "https://github.com/protectai/llm-guard",
+    "searchText": "llm guard ai security security toolkit for scanning and sanitizing llm inputs and outputs. use to understand practical controls around prompt injection, secret leakage, pii handling, and response filtering. ai llm guardrails prompt injection pii security filtering"
+  },
+  {
+    "name": "Llama Guard",
+    "slug": "llama-guard",
+    "category": "AI Security",
+    "summary": "Meta safety model family and recipes for classifying human-AI conversation safety risks.",
+    "focus": "Good for studying how model-based input/output moderation can support, but not replace, app security controls.",
+    "keywords": [
+      "ai",
+      "llm",
+      "safety",
+      "moderation",
+      "classifier",
+      "meta",
+      "guardrail"
+    ],
+    "link": "https://github.com/meta-llama/llama-recipes/tree/main/recipes/responsible_ai/llama_guard",
+    "searchText": "llama guard ai security meta safety model family and recipes for classifying human-ai conversation safety risks. good for studying how model-based input/output moderation can support, but not replace, app security controls. ai llm safety moderation classifier meta guardrail"
+  },
+  {
+    "name": "MITRE ATLAS",
+    "slug": "mitre-atlas",
+    "category": "AI Security",
+    "summary": "Knowledge base of adversary tactics and techniques against AI-enabled systems.",
+    "focus": "Use as a threat-modeling reference when mapping AI system risks, controls, and detection opportunities.",
+    "keywords": [
+      "ai",
+      "ml",
+      "threat model",
+      "mitre",
+      "atlas",
+      "tactics",
+      "techniques"
+    ],
+    "link": "https://atlas.mitre.org/",
+    "searchText": "mitre atlas ai security knowledge base of adversary tactics and techniques against ai-enabled systems. use as a threat-modeling reference when mapping ai system risks, controls, and detection opportunities. ai ml threat model mitre atlas tactics techniques"
+  }
+]

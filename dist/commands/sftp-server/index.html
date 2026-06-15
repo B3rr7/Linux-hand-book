@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sftp-server command - Linux Command</title>
+    <meta name="description" content="SFTP server subsystem for SSH.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>sftp-server</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>sftp-server</h1>
+          <p>SFTP server subsystem for SSH.</p>
+          <div class="tag-row"><span>sftp</span><span>ssh</span><span>file-transfer</span><span>server</span><span>subsystem</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>sftp-server</code> is the SFTP (SSH File Transfer Protocol) server subsystem that runs as part of <code>sshd</code>. It provides file transfer, directory listing, and remote filesystem operations over a secure SSH connection. It is automatically invoked by <code>sshd</code> when an SFTP client connects and requests the <code>sftp</code> subsystem.</p>
+<p>The SFTP protocol (not to be confused with FTPS) runs entirely over the SSH transport layer, inheriting SSH&#39;s authentication, encryption, and integrity protections. The server is configured in <code>/etc/ssh/sshd_config</code> via the <code>Subsystem sftp</code> directive, which can point to the <code>sftp-server</code> binary or the newer <code>internal-sftp</code> implementation.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>sftp-server [-d startdir] [-e] [-f log_facility] [-l log_level] [-P blacklisted_requests] [-p whitelisted_requests] [-u umask]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>sftp-server</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-d startdir</code>: Change to the specified directory before starting the session.</li>
+<li><code>-e</code>: Log to stderr instead of syslog.</li>
+<li><code>-f facility</code>: Specify the syslog facility (default: <code>AUTH</code>).</li>
+<li><code>-l level</code>: Specify the logging level (default: <code>INFO</code>).</li>
+<li><code>-P requests</code>: Blacklist specific SFTP protocol requests (comma-separated).</li>
+<li><code>-p requests</code>: Whitelist specific SFTP protocol requests (comma-separated).</li>
+<li><code>-u umask</code>: Set the file creation umask for new files.</li>
+<li><code>-R</code>: Reject rename operations.</li>
+<li><code>-r</code>: Reject remote readlink operations (preserve link targets).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sftp-server -d /srv/sftp -u 0027</code></pre>
+<p>Start an SFTP server session rooted at <code>/srv/sftp</code> with a restrictive umask.</p>
+<pre><code>sftp-server -l DEBUG</code></pre>
+<p>Start the SFTP server with debug-level logging.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>sftp-server</code> is not intended to be run directly from the command line; it is invoked by <code>sshd</code>.</li>
+<li>The <code>internal-sftp</code> subsystem (configured in <code>sshd_config</code>) is a newer in-process implementation that avoids launching a separate process per SFTP connection.</li>
+<li>Chroot directories for SFTP users are configured with <code>ChrootDirectory</code> in <code>sshd_config</code>.</li>
+<li>SFTP-only accounts are typically set up with <code>Subsystem sftp internal-sftp</code> and forced internal SFTP with <code>ForceCommand internal-sftp</code>.</li>
+<li>Logging is directed to syslog by default under the AUTH facility.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ab command - Linux Command</title>
+    <meta name="description" content="Benchmark HTTP server performance with ApacheBench.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>ab</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>ab</h1>
+          <p>Benchmark HTTP server performance with ApacheBench.</p>
+          <div class="tag-row"><span>http</span><span>benchmark</span><span>apache</span><span>performance</span><span>load test</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>ab</code> stands for ApacheBench. It sends many HTTP requests to a URL and reports timing, throughput, failed requests, and concurrency behavior. It is useful for quick baseline checks of a web server, reverse proxy, API endpoint, or local development service.</p>
+<p>Despite the name, <code>ab</code> can test any HTTP server, not only Apache. It is a simple benchmark tool, not a full load-testing platform. Use it for quick measurements and comparisons, then use stronger tools when you need realistic user journeys, multiple endpoints, login flows, or distributed load.</p>
+<h2 id="installation">Installation</h2>
+<p>On Debian and Ubuntu systems, <code>ab</code> is usually provided by <code>apache2-utils</code>:</p>
+<pre><code>sudo apt-get install apache2-utils</code></pre>
+<p>On RHEL, CentOS, Fedora, Rocky Linux, or AlmaLinux systems, it is commonly provided by <code>httpd-tools</code>:</p>
+<pre><code>sudo dnf install httpd-tools</code></pre>
+<h2 id="syntax">Syntax</h2>
+<pre><code>ab [options] http://host[:port]/path
+ab [options] https://host[:port]/path</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>url</code>: Full HTTP or HTTPS URL to benchmark. Include the scheme and path, such as <code>http://127.0.0.1:8080/</code>.</li>
+<li><code>requests</code>: Total number of requests to send, set with <code>-n</code>.</li>
+<li><code>concurrency</code>: Number of simultaneous requests, set with <code>-c</code>.</li>
+<li><code>options</code>: Headers, POST data, timeout, output, and authentication settings.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-n requests</code>: Total number of requests to perform.</li>
+<li><code>-c concurrency</code>: Number of requests to run at the same time.</li>
+<li><code>-t seconds</code>: Run for a time limit instead of stopping only by request count.</li>
+<li><code>-k</code>: Enable HTTP keep-alive so multiple requests can reuse connections.</li>
+<li><code>-H &quot;Header: value&quot;</code>: Add a custom HTTP header.</li>
+<li><code>-C name=value</code>: Add a cookie.</li>
+<li><code>-A user:password</code>: Send HTTP Basic authentication credentials.</li>
+<li><code>-p file</code>: Send a POST body from a file.</li>
+<li><code>-T content-type</code>: Set the content type for POST data.</li>
+<li><code>-i</code>: Use HEAD requests instead of GET.</li>
+<li><code>-s seconds</code>: Set socket timeout.</li>
+<li><code>-q</code>: Quiet progress output during large runs.</li>
+<li><code>-e file.csv</code>: Write percentile data to a CSV file.</li>
+<li><code>-g file.tsv</code>: Write data suitable for gnuplot or spreadsheet tools.</li>
+<li><code>-v level</code>: Increase verbosity for debugging responses.</li>
+<li><code>-V</code>: Show version information.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>ab -n 500 -c 10 http://127.0.0.1:8080/</code></pre>
+<p>Send 500 total requests with 10 concurrent requests.</p>
+<pre><code>ab -n 1000 -c 50 -k https://example.com/</code></pre>
+<p>Benchmark with keep-alive enabled.</p>
+<pre><code>ab -n 200 -c 20 -H &quot;Authorization: Bearer TOKEN&quot; https://api.example.com/status</code></pre>
+<p>Add a custom authorization header.</p>
+<pre><code>ab -n 300 -c 15 -p payload.json -T application/json http://127.0.0.1:3000/api/items</code></pre>
+<p>Send POST requests using a JSON payload file.</p>
+<pre><code>ab -t 30 -c 25 http://127.0.0.1/</code></pre>
+<p>Run the benchmark for about 30 seconds.</p>
+<pre><code>ab -n 1000 -c 25 -e percentiles.csv http://127.0.0.1/</code></pre>
+<p>Save percentile timing data to a CSV file.</p>
+<h2 id="reading-output">Reading Output</h2>
+<ul>
+<li><code>Requests per second</code>: Approximate throughput for this run.</li>
+<li><code>Time per request</code>: Average request time. <code>ab</code> prints both per-request and concurrency-adjusted forms.</li>
+<li><code>Transfer rate</code>: Approximate response data throughput.</li>
+<li><code>Failed requests</code>: Requests that did not complete as expected.</li>
+<li><code>Non-2xx responses</code>: Responses outside the 2xx range. These may be normal if the endpoint redirects or denies access.</li>
+<li><code>Percentage of the requests served within</code>: Latency percentile table.</li>
+</ul>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Always include a trailing <code>/</code> when benchmarking a site root, such as <code>http://localhost/</code>.</li>
+<li>Start with small <code>-n</code> and <code>-c</code> values, then increase gradually.</li>
+<li>Do not benchmark public or third-party systems without permission.</li>
+<li><code>ab</code> sends repeated requests to one URL. It does not model real browser behavior, assets, sessions, or user workflows.</li>
+<li>High concurrency can exhaust local client limits before the server is actually saturated.</li>
+<li>Use <code>-k</code> only when you want to measure keep-alive behavior.</li>
+<li>For production-grade testing, consider tools such as <code>wrk</code>, <code>hey</code>, <code>k6</code>, or JMeter.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+<a href="../arptables/index.html"><strong>arptables</strong><span>Manage legacy ARP packet filtering rules.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

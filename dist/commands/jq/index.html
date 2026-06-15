@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jq command - Linux Command</title>
+    <meta name="description" content="Process and transform JSON data from the command line.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>jq</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Text</p>
+          <h1>jq</h1>
+          <p>Process and transform JSON data from the command line.</p>
+          <div class="tag-row"><span>json</span><span>filter</span><span>transform</span><span>query</span><span>data</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>jq</code> is a lightweight JSON processor that lets you parse, filter, map, and transform structured JSON data. It works like <code>sed</code> or <code>awk</code> but is designed specifically for JSON. It can read from files or pipes and write formatted output to stdout.</p>
+<p>It is essential for working with APIs, configuration files, logs, and any JSON-based tooling. You can extract specific fields, reshape objects, filter arrays, and build complex transformations using a simple domain-specific language of filters and operators.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>jq [options] filter [file...]
+command | jq [options] filter</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>filter</code>: The jq expression to apply. Enclose in single quotes to prevent shell expansion.</li>
+<li><code>file</code>: One or more JSON files to process. Reads from stdin if no file is given.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-c</code>, <code>--compact-output</code>: Output each JSON object on a single line.</li>
+<li><code>-r</code>, <code>--raw-output</code>: Output strings directly without JSON quoting. Useful for extracting plain text.</li>
+<li><code>-f file</code>, <code>--from-file file</code>: Read the filter from a file.</li>
+<li><code>-n</code>, <code>--null-input</code>: Start with <code>null</code> input instead of reading stdin. Used with generators.</li>
+<li><code>-M</code>, <code>--monochrome-output</code>: Disable colored output.</li>
+<li><code>-s</code>, <code>--slurp</code>: Read the entire input stream as one array.</li>
+<li><code>--arg name value</code>: Set a variable for use in the filter.</li>
+<li><code>-e</code>, <code>--exit-status</code>: Set exit status to 0 if the last output value is not <code>false</code> or <code>null</code>.</li>
+</ul>
+<h2 id="filters">Filters</h2>
+<ul>
+<li><code>.</code>: Identity operator, outputs the entire input.</li>
+<li><code>.key</code>, <code>.key1.key2</code>: Access object properties.</li>
+<li><code>.[]</code>: Iterate over array elements.</li>
+<li><code>.[index]</code>: Access array element by index.</li>
+<li><code>.[start:end]</code>: Array slicing.</li>
+<li><code>,</code>: Combine two filters; outputs the results of both.</li>
+<li><code>|</code>: Pipe output of one filter into another.</li>
+<li><code>select(condition)</code>: Keep elements matching a condition.</li>
+<li><code>map(expression)</code>: Apply an expression to each array element.</li>
+<li><code>group_by(expression)</code>: Group array elements by a key.</li>
+<li><code>{foo: .bar}</code>: Construct a new object with renamed keys.</li>
+<li><code>length</code>: Get the length of strings, arrays, or objects.</li>
+<li><code>keys</code>: Get the keys of an object.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>jq &#39;.&#39; file.json</code></pre>
+<p>Pretty-print a JSON file.</p>
+<pre><code>cat data.json | jq &#39;.users&#39;</code></pre>
+<p>Extract the <code>users</code> array from a JSON object.</p>
+<pre><code>jq -r &#39;.name&#39; package.json</code></pre>
+<p>Extract the <code>name</code> field from <code>package.json</code> as raw text (no quotes).</p>
+<pre><code>jq &#39;.users[] | select(.age &gt; 18)&#39; data.json</code></pre>
+<p>List users older than 18.</p>
+<pre><code>jq &#39;[.users[].name]&#39; data.json</code></pre>
+<p>Create an array of all user names.</p>
+<pre><code>curl https://api.example.com/data | jq &#39;.results[:5]&#39;</code></pre>
+<p>Fetch JSON from an API and show only the first 5 results.</p>
+<pre><code>jq -s &#39;.[0] * .[1]&#39; file1.json file2.json</code></pre>
+<p>Merge two JSON files by slurping them into an array and using the <code>*</code> merge operator.</p>
+<pre><code>jq --arg key &quot;foo&quot; &#39;.[$key]&#39; data.json</code></pre>
+<p>Access a property whose name is stored in a shell variable.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Always wrap jq filters in single quotes to avoid shell interpretation of <code>$</code>, <code>|</code>, and other special characters.</li>
+<li>Use <code>-r</code> when you need plain text output for piping into other commands.</li>
+<li>For large files, <code>jq</code> streams input and does not load the entire file into memory.</li>
+<li>Use <code>jq -e</code> in scripts to check if a value exists or matches a condition via the exit code.</li>
+<li>Complex filters can be stored in a file with <code>-f</code> for reuse.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ack/index.html"><strong>ack</strong><span>Search source code with an ack-style text searcher.</span></a>
+<a href="../ag/index.html"><strong>ag</strong><span>Search source code quickly with The Silver Searcher.</span></a>
+<a href="../awk/index.html"><strong>awk</strong><span>Process text files by fields and patterns.</span></a>
+<a href="../base64/index.html"><strong>base64</strong><span>Encode or decode Base64 data.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

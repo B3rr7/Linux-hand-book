@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>objdump command - Linux Command</title>
+    <meta name="description" content="Display information from object files and executables.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>objdump</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Development</p>
+          <h1>objdump</h1>
+          <p>Display information from object files and executables.</p>
+          <div class="tag-row"><span>binary</span><span>disassembly</span><span>elf</span><span>object files</span><span>debugging</span><span>analysis</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>objdump</code> displays information about object files, executables, and shared libraries. It can disassemble machine code, show symbol tables, display section headers, dump raw binary content, and report file headers. It works primarily with ELF format files on Linux systems.</p>
+<p>Developers use <code>objdump</code> for reverse engineering, debugging compiler output, comparing optimized versus unoptimized code, inspecting binary sizes, verifying linker operations, and analyzing malware or unknown binaries. It is a standard tool in the <code>binutils</code> package and is available on virtually all Linux distributions.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>objdump [options] [object-files...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>object-files</code>: One or more object files, executables, static libraries, or shared libraries to inspect.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-d</code>, <code>--disassemble</code>: Disassemble executable sections into assembly instructions.</li>
+<li><code>-D</code>, <code>--disassemble-all</code>: Disassemble all sections, not just executable ones.</li>
+<li><code>-S</code>, <code>--source</code>: Interleave source code with disassembly when debug information is available.</li>
+<li><code>-x</code>, <code>--all-headers</code>: Display all available header information.</li>
+<li><code>-f</code>, <code>--file-headers</code>: Display only the ELF file header.</li>
+<li><code>-p</code>, <code>--private-headers</code>: Display format-specific header information.</li>
+<li><code>-h</code>, <code>--section-headers</code>: Display section header table.</li>
+<li><code>-t</code>, <code>--syms</code>: Display symbol table entries.</li>
+<li><code>-T</code>, <code>--dynamic-syms</code>: Display dynamic symbol table entries.</li>
+<li><code>-r</code>, <code>--reloc</code>: Display relocation entries.</li>
+<li><code>-R</code>, <code>--dynamic-reloc</code>: Display dynamic relocation entries.</li>
+<li><code>-s</code>, <code>--full-contents</code>: Display the full contents of all sections.</li>
+<li><code>-j section</code>: Display information only for a specific section.</li>
+<li><code>-M options</code>: Pass disassembler options (e.g., <code>intel</code> for Intel syntax).</li>
+<li><code>--no-show-raw-insn</code>: Omit raw instruction bytes in disassembly output.</li>
+<li><code>-C</code>, <code>--demangle</code>: Demangle C++ symbol names.</li>
+<li><code>-l</code>, <code>--line-numbers</code>: Include source line numbers.</li>
+<li><code>-g</code>, <code>--debugging</code>: Display debug information.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>objdump -d main</code></pre>
+<p>Disassemble executable code sections.</p>
+<pre><code>objdump -d -M intel main</code></pre>
+<p>Disassemble using Intel syntax instead of AT&amp;T syntax.</p>
+<pre><code>objdump -S main</code></pre>
+<p>Interleave source code with disassembly. Compile with <code>-g</code> for best results.</p>
+<pre><code>objdump -x libfoo.so</code></pre>
+<p>Show all headers and metadata for a shared library.</p>
+<pre><code>objdump -t main.o</code></pre>
+<p>Display the symbol table of an object file.</p>
+<pre><code>objdump -s -j .rodata main</code></pre>
+<p>Dump the contents of the read-only data section.</p>
+<pre><code>objdump -r main.o</code></pre>
+<p>Show relocation entries, useful for understanding linker operations.</p>
+<pre><code>objdump -C -d libapp.so</code></pre>
+<p>Disassemble a shared library with demangled C++ symbol names.</p>
+<pre><code>objdump -h /bin/ls</code></pre>
+<p>List section headers and sizes in the <code>ls</code> binary.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>objdump -S</code> requires debug symbols. Compile with <code>-g</code> for annotated disassembly.</li>
+<li>Use <code>-M intel</code> for Intel syntax, which most developers find easier to read than the default AT&amp;T syntax.</li>
+<li>For stripped binaries, <code>objdump -d</code> still works, but symbol names are lost.</li>
+<li>The <code>binutils</code> package also includes <code>readelf</code>, <code>nm</code>, <code>size</code>, <code>strings</code>, and <code>strip</code> for complementary binary analysis.</li>
+<li>For cross-platform development, use the cross-compilation version like <code>aarch64-linux-gnu-objdump</code>.</li>
+<li>For deeper debugging, combine <code>objdump</code> with <code>gdb</code>, <code>strace</code>, and <code>ltrace</code>.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ar/index.html"><strong>ar</strong><span>Create, modify, and inspect Unix archive files.</span></a>
+<a href="../as/index.html"><strong>as</strong><span>Assemble source code into object files with GNU assembler.</span></a>
+<a href="../diffstat/index.html"><strong>diffstat</strong><span>Display a histogram of diff output changes.</span></a>
+<a href="../docker/index.html"><strong>docker</strong><span>Manage containers, images, networks, and volumes.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

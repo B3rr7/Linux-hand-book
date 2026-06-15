@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>dd command - Linux Command</title>
+    <meta name="description" content="Copy and convert raw data between files or devices.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>dd</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Disk</p>
+          <h1>dd</h1>
+          <p>Copy and convert raw data between files or devices.</p>
+          <div class="tag-row"><span>disk</span><span>image</span><span>copy</span><span>device</span><span>raw</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>dd</code> copies raw bytes from an input to an output. It is commonly used for disk images, USB writing, device reads, zero-filling, and low-level data conversion.</p>
+<p>It is powerful and dangerous because a wrong output path can overwrite disks or important files.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>dd if=input of=output [operands...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>if=INPUT</code>: Input file or device. Defaults to standard input.</li>
+<li><code>of=OUTPUT</code>: Output file or device. Defaults to standard output.</li>
+<li><code>bs=SIZE</code>: Block size for reads and writes.</li>
+<li><code>count=N</code>: Copy N input blocks.</li>
+<li><code>skip=N</code>: Skip N input blocks before copying.</li>
+<li><code>seek=N</code>: Skip N output blocks before writing.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>status=progress</code>: Show progress on GNU dd.</li>
+<li><code>conv=fsync</code>: Flush output data before finishing.</li>
+<li><code>conv=noerror,sync</code>: Continue after read errors and pad blocks. Useful for damaged media, but understand the result.</li>
+<li><code>iflag=fullblock</code>: Read full input blocks where useful.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sudo dd if=ubuntu.iso of=/dev/sdX bs=4M status=progress conv=fsync</code></pre>
+<p>Write an ISO image to a USB drive. Replace <code>/dev/sdX</code> carefully.</p>
+<pre><code>dd if=/dev/zero of=test.img bs=1M count=100</code></pre>
+<p>Create a 100 MiB zero-filled file.</p>
+<pre><code>sudo dd if=/dev/sda of=disk.img bs=64K status=progress</code></pre>
+<p>Copy a disk into an image file.</p>
+<pre><code>dd if=file.bin bs=1 count=16 | hexdump -C</code></pre>
+<p>Read the first 16 bytes of a file.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Always verify device names with <code>lsblk</code> before writing to block devices.</li>
+<li><code>of=/dev/sdX</code> writes to a whole disk, not a partition.</li>
+<li>Prefer specialized tools when they provide safer prompts for image writing.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../badblocks/index.html"><strong>badblocks</strong><span>Check a disk device for bad blocks.</span></a>
+<a href="../blkid/index.html"><strong>blkid</strong><span>Show block device identifiers such as UUID, label, and filesystem type.</span></a>
+<a href="../blockdev/index.html"><strong>blockdev</strong><span>Call block device ioctls from the command line.</span></a>
+<a href="../cdrecord/index.html"><strong>cdrecord</strong><span>Record data or audio tracks to optical media.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gzexe command - Linux Command</title>
+    <meta name="description" content="Compress executable files with transparent decompression.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>gzexe</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Archives</p>
+          <h1>gzexe</h1>
+          <p>Compress executable files with transparent decompression.</p>
+          <div class="tag-row"><span>compress</span><span>executable</span><span>gzip</span><span>binary</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>gzexe</code> compresses executable files and adds a small decompression stub so that the file remains executable. When the compressed executable is run, the stub decompresses it to a temporary location and executes it, transparent to the user.</p>
+<p>This is useful for reducing the disk space used by infrequently executed binaries. The compression ratio depends on the content but is typically around 50-60% for compiled binaries. Original files are backed up with a <code>~</code> suffix before compression.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>gzexe [options] file...</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>file</code>: One or more executable files to compress or decompress.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-d</code>: Decompress files that were previously compressed with <code>gzexe</code>, restoring the original.</li>
+<li><code>--help</code>: Display help.</li>
+<li><code>--version</code>: Show version information.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>gzexe /usr/local/bin/myprogram</code></pre>
+<p>Compress an executable and make it self-decompressing.</p>
+<pre><code>gzexe -d /usr/local/bin/myprogram</code></pre>
+<p>Restore the original uncompressed executable.</p>
+<pre><code>gzexe -d *.exe</code></pre>
+<p>Decompress all compressed executables matching the pattern.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>gzexe</code> is a shell script wrapper around <code>gzip</code>. It is not a security measure; the temporary decompressed file can be inspected while the program runs.</li>
+<li>Compressed executables use slightly more memory at startup due to decompression overhead.</li>
+<li>The original file is renamed with a <code>~</code> suffix before compression.</li>
+<li>Not all executables can be compressed. Setuid programs, scripts with setuid bits, or programs that check their own file paths may malfunction.</li>
+<li>For modern systems, <code>upx</code> provides more advanced executable compression with better ratios and faster decompression.</li>
+<li>System binaries (in <code>/bin</code>, <code>/usr/bin</code>) should generally not be compressed due to security and performance considerations.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../7z/index.html"><strong>7z</strong><span>Create, list, test, and extract 7-Zip archives.</span></a>
+<a href="../arj/index.html"><strong>arj</strong><span>Create or extract ARJ archive files.</span></a>
+<a href="../bunzip2/index.html"><strong>bunzip2</strong><span>Decompress bzip2-compressed files.</span></a>
+<a href="../bzcat/index.html"><strong>bzcat</strong><span>Decompress bzip2 files to standard output.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

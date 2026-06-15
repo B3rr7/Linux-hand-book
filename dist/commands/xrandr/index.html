@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>xrandr command - Linux Command</title>
+    <meta name="description" content="Configure X server display outputs and resolutions.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>xrandr</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">System</p>
+          <h1>xrandr</h1>
+          <p>Configure X server display outputs and resolutions.</p>
+          <div class="tag-row"><span>x11</span><span>display</span><span>resolution</span><span>monitor</span><span>multimonitor</span><span>rotate</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>xrandr</code> (X Resize and Rotate) configures the display outputs connected to the X server. It can query available outputs and modes, set resolution and refresh rate, rotate or mirror displays, position monitors relative to each other, and change the primary output. It replaces the older <code>xvidtune</code> and modeline-based configuration tools.</p>
+<p><code>xrandr</code> works with the RandR (Resize and Rotate) X extension, which is supported by most modern graphics drivers (modesetting, Intel, AMD, NVIDIA with proprietary driver or nouveau). Changes made with <code>xrandr</code> are immediate but not persistent — they revert at logout. To make them permanent, add the commands to <code>~/.xprofile</code> or configure the display manager.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>xrandr [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>xrandr</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options-and-commands">Common Options and Commands</h2>
+<ul>
+<li><code>(no args)</code>: List all outputs and their available modes.</li>
+<li><code>-q</code>, <code>--query</code>: Query the current display configuration.</li>
+<li><code>--output name</code>: Specify the output to configure (e.g. <code>eDP-1</code>, <code>HDMI-1</code>).</li>
+<li><code>--mode WxH</code>: Set resolution (e.g. <code>--mode 1920x1080</code>).</li>
+<li><code>--rate HZ</code>: Set refresh rate (e.g. <code>--rate 60</code>).</li>
+<li><code>--rotate normal|left|right|inverted</code>: Rotate the display.</li>
+<li><code>--left-of output</code>: Position this output to the left of another.</li>
+<li><code>--right-of output</code>: Position this output to the right.</li>
+<li><code>--above output</code>: Position above another.</li>
+<li><code>--below output</code>: Position below another.</li>
+<li><code>--same-as output</code>: Mirror another output.</li>
+<li><code>--primary</code>: Set this output as the primary display.</li>
+<li><code>--auto</code>: Enable the output with the preferred mode.</li>
+<li><code>--off</code>: Disable the output.</li>
+<li><code>--dpi DPI</code>: Set the DPI for the output.</li>
+<li><code>--scale factor</code>: Apply a scaling factor.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>xrandr</code></pre>
+<p>List all connected outputs and supported resolutions.</p>
+<pre><code>xrandr --output HDMI-1 --mode 1920x1080 --rate 60</code></pre>
+<p>Set HDMI-1 to 1920x1080 at 60 Hz.</p>
+<pre><code>xrandr --output eDP-1 --primary --mode 1920x1080 --output HDMI-1 --right-of eDP-1 --mode 1920x1080</code></pre>
+<p>Set up a dual-monitor layout with laptop screen as primary and an external monitor to the right.</p>
+<pre><code>xrandr --output HDMI-1 --same-as eDP-1</code></pre>
+<p>Mirror HDMI-1 to the laptop display (same content on both).</p>
+<pre><code>xrandr --output HDMI-1 --rotate left</code></pre>
+<p>Rotate HDMI-1 90 degrees counterclockwise.</p>
+<pre><code>xrandr --output HDMI-1 --off</code></pre>
+<p>Disable the HDMI-1 output.</p>
+<pre><code>xrandr --output eDP-1 --mode 1920x1080 --scale 0.75x0.75</code></pre>
+<p>Scale the display by 75% (for HiDPI screens).</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>xrandr</code> to detect connected outputs: run it without arguments and look for <code>connected</code> entries.</li>
+<li>The output names (e.g. <code>eDP-1</code>, <code>HDMI-1</code>, <code>DP-1</code>) depend on the graphics driver and hardware.</li>
+<li>For persistent configuration, add <code>xrandr</code> commands to <code>~/.xprofile</code>, <code>~/.xinitrc</code>, or a startup script.</li>
+<li>Desktop environments like GNOME and KDE have built-in display configuration GUIs that manage <code>xrandr</code> internally.</li>
+<li>On Wayland, <code>xrandr</code> only affects XWayland applications. Use <code>wlr-randr</code> (wlroots) or <code>gnome-control-center</code> for native Wayland display configuration.</li>
+<li>Apply multi-monitor layouts carefully: a misconfiguration can make the display unusable. If this happens, switch to a different tty (Ctrl+Alt+F2) and run <code>xrandr --auto</code> to reset.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../apachectl/index.html"><strong>apachectl</strong><span>Control and inspect the Apache HTTP server.</span></a>
+<a href="../arch/index.html"><strong>arch</strong><span>Print the machine hardware architecture.</span></a>
+<a href="../at/index.html"><strong>at</strong><span>Schedule a command to run once at a later time.</span></a>
+<a href="../atq/index.html"><strong>atq</strong><span>List queued jobs scheduled with at.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

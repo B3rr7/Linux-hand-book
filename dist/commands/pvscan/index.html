@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pvscan command - Linux Command</title>
+    <meta name="description" content="Scan all disks for LVM physical volumes.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>pvscan</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Disk</p>
+          <h1>pvscan</h1>
+          <p>Scan all disks for LVM physical volumes.</p>
+          <div class="tag-row"><span>lvm</span><span>physical volume</span><span>scan</span><span>discovery</span><span>disk management</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>pvscan</code> scans all available block devices on the system for LVM (Logical Volume Manager) physical volume labels and metadata. It updates the LVM cache with current information about which devices are PVs and which volume groups they belong to.</p>
+<p>System administrators run <code>pvscan</code> after adding new disks, reconnecting SAN storage, or when LVM does not automatically detect PVs. It is the discovery command for LVM: it finds all PVs, reports their properties, and refreshes the kernel&#39;s LVM device state.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>pvscan [options] [device...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>pvscan</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-a</code>, <code>--all</code>: Show all devices, including those not identifiable as PVs.</li>
+<li><code>-b</code>, <code>--cache</code>: Update the LVM cache file (<code>/etc/lvm/cache/.cache</code>).</li>
+<li><code>-c</code>, <code>--colon</code>: Colon-separated output (machine-parseable).</li>
+<li><code>-C</code>, <code>--columns</code>: Columnar output format.</li>
+<li><code>-d</code>, <code>--debug</code>: Debug output.</li>
+<li><code>-e</code>, <code>--exported</code>: Show only exported (foreign) PVs.</li>
+<li><code>-n</code>, <code>--novolumegroup</code>: Show only PVs that are not part of a volume group.</li>
+<li><code>-s</code>, <code>--short</code>: Short format (PV name only).</li>
+<li><code>-u</code>, <code>--uuid</code>: Show PV UUIDs.</li>
+<li><code>--uuidonly</code>: Show only UUIDs.</li>
+<li><code>-v</code>, <code>--verbose</code>: Verbose output.</li>
+<li><code>--reportformat basic|json</code>: Output format.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>pvscan</code></pre>
+<p>Scan all devices and display discovered physical volumes.</p>
+<pre><code>pvscan -u</code></pre>
+<p>Scan and show physical volume UUIDs.</p>
+<pre><code>pvscan -n</code></pre>
+<p>Show only physical volumes not assigned to any volume group.</p>
+<pre><code>pvscan -a</code></pre>
+<p>Show all devices, including those without LVM labels.</p>
+<pre><code>pvscan -b</code></pre>
+<p>Scan and update the LVM cache file.</p>
+<pre><code>pvscan --cache /dev/sdb</code></pre>
+<p>Scan a specific device and update the cache.</p>
+<pre><code>pvscan -e</code></pre>
+<p>Show only exported (foreign) physical volumes.</p>
+<pre><code>pvscan -s</code></pre>
+<p>Short output showing only PV device names.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Run <code>pvscan</code> after adding new disks or when LVM does not detect newly connected storage.</li>
+<li>The LVM cache file (<code>/etc/lvm/cache/.cache</code>) speeds up subsequent LVM commands by storing previously discovered devices.</li>
+<li>If <code>pvscan</code> finds a PV that belongs to an inactive VG, it may automatically activate it depending on the <code>lvmetad</code> or event-based activation configuration.</li>
+<li>On systems using <code>lvmetad</code> (deprecated in newer LVM), <code>pvscan</code> communicates with the daemon. Modern LVM uses direct scanning.</li>
+<li>For a quick summary of all PVs, use <code>pvs</code> instead. For detailed information, use <code>pvdisplay</code>.</li>
+<li>If a PV is not found by <code>pvscan</code>, check that the device is accessible with <code>lsblk</code> or <code>fdisk -l</code>.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../badblocks/index.html"><strong>badblocks</strong><span>Check a disk device for bad blocks.</span></a>
+<a href="../blkid/index.html"><strong>blkid</strong><span>Show block device identifiers such as UUID, label, and filesystem type.</span></a>
+<a href="../blockdev/index.html"><strong>blockdev</strong><span>Call block device ioctls from the command line.</span></a>
+<a href="../cdrecord/index.html"><strong>cdrecord</strong><span>Record data or audio tracks to optical media.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

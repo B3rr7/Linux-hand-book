@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>dump command - Linux Command</title>
+    <meta name="description" content="Back up ext2/ext3/ext4 filesystems to tape or file.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>dump</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Disk</p>
+          <h1>dump</h1>
+          <p>Back up ext2/ext3/ext4 filesystems to tape or file.</p>
+          <div class="tag-row"><span>backup</span><span>filesystem</span><span>ext</span><span>tape</span><span>dump</span><span>restore</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>dump</code> backs up an entire ext2, ext3, or ext4 filesystem to a backup medium such as tape or a file. It operates at the filesystem level, reading inodes directly and preserving permissions, ownership, timestamps, extended attributes, and sparse file holes. It supports full and incremental backup levels (0-9), where level 0 is a full backup and higher levels back up files changed since the last lower-level dump.</p>
+<p>The companion <code>restore</code> command reads the dump archive and restores files. Dump archives can be written to tape drives, regular files, or across a network using <code>rdump</code>/<code>rrestore</code>. The dump format is filesystem-specific and is only compatible with ext-family filesystems.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>dump [options] [dump-file] filesystem</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>dump-file</code>: The output file or device (e.g., <code>/dev/st0</code> for a tape drive, or <code>backup.dump</code> for a file). If not specified, the default output device is used.</li>
+<li><code>filesystem</code>: The device or mount point of the filesystem to back up.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-level</code>: Set the dump level (0-9). Level 0 is a full backup.</li>
+<li><code>-f file</code>: Write to the specified file or device instead of the default.</li>
+<li><code>-u</code>: Update the dump record in <code>/etc/dumpdates</code> so incremental dumps know what was backed up.</li>
+<li><code>-W</code>: Show which filesystems need to be dumped based on <code>/etc/dumpdates</code> and <code>/etc/fstab</code>.</li>
+<li><code>-w</code>: Same as <code>-W</code> but only list filesystems that are mounted.</li>
+<li><code>-a</code>: Auto-size the dump output to fit the medium. Disables prompting for media changes.</li>
+<li><code>-B records</code>: Specify the tape block size in 1 KB increments.</li>
+<li><code>-b blocksize</code>: Set the number of kilobytes per dump record (default is 10).</li>
+<li><code>-d density</code>: Set tape density in bits per inch.</li>
+<li><code>-s feet</code>: Set tape length in feet.</li>
+<li><code>-T date</code>: Use the specified date instead of the current date for deciding what to dump.</li>
+<li><code>-z level</code>: Compress the dump output using gzip-compression level.</li>
+<li><code>-j level</code>: Compress the dump output using bzip2-compression level.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sudo dump -0uf /backup/root.dump /</code></pre>
+<p>Perform a level 0 (full) backup of the root filesystem to a file, updating <code>/etc/dumpdates</code>.</p>
+<pre><code>sudo dump -1uf /dev/st0 /home</code></pre>
+<p>Perform a level 1 incremental backup of <code>/home</code> to a tape device.</p>
+<pre><code>sudo dump -W</code></pre>
+<p>Show which filesystems need backup based on the last dump dates.</p>
+<pre><code>sudo dump -0u -f - / | gzip &gt; backup.dump.gz</code></pre>
+<p>Write a full dump to stdout and compress it with gzip.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>dump</code> only supports ext2, ext3, and ext4 filesystems. For other filesystem types, use filesystem-specific tools or <code>tar</code>/<code>rsync</code>.</li>
+<li>Always unmount or remount a filesystem read-only before dumping if data consistency is critical.</li>
+<li>Use <code>restore -t</code> to list the contents of a dump archive without restoring.</li>
+<li>The <code>/etc/dumpdates</code> file tracks when each filesystem was last dumped at each level. Remove or edit it to force a full dump.</li>
+<li>For remote backups, <code>rdump</code> writes to a remote tape device via <code>rmt</code>.</li>
+<li>Dump archives from different machines or architectures may not be compatible.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../badblocks/index.html"><strong>badblocks</strong><span>Check a disk device for bad blocks.</span></a>
+<a href="../blkid/index.html"><strong>blkid</strong><span>Show block device identifiers such as UUID, label, and filesystem type.</span></a>
+<a href="../blockdev/index.html"><strong>blockdev</strong><span>Call block device ioctls from the command line.</span></a>
+<a href="../cdrecord/index.html"><strong>cdrecord</strong><span>Record data or audio tracks to optical media.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

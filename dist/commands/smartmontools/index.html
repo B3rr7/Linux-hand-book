@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>smartmontools command - Linux Command</title>
+    <meta name="description" content="Monitor and control storage system S.M.A.R.T. data.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>smartmontools</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">System</p>
+          <h1>smartmontools</h1>
+          <p>Monitor and control storage system S.M.A.R.T. data.</p>
+          <div class="tag-row"><span>smart</span><span>disk</span><span>monitoring</span><span>health</span><span>storage</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>smartmontools</code> is a package of utilities for monitoring storage device health using the S.M.A.R.T. (Self-Monitoring, Analysis and Reporting Technology) system. The two primary commands are <code>smartctl</code> (command-line query and control) and <code>smartd</code> (background daemon for proactive monitoring). S.M.A.R.T. is built into most modern ATA/SATA, SCSI/SAS, and NVMe drives.</p>
+<p>S.M.A.R.T. monitors various drive attributes such as reallocated sector counts, spin-up time, temperature, error rates, and power-on hours. By tracking these attributes over time, imminent drive failures can often be predicted before data loss occurs. The daemon <code>smartd</code> can be configured to send email alerts or run scripts when thresholds are exceeded.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>smartctl [options] device
+smartd [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>device</code>: The storage device path, e.g., <code>/dev/sda</code>, <code>/dev/nvme0</code>.</li>
+</ul>
+<h2 id="common-options-smartctl">Common Options (smartctl)</h2>
+<ul>
+<li><code>-i</code>, <code>--info</code>: Display device identity information (model, serial, firmware, version).</li>
+<li><code>-H</code>, <code>--health</code>: Show a brief health status (PASSED or FAILED).</li>
+<li><code>-A</code>, <code>--attributes</code>: Display all S.M.A.R.T. attributes and their values.</li>
+<li><code>-a</code>, <code>--all</code>: Show all S.M.A.R.T. information for the device.</li>
+<li><code>-l error</code>: Show the error log.</li>
+<li><code>-l selftest</code>: Show the self-test log.</li>
+<li><code>-t short</code>: Run a short self-test in background.</li>
+<li><code>-t long</code>: Run a long/extended self-test in background.</li>
+<li><code>-t conveyance</code>: Run a conveyance self-test (quick check after transport).</li>
+<li><code>-c</code>, <code>--capabilities</code>: Show device S.M.A.R.T. capabilities and self-test status.</li>
+<li><code>-s on/off</code>: Enable or disable S.M.A.R.T. on the device.</li>
+<li><code>-x</code>, <code>--xall</code>: Show extensive information including vendor-specific details.</li>
+<li><code>-d type</code>: Specify the device type (<code>ata</code>, <code>scsi</code>, <code>nvme</code>, <code>sat</code>, <code>usbprolific</code>, etc.).</li>
+</ul>
+<h2 id="common-options-smartd">Common Options (smartd)</h2>
+<ul>
+<li><code>-d</code>, <code>--debug</code>: Run in debug mode (foreground, no daemonization).</li>
+<li><code>-i</code>, <code>--interval N</code>: Set the check interval in seconds (default: 1800).</li>
+<li><code>-A prefix</code>, <code>--attributelog prefix</code>: Log attribute changes to files.</li>
+<li><code>-q</code>, <code>--quiet</code>: Suppress log messages during normal operation.</li>
+<li><code>-p pidfile</code>: Specify a PID file location.</li>
+<li><code>-s</code>, <code>--savestates prefix</code>: Save device states to files.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>smartctl -i /dev/sda</code></pre>
+<p>Show identity information for <code>/dev/sda</code>.</p>
+<pre><code>smartctl -H /dev/nvme0n1</code></pre>
+<p>Check the health status of an NVMe drive.</p>
+<pre><code>smartctl -A /dev/sda</code></pre>
+<p>Display all S.M.A.R.T. attributes for <code>/dev/sda</code>.</p>
+<pre><code>smartctl -a /dev/sdb &gt; smart_sdb.txt</code></pre>
+<p>Save all S.M.A.R.T. information for <code>/dev/sdb</code> to a file.</p>
+<pre><code>smartctl -t long /dev/sda</code></pre>
+<p>Start a long self-test on <code>/dev/sda</code> (background, poll with <code>-l selftest</code>).</p>
+<pre><code>smartctl -l error /dev/sda</code></pre>
+<p>Show the error log, which records past read/write/seek errors.</p>
+<pre><code>smartd -d -i 3600</code></pre>
+<p>Run <code>smartd</code> in debug mode with a 1-hour check interval.</p>
+<h2 id="key-s-m-a-r-t-attributes">Key S.M.A.R.T. Attributes</h2>
+<ul>
+<li><code>Reallocated_Sector_Ct</code>: Sectors that have been remapped to spare areas. Increasing values indicate a failing drive.</li>
+<li><code>Current_Pending_Sector</code>: Sectors waiting to be remapped. A sign of instability.</li>
+<li><code>Raw_Read_Error_Rate</code>: Frequency of read errors (varies by manufacturer interpretation).</li>
+<li><code>Spin_Retry_Count</code>: Number of failed spin-up attempts.</li>
+<li><code>Temperature_Celsius</code>: Drive temperature. Sustained high temperatures reduce drive lifespan.</li>
+<li><code>Power_On_Hours</code>: Total hours the drive has been powered on.</li>
+<li><code>Wear_Leveling_Count</code> (SSD/NVMe): Indicates remaining NAND flash lifetime for SSDs.</li>
+</ul>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>S.M.A.R.T. can provide early warning of mechanical failure, but not all failures are predicted (e.g., sudden electronic failure).</li>
+<li>A &quot;PASSED&quot; health status does not guarantee the drive is healthy; it only means no critical thresholds have been crossed.</li>
+<li>Monitor <code>Reallocated_Sector_Ct</code> over time; any increase warrants investigation and backup.</li>
+<li>Run <code>smartctl -t long</code> on new drives to establish a baseline.</li>
+<li><code>smartd</code> is configured via <code>/etc/smartd.conf</code>.</li>
+<li>Enabling S.M.A.R.T. usually requires <code>-s on</code> for ATA drives; most modern drives have it enabled by default.</li>
+<li>NVMe drives use a different health information format (accessed via NVMe commands).</li>
+<li>For SSDs, monitor <code>Media_Wearout_Indicator</code> and <code>Percent_Lifetime_Remaining</code> attributes.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../apachectl/index.html"><strong>apachectl</strong><span>Control and inspect the Apache HTTP server.</span></a>
+<a href="../arch/index.html"><strong>arch</strong><span>Print the machine hardware architecture.</span></a>
+<a href="../at/index.html"><strong>at</strong><span>Schedule a command to run once at a later time.</span></a>
+<a href="../atq/index.html"><strong>atq</strong><span>List queued jobs scheduled with at.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

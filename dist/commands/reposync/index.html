@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>reposync command - Linux Command</title>
+    <meta name="description" content="Synchronize yum/dnf repositories to a local directory.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>reposync</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Administration</p>
+          <h1>reposync</h1>
+          <p>Synchronize yum/dnf repositories to a local directory.</p>
+          <div class="tag-row"><span>repositories</span><span>yum</span><span>dnf</span><span>mirror</span><span>sync</span><span>rpm</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>reposync</code> downloads the contents of yum or dnf repositories to a local directory, creating a local mirror. It retrieves all RPM packages and associated metadata from one or more remote repositories and stores them for offline or local use.</p>
+<p>System administrators use <code>reposync</code> to create local repository mirrors for faster package installations across a network, air-gapped environments that cannot access the internet, or to preserve specific package versions for reproducibility. The synced repository can then be served via HTTP, FTP, or a local file path.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>reposync [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>reposync</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-p dir</code>, <code>--download_path=dir</code>: Directory to download packages to.</li>
+<li><code>-r repo</code>, <code>--repoid=repo</code>: Synchronize only the specified repository ID.</li>
+<li><code>-a arch</code>, <code>--arch=arch</code>: Download packages for the specified architecture.</li>
+<li><code>-l</code>, <code>--allow-path</code>: Allow download to paths outside the repository root.</li>
+<li><code>-n</code>, <code>--newest-only</code>: Download only the newest version of each package.</li>
+<li><code>-u</code>, <code>--umount</code>: Unmount repositories after synchronization.</li>
+<li><code>-c config</code>: Use a specific yum/dnf configuration file.</li>
+<li><code>-d</code>, <code>--delete</code>: Delete packages from the local mirror that are no longer in the remote repository.</li>
+<li><code>-e cache_dir</code>, <code>--cachedir=cache_dir</code>: Specify the cache directory.</li>
+<li><code>--download-metadata</code>: Download repository metadata.</li>
+<li><code>-g</code>, <code>--gpgcheck</code>: Check GPG signatures on downloaded packages.</li>
+<li><code>--norepopath</code>: Do not add the repository path to the download directory.</li>
+<li><code>-q</code>, <code>--quiet</code>: Quiet mode.</li>
+<li><code>-v</code>, <code>--verbose</code>: Verbose output.</li>
+<li><code>--help</code>: Show help.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>reposync -p /var/www/html/repos</code></pre>
+<p>Sync all enabled repositories to a local directory.</p>
+<pre><code>reposync -r base -p /repo/mirror</code></pre>
+<p>Sync only the <code>base</code> repository.</p>
+<pre><code>reposync -r base -r updates -p /repo -n</code></pre>
+<p>Sync only the newest packages from <code>base</code> and <code>updates</code>.</p>
+<pre><code>reposync -p /repo --download-metadata</code></pre>
+<p>Sync packages and also download repository metadata.</p>
+<pre><code>reposync -p /repo -a x86_64</code></pre>
+<p>Sync only x86_64 architecture packages.</p>
+<pre><code>reposync -p /repo -d</code></pre>
+<p>Sync and delete local packages not in the remote repository.</p>
+<pre><code>reposync -c /etc/yum.repos.d/custom.repo -p /repo</code></pre>
+<p>Sync using a specific repository configuration file.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>After running <code>reposync</code>, run <code>createrepo</code> (or <code>createrepo_c</code>) on the downloaded directory to generate repository metadata: <code>createrepo /path/to/repo</code>.</li>
+<li>For CentOS/RHEL 8+ with DNF, use <code>dnf reposync</code> which has a similar interface.</li>
+<li>The <code>-n</code> option saves significant disk space and time, especially on large repositories with many package versions.</li>
+<li>For a complete offline mirror, also sync GPG keys and distribute them to client machines.</li>
+<li>Serve the synced repository with a web server (Apache, Nginx) or share via NFS.</li>
+<li>On client machines, create a <code>.repo</code> file pointing to <code>file:///path/to/repo</code> or <code>http://mirror-server/repo</code>.</li>
+<li><code>reposync</code> is part of the <code>yum-utils</code> package on RHEL/CentOS 7 and the <code>dnf-utils</code> or <code>dnf-plugins-core</code> package on CentOS 8+.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../logsave/index.html"><strong>logsave</strong><span>Save command output to a log file while displaying on the terminal.</span></a>
+<a href="../logwatch/index.html"><strong>logwatch</strong><span>Summarize and report system log activity.</span></a>
+<a href="../lpadmin/index.html"><strong>lpadmin</strong><span>Configure CUPS printers and classes.</span></a>
+<a href="../lpc/index.html"><strong>lpc</strong><span>Line printer control; manage printer queues in CUPS/LPD.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

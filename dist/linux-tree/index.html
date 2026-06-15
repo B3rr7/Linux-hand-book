@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Linux Tree - Linux Command</title>
+    <meta name="description" content="A visual guide to the Linux filesystem tree and what common top-level directories are for.">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../index.html">Home</a>
+        <a  href="../commands/index.html">Commands</a>
+        <a aria-current="page" href="../linux-tree/index.html">Linux Tree</a>
+        <a  href="../tools/index.html">Tools</a>
+        <a  href="../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="linux-tree-shell">
+      <section class="page-intro">
+        <p class="eyebrow">Linux filesystem</p>
+        <h1>See how the Linux directory tree is organized.</h1>
+        <p>Linux starts from one root directory, written as <code>/</code>. Everything else branches below it: commands, user files, devices, logs, configuration, mounted disks, and live kernel information.</p>
+      </section>
+      <form class="tree-search" role="search" data-tree-search-form>
+        <label for="tree-search">Find a file or directory</label>
+        <div class="search-box">
+          <input id="tree-search" data-tree-search-input type="search" placeholder="Try passwd, fstab, ls, log, /etc/passwd..." autocomplete="off">
+          <button type="submit">Find</button>
+        </div>
+        <p class="tree-search-status" data-tree-search-status aria-live="polite"></p>
+      </form>
+      <section class="tree-visual-section" aria-label="Linux filesystem tree diagram">
+        <div class="filesystem-tree" aria-label="Interactive tree diagram showing common Linux directories below root" data-tree-stage>
+          <div class="tree-scroll" data-tree-scroll>
+            <ul class="linux-file-tree">
+              <li>
+                <button class="tree-node tree-node-root" type="button" data-tree-path="/"><code>/</code><small>root filesystem</small></button>
+                <ul>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/bin"><code>bin/</code><small>essential commands</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/bin/ls"><code>ls</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/bin/cp"><code>cp</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/bin/sh"><code>sh</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/etc"><code>etc/</code><small>system configuration</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/etc/ssh"><code>ssh/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/etc/passwd"><code>passwd</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/etc/shadow"><code>shadow</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/etc/fstab"><code>fstab</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/etc/hosts"><code>hosts</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/etc/systemd"><code>systemd/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/home"><code>home/</code><small>regular users</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/home/rani"><code>rani/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/home/guest"><code>guest/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/home/rani/.config"><code>.config/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/home/rani/Downloads"><code>Downloads/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/root"><code>root/</code><small>root user home</small></button>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/usr"><code>usr/</code><small>installed software</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/bin"><code>bin/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/sbin"><code>sbin/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/lib"><code>lib/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/include"><code>include/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/local"><code>local/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/share"><code>share/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/usr/share/man"><code>share/man/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/var"><code>var/</code><small>changing data</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/var/log"><code>log/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/var/cache"><code>cache/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/var/lib"><code>lib/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/var/spool"><code>spool/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/var/tmp"><code>tmp/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/var/www"><code>www/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/dev"><code>dev/</code><small>device files</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/dev/sda"><code>sda</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/dev/tty"><code>tty</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/dev/null"><code>null</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/proc"><code>proc/</code><small>kernel and process info</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/proc/cpuinfo"><code>cpuinfo</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/proc/meminfo"><code>meminfo</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/proc/1234"><code>1234/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/tmp"><code>tmp/</code><small>temporary files</small></button>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/boot"><code>boot/</code><small>boot files</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/boot/vmlinuz"><code>vmlinuz</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/boot/grub"><code>grub/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/sbin"><code>sbin/</code><small>system commands</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/sbin/ip"><code>ip</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/sbin/fsck"><code>fsck</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/lib"><code>lib/</code><small>essential libraries</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/lib/modules"><code>modules/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/lib/ld-linux.so"><code>ld-linux.so</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/run"><code>run/</code><small>runtime state</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/run/user"><code>user/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/run/lock"><code>lock/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/sys"><code>sys/</code><small>kernel devices</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/sys/class"><code>class/</code></button></li>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/sys/block"><code>block/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/media"><code>media/</code><small>removable media</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/media/usb"><code>usb/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/mnt"><code>mnt/</code><small>manual mounts</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/mnt/backup"><code>backup/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/opt"><code>opt/</code><small>optional apps</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/opt/app"><code>app/</code></button></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button class="tree-node" type="button" data-tree-path="/srv"><code>srv/</code><small>service data</small></button>
+                    <ul>
+                      <li><button class="tree-leaf" type="button" data-tree-path="/srv/www"><code>www/</code></button></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <svg class="tree-cable-layer" aria-hidden="true" hidden data-tree-cable>
+            <path data-tree-cable-path></path>
+          </svg>
+          <aside class="tree-info-panel" aria-live="polite" hidden data-tree-panel>
+            <button class="tree-info-close" type="button" aria-label="Close selected path details" data-tree-close>Close</button>
+            <p class="eyebrow">Selected path</p>
+            <h2 data-tree-title></h2>
+            <p data-tree-description></p>
+            <dl>
+              <div>
+                <dt>Kind</dt>
+                <dd data-tree-kind></dd>
+              </div>
+              <div>
+                <dt>Example</dt>
+                <dd><code data-tree-example></code></dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+      <section class="tree-explainer">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2>Paths describe where a file lives below root.</h2>
+          <p>An absolute path starts at <code>/</code>, such as <code>/etc/ssh/sshd_config</code>. A relative path starts from your current directory. Use <code>pwd</code> to see where you are, <code>ls</code> to list files, and <code>cd</code> to move through the tree.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Mounts</p>
+          <h2>Other filesystems attach into the same tree.</h2>
+          <p>A disk, USB drive, network share, or virtual filesystem can be mounted at a directory like <code>/mnt/backup</code> or <code>/media/usb</code>. After mounting, it behaves like another branch of the same tree.</p>
+        </div>
+      </section>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../search-index.json";
+      window.__TOOLS_INDEX__ = "../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../";
+    </script>
+    <script src="../assets/search.js" type="module"></script>
+    <script src="../assets/tools.js" type="module"></script>
+    <script src="../assets/tree.js" type="module"></script>
+    <script src="../assets/theme.js" type="module"></script>
+  </body>
+</html>

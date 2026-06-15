@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ngrep command - Linux Command</title>
+    <meta name="description" content="Network grep; search network traffic for patterns.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>ngrep</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>ngrep</h1>
+          <p>Network grep; search network traffic for patterns.</p>
+          <div class="tag-row"><span>network</span><span>grep</span><span>packet</span><span>capture</span><span>pcap</span><span>pattern</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>ngrep</code> (network grep) applies regular expressions to network packet payloads. It captures packets from a network interface or reads from a packet capture (pcap) file and prints matching packets, behaving like <code>grep</code> for network traffic.</p>
+<p>It is useful for debugging network protocols, checking for specific strings in plaintext traffic, monitoring application-layer data, and analyzing captured traffic. It supports BPF (Berkeley Packet Filter) expressions for filtering.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>ngrep [options] pattern [filter-expression]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>pattern</code>: A regular expression to match against packet payloads.</li>
+<li><code>filter-expression</code>: A BPF filter expression (e.g., <code>host 192.168.1.1</code>, <code>port 80</code>).</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-i</code>: Ignore case when matching.</li>
+<li><code>-w</code>: Match whole words only.</li>
+<li><code>-x</code>: Show packet headers in hex dump format.</li>
+<li><code>-X</code>: Show full packet hex dump (headers and payload).</li>
+<li><code>-d interface</code>: Capture on the specified network interface.</li>
+<li><code>-t</code>: Print timestamps.</li>
+<li><code>-l</code>: Make stdout line-buffered (useful for piping).</li>
+<li><code>-q</code>: Quiet mode; do not show packet headers.</li>
+<li><code>-W format</code>: Output format (<code>normal</code>, <code>single</code>, <code>click</code>).</li>
+<li><code>-n count</code>: Stop after capturing <code>count</code> packets.</li>
+<li><code>-p</code>: Do not put the interface into promiscuous mode.</li>
+<li><code>-s snaplen</code>: Set the packet snapshot length (default 65536).</li>
+<li><code>-I file</code>: Read packets from a pcap file.</li>
+<li><code>-O file</code>: Write captured packets to a pcap file.</li>
+<li><code>-c</code>: Show packet counts.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>ngrep -d eth0 &quot;password&quot;</code></pre>
+<p>Capture packets on <code>eth0</code> and show those containing the string &quot;password&quot;.</p>
+<pre><code>ngrep -i &quot;login&quot; port 80</code></pre>
+<p>Search for &quot;login&quot; (case-insensitive) on HTTP traffic.</p>
+<pre><code>ngrep -i &quot;user&quot; host 10.0.0.5</code></pre>
+<p>Search for &quot;user&quot; in traffic to or from <code>10.0.0.5</code>.</p>
+<pre><code>ngrep -I capture.pcap &quot;error&quot;</code></pre>
+<p>Search a saved pcap file for the pattern &quot;error&quot;.</p>
+<pre><code>ngrep -t &quot;GET&quot; port 80</code></pre>
+<p>Show HTTP GET requests with timestamps.</p>
+<pre><code>ngrep -x &quot;HTTP&quot; port 80</code></pre>
+<p>Show matching HTTP traffic with hex dump.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Root privileges are required to capture packets from a network interface.</li>
+<li>Regular expression syntax is PCRE-compatible (Perl Compatible Regular Expressions).</li>
+<li>For modern network analysis, <code>tcpdump</code> combined with <code>grep</code> or <code>tshark</code> (Wireshark&#39;s CLI) may be more capable.</li>
+<li><code>ngrep</code> sees unencrypted payload only. TLS/HTTPS traffic appears as encrypted data.</li>
+<li>Use BPF filters to narrow the capture and avoid being overwhelmed by traffic.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>scp command - Linux Command</title>
+    <meta name="description" content="Copy files between machines over SSH.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>scp</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>scp</h1>
+          <p>Copy files between machines over SSH.</p>
+          <div class="tag-row"><span>ssh</span><span>copy</span><span>remote</span><span>files</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>scp</code> copies files between local and remote systems over SSH. It is simple and widely available, making it useful for quick transfers, one-off uploads, and basic server administration.</p>
+<p>For repeated syncs, resumable transfers, deletes, or large directory trees, <code>rsync</code> is usually better because it can copy only changed data.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>scp [options] source destination
+scp [options] file user@host:/remote/path
+scp [options] user@host:/remote/file local/path</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>source</code>: Local path or remote path in <code>user@host:path</code> form.</li>
+<li><code>destination</code>: Local or remote destination.</li>
+<li><code>user</code>: Remote username.</li>
+<li><code>host</code>: Remote hostname or IP address.</li>
+<li><code>options</code>: SSH and copy behavior flags.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-r</code>: Copy directories recursively.</li>
+<li><code>-P PORT</code>: Connect to a custom SSH port. This is uppercase <code>P</code>.</li>
+<li><code>-i FILE</code>: Use a specific private key.</li>
+<li><code>-p</code>: Preserve modification times, access times, and modes.</li>
+<li><code>-C</code>: Enable SSH compression.</li>
+<li><code>-v</code>: Verbose SSH output for debugging.</li>
+<li><code>-l LIMIT</code>: Limit bandwidth in Kbit/s.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>scp file.txt user@example.com:/tmp/</code></pre>
+<p>Copy a local file to a remote directory.</p>
+<pre><code>scp user@example.com:/var/log/app.log ./</code></pre>
+<p>Copy a remote file to the current local directory.</p>
+<pre><code>scp -r site/ user@example.com:/var/www/site</code></pre>
+<p>Copy a directory recursively.</p>
+<pre><code>scp -P 2222 -i ~/.ssh/deploy_key backup.tar.gz user@example.com:</code></pre>
+<p>Use a custom SSH port and key.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>scp</code> uses SSH authentication and host-key checks.</li>
+<li>Quote remote paths that contain spaces or shell characters.</li>
+<li>For large deployments, prefer <code>rsync -avz</code> because it is restart-friendly and efficient.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

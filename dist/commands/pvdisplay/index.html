@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pvdisplay command - Linux Command</title>
+    <meta name="description" content="Display detailed information about LVM physical volumes.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>pvdisplay</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Disk</p>
+          <h1>pvdisplay</h1>
+          <p>Display detailed information about LVM physical volumes.</p>
+          <div class="tag-row"><span>lvm</span><span>physical volume</span><span>display</span><span>pv</span><span>metadata</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>pvdisplay</code> shows detailed information about LVM physical volumes. It displays the PV name, UUID, volume group membership, size, allocation status, physical extent (PE) sizes, and current usage details.</p>
+<p>It provides more detail than <code>pvs</code> (which shows summary output) and is used by administrators who need complete metadata about their storage setup. <code>pvdisplay</code> can show information for specific PVs or all PVs on the system.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>pvdisplay [options] [physical-volume...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>physical-volume</code>: Optional path to a specific device. If omitted, all PVs are displayed.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-c</code>, <code>--colon</code>: Output in colon-separated format (machine-parseable).</li>
+<li><code>-C</code>, <code>--columns</code>: Output as columns (like <code>pvs</code>).</li>
+<li><code>-m</code>, <code>--maps</code>: Display physical extent (PE) allocation map showing which logical volumes use which disk areas.</li>
+<li><code>-s</code>, <code>--short</code>: Short format showing only basic information.</li>
+<li><code>-v</code>, <code>--verbose</code>: More detailed output.</li>
+<li><code>-vv</code>: Very verbose with additional debug information.</li>
+<li><code>--units units</code>: Set display units (h for human-readable, b for bytes, k/m/g for KiB/MiB/GiB).</li>
+<li><code>--aligned</code>: Align output columns for readability.</li>
+<li><code>--all</code>: Show all PVs including those with metadata problems.</li>
+<li><code>-S</code>, <code>--select selection</code>: Select PVs based on given criteria.</li>
+<li><code>-O</code>, <code>--sort sort-args</code>: Sort output by specified fields.</li>
+<li><code>--reportformat basic|json</code>: Output format.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>pvdisplay</code></pre>
+<p>Show detailed information about all physical volumes.</p>
+<pre><code>pvdisplay /dev/sdb1</code></pre>
+<p>Show details for a specific physical volume.</p>
+<pre><code>pvdisplay -m</code></pre>
+<p>Show the physical extent allocation map. This reveals which LVs occupy which disk areas.</p>
+<pre><code>pvdisplay -C</code></pre>
+<p>Columnar output format, similar to <code>pvs</code>.</p>
+<pre><code>pvdisplay -c /dev/sdb1</code></pre>
+<p>Machine-parseable colon-separated output.</p>
+<pre><code>pvdisplay -v /dev/sdb1</code></pre>
+<p>Verbose output for a specific PV.</p>
+<pre><code>pvdisplay --units g</code></pre>
+<p>Display sizes in gigabytes.</p>
+<pre><code>pvdisplay -S &quot;pv_free &gt; 0&quot;</code></pre>
+<p>Show only PVs that have free (unallocated) space.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>The output shows total size, allocated size, and free space on each PV.</li>
+<li>The <code>-m</code> option is critical for understanding disk layout and planning expansions or migrations.</li>
+<li>When troubleshooting, <code>pvdisplay</code> reveals if a PV is missing, has incorrect metadata, or is part of an incomplete VG.</li>
+<li>If <code>pvdisplay</code> shows an unknown device, the PV may be missing or disconnected. Use <code>pvscan</code> to discover current PVs.</li>
+<li>For scripted monitoring, use <code>pvs --reportformat json</code> (newer LVM) for structured output.</li>
+<li>The <code>PE</code> (Physical Extent) size shown is the allocation unit for the VG. Typical sizes are 4 MiB.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../badblocks/index.html"><strong>badblocks</strong><span>Check a disk device for bad blocks.</span></a>
+<a href="../blkid/index.html"><strong>blkid</strong><span>Show block device identifiers such as UUID, label, and filesystem type.</span></a>
+<a href="../blockdev/index.html"><strong>blockdev</strong><span>Call block device ioctls from the command line.</span></a>
+<a href="../cdrecord/index.html"><strong>cdrecord</strong><span>Record data or audio tracks to optical media.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

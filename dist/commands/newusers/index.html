@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>newusers command - Linux Command</title>
+    <meta name="description" content="Create multiple users from a file in batch mode.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>newusers</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Administration</p>
+          <h1>newusers</h1>
+          <p>Create multiple users from a file in batch mode.</p>
+          <div class="tag-row"><span>user</span><span>create</span><span>batch</span><span>account</span><span>admin</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>newusers</code> creates user accounts in batch by reading a file with user information in the same format as <code>/etc/passwd</code>. It creates the user accounts, sets passwords, creates home directories, and assigns group memberships all in one operation.</p>
+<p>It is useful for bulk user creation in classroom, lab, or enterprise environments where many accounts need to be set up at once. The input format allows specifying username, password, UID, GID, comment, home directory, and shell for each user.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>newusers [options] [file]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>file</code>: A file with user information in passwd format. If no file is given, reads from stdin.</li>
+</ul>
+<h2 id="input-format-same-as-etc-passwd">Input Format (same as /etc/passwd)</h2>
+<p>Each line has seven colon-separated fields:</p>
+<pre><code>username:password:uid:gid:comment:home-dir:shell</code></pre>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-c</code>, <code>--crypt</code>: Use crypt() encryption for passwords (default).</li>
+<li><code>-r</code>, <code>--system</code>: Create system accounts instead of regular user accounts.</li>
+<li><code>-s</code>, <code>--sha256</code>: Use SHA256 password hashing.</li>
+<li><code>-t</code>, <code>--sha512</code>: Use SHA512 password hashing.</li>
+<li><code>-b</code>, <code>--md5</code>: Use MD5 password hashing.</li>
+<li><code>-d</code>, <code>--des</code>: Use DES password hashing.</li>
+<li><code>-P</code>, <code>--password</code>: Read passwords as-is (already hashed).</li>
+<li><code>-h</code>, <code>--help</code>: Show help.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>newusers users.txt</code></pre>
+<p>Create users defined in <code>users.txt</code>.</p>
+<pre><code>alice:password123:1001:1001:Alice Smith:/home/alice:/bin/bash
+bob:password456:1002:1002:Bob Jones:/home/bob:/bin/bash</code></pre>
+<p>Example <code>users.txt</code> content.</p>
+<pre><code>echo &quot;charlie:changeme:1003:1003:Charlie Brown:/home/charlie:/bin/bash&quot; | newusers</code></pre>
+<p>Create a single user from stdin.</p>
+<pre><code>newusers -s users.txt</code></pre>
+<p>Create users with SHA256 password hashing.</p>
+<pre><code>newusers -r users.txt</code></pre>
+<p>Create system users (UIDs in the system range).</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Passwords in the input file are plaintext unless <code>-P</code> is used. The file should be kept secure and deleted after use.</li>
+<li>If the specified GID does not exist, a group with that GID is created automatically.</li>
+<li>Home directories are created with contents copied from <code>/etc/skel</code>.</li>
+<li>For single user creation, <code>useradd</code> is more appropriate and provides more control.</li>
+<li>On modern systems, consider using <code>ansible</code>, <code>puppet</code>, or similar tools for large-scale user management.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../logsave/index.html"><strong>logsave</strong><span>Save command output to a log file while displaying on the terminal.</span></a>
+<a href="../logwatch/index.html"><strong>logwatch</strong><span>Summarize and report system log activity.</span></a>
+<a href="../lpadmin/index.html"><strong>lpadmin</strong><span>Configure CUPS printers and classes.</span></a>
+<a href="../lpc/index.html"><strong>lpc</strong><span>Line printer control; manage printer queues in CUPS/LPD.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

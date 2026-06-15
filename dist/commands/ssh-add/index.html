@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ssh-add command - Linux Command</title>
+    <meta name="description" content="Add private keys to the SSH authentication agent.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>ssh-add</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>ssh-add</h1>
+          <p>Add private keys to the SSH authentication agent.</p>
+          <div class="tag-row"><span>ssh</span><span>authentication</span><span>key</span><span>agent</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>ssh-add</code> adds private key identities to the <code>ssh-agent</code> (or other SSH agent), enabling passwordless authentication to remote hosts. Once a key is added (and its passphrase entered once), <code>ssh-agent</code> provides the private key for authentication without requiring the passphrase again.</p>
+<p>The command operates by communicating with a running SSH agent via the <code>SSH_AUTH_SOCK</code> environment variable. If no agent is running, <code>ssh-add</code> will fail. Keys can be added from their default locations (<code>~/.ssh/id_rsa</code>, <code>~/.ssh/id_ecdsa</code>, <code>~/.ssh/id_ed25519</code>, <code>~/.ssh/id_dsa</code>) or specified explicitly.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>ssh-add [options] [keyfile...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>keyfile</code>: Path to a private key file to add. Multiple keys can be specified.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-l</code>: List fingerprints of all identities currently stored in the agent.</li>
+<li><code>-L</code>: List the full public key contents of all identities in the agent.</li>
+<li><code>-d keyfile</code>: Remove a specific identity from the agent.</li>
+<li><code>-D</code>: Remove all identities from the agent (delete all keys).</li>
+<li><code>-c</code>: Require confirmation for each authentication using this key (via a dialog).</li>
+<li><code>-t life</code>: Set a maximum lifetime in seconds for the identity (timeout).</li>
+<li><code>-x</code>: Lock the agent with a password.</li>
+<li><code>-X</code>: Unlock the agent with a password.</li>
+<li><code>-E fingerprint_hash</code>: Specify the fingerprint hash algorithm (e.g., <code>md5</code>, <code>sha256</code>).</li>
+<li><code>-s reader</code>: Add a PKCS#11 token from a smart card reader.</li>
+<li><code>-e reader</code>: Remove a key provided by a PKCS#11 token.</li>
+<li><code>-q</code>: Quiet mode (suppress output).</li>
+<li><code>-K</code>: Load key into the macOS keychain (macOS only).</li>
+<li><code>-A</code>: Add all keys from the default key locations (<code>~/.ssh/id_*</code>).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>ssh-add</code></pre>
+<p>Add all default keys (<code>~/.ssh/id_rsa</code>, <code>~/.ssh/id_ed25519</code>, etc.) to the agent.</p>
+<pre><code>ssh-add ~/.ssh/deploy_key</code></pre>
+<p>Add a specific private key file to the agent.</p>
+<pre><code>ssh-add -l</code></pre>
+<p>List fingerprints of all keys currently loaded in the agent.</p>
+<pre><code>ssh-add -D</code></pre>
+<p>Remove all keys from the agent.</p>
+<pre><code>ssh-add -t 3600 ~/.ssh/id_ed25519</code></pre>
+<p>Add a key with a 1-hour timeout (3600 seconds).</p>
+<pre><code>ssh-add -d ~/.ssh/id_rsa</code></pre>
+<p>Remove a specific key from the agent.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>ssh-agent</code> must be running before <code>ssh-add</code> works. Start it with <code>eval $(ssh-agent)</code>.</li>
+<li>Keys are stored in memory by the agent and are lost when the agent process terminates.</li>
+<li>The <code>-t</code> option is useful for temporary sessions where keys should not persist indefinitely.</li>
+<li>Use <code>ssh-add -L</code> to get the public key strings for adding to <code>authorized_keys</code> files.</li>
+<li>For automated/scripted use, <code>sshpass</code> or <code>expect</code> can provide passphrases to <code>ssh-add</code>.</li>
+<li><code>ssh-add -A</code> is useful at login to load keys from default locations automatically.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

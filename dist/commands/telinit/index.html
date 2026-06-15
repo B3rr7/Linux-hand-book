@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>telinit command - Linux Command</title>
+    <meta name="description" content="Change the system runlevel or send signals to init.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>telinit</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">System</p>
+          <h1>telinit</h1>
+          <p>Change the system runlevel or send signals to init.</p>
+          <div class="tag-row"><span>init</span><span>runlevel</span><span>systemd</span><span>sysvinit</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>telinit</code> communicates with the init process (PID 1) to change the system&#39;s runlevel or send control signals. On SysV-init systems, it changes the operating mode by signaling the init daemon, which then starts or stops services according to the runlevel definitions in <code>/etc/inittab</code>.</p>
+<p>On systemd-based systems, <code>telinit</code> is a compatibility wrapper that maps traditional runlevel requests to systemd targets. For example, <code>telinit 3</code> becomes <code>systemctl isolate multi-user.target</code>, and <code>telinit 5</code> maps to <code>graphical.target</code>. This allows scripts and administrators familiar with SysV commands to continue using <code>telinit</code> on modern systems.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>telinit [runlevel | signal]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>runlevel</code>: A single digit 0-6, or the characters <code>S</code>/<code>s</code> for single-user mode, <code>a</code>/<code>b</code>/<code>c</code> for custom runlevels.</li>
+<li><code>signal</code>: Alternatives like <code>q</code> (reload configuration), <code>u</code> (re-exec init).</li>
+</ul>
+<h2 id="common-runlevels">Common Runlevels</h2>
+<ul>
+<li><code>0</code>: Halt/shutdown the system.</li>
+<li><code>1</code> or <code>s</code>/<code>S</code>: Single-user mode (maintenance/rescue).</li>
+<li><code>2</code>: Multi-user mode (without network, sometimes without GUI).</li>
+<li><code>3</code>: Multi-user mode with networking (text mode).</li>
+<li><code>4</code>: Undefined/custom.</li>
+<li><code>5</code>: Multi-user mode with GUI (X11).</li>
+<li><code>6</code>: Reboot the system.</li>
+</ul>
+<h2 id="special-options">Special Options</h2>
+<ul>
+<li><code>q</code>: Have init re-examine <code>/etc/inittab</code> (SysV). On systemd, this is a no-op.</li>
+<li><code>u</code>: Re-exec the init daemon (without changing runlevel).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>telinit 1</code></pre>
+<p>Switch to single-user maintenance mode.</p>
+<pre><code>telinit 3</code></pre>
+<p>Switch to multi-user text mode.</p>
+<pre><code>telinit 5</code></pre>
+<p>Switch to graphical mode.</p>
+<pre><code>telinit 6</code></pre>
+<p>Reboot the system.</p>
+<pre><code>telinit q</code></pre>
+<p>Have init re-read its configuration (SysV only).</p>
+<pre><code>telinit u</code></pre>
+<p>Re-exec the init process (for updating init itself without reboot).</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>On systemd systems, <code>telinit</code> and <code>init</code> are symbolic links to <code>systemctl</code>.</li>
+<li>The <code>shutdown</code>, <code>halt</code>, <code>poweroff</code>, <code>reboot</code> commands are preferred for stopping the system.</li>
+<li>Runlevel 2 is distribution-specific: some treat it the same as 3, others do not.</li>
+<li>Use <code>runlevel</code> to check the current and previous runlevel.</li>
+<li>In container environments, <code>telinit</code> may not be available or may have no effect.</li>
+<li>The traditional <code>/etc/inittab</code> file is ignored by systemd.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../apachectl/index.html"><strong>apachectl</strong><span>Control and inspect the Apache HTTP server.</span></a>
+<a href="../arch/index.html"><strong>arch</strong><span>Print the machine hardware architecture.</span></a>
+<a href="../at/index.html"><strong>at</strong><span>Schedule a command to run once at a later time.</span></a>
+<a href="../atq/index.html"><strong>atq</strong><span>List queued jobs scheduled with at.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

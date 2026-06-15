@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>php command - Linux Command</title>
+    <meta name="description" content="PHP: Hypertext Preprocessor command-line interpreter.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>php</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Development</p>
+          <h1>php</h1>
+          <p>PHP: Hypertext Preprocessor command-line interpreter.</p>
+          <div class="tag-row"><span>php</span><span>scripting</span><span>web</span><span>cli</span><span>language</span><span>programming</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>php</code> is the command-line interface (CLI) for executing PHP scripts. PHP is a widely-used general-purpose scripting language that is especially suited for web development. The CLI version allows running PHP scripts from the terminal, performing batch processing, writing system administration tools, and testing code without a web server.</p>
+<p>PHP is one of the most popular languages for server-side web development, powering major platforms like WordPress, Drupal, Laravel, Symfony, and Facebook (via HHVM historically). The CLI version includes the same language engine as the web module but with features tailored for command-line use, such as built-in web server mode, interactive shell, and support for Unix signals.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>php [options] [script-file] [arguments...]
+php [options] -r &#39;code&#39; [arguments...]
+php [options] -a</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>script-file</code>: The PHP script to execute.</li>
+<li><code>arguments</code>: Command-line arguments passed to the script. Available in <code>$argv</code> and <code>$argc</code>.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-r &#39;code&#39;</code>: Run PHP code directly from the command line without <code>&lt;?php</code> tags.</li>
+<li><code>-f file</code>: Parse and execute a file. This is the default behavior.</li>
+<li><code>-a</code>: Start the interactive PHP shell (read-eval-print loop).</li>
+<li><code>-l</code>: Syntax check (lint) a PHP file without executing it.</li>
+<li><code>-w</code>: Strip comments and whitespace from the source code.</li>
+<li><code>-i</code>: Print PHP information (<code>phpinfo()</code> equivalent) and exit.</li>
+<li><code>-m</code>: List all compiled and loaded PHP modules.</li>
+<li><code>-n</code>: Load no php.ini file.</li>
+<li><code>-c path</code>: Look for php.ini in the specified path.</li>
+<li><code>-d key=value</code>: Define a custom INI entry.</li>
+<li><code>-e</code>: Generate extended information for the debugger/profiler.</li>
+<li><code>-S addr:port</code>: Start the built-in web server on the specified address and port.</li>
+<li><code>-t document-root</code>: Specify the document root for the built-in web server.</li>
+<li><code>-B code</code>: Execute code before processing input (with <code>-R</code> or <code>-F</code>).</li>
+<li><code>-R code</code>: Execute code for each input line.</li>
+<li><code>-E code</code>: Execute code after processing input.</li>
+<li><code>-F file</code>: Parse and execute a file for each input line.</li>
+<li><code>-h</code>, <code>--help</code>: Show help.</li>
+<li><code>-v</code>, <code>--version</code>: Show PHP version information.</li>
+<li><code>--ini</code>: Show PHP configuration file names and paths.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>php -v</code></pre>
+<p>Show the PHP version.</p>
+<pre><code>php -m</code></pre>
+<p>List all loaded PHP modules.</p>
+<pre><code>php -i | grep php.ini</code></pre>
+<p>Show PHP configuration and search for the config file path.</p>
+<pre><code>php -r &#39;echo &quot;Hello, World!\n&quot;;&#39;</code></pre>
+<p>Run a PHP one-liner that prints a greeting.</p>
+<pre><code>php -l script.php</code></pre>
+<p>Check a PHP file for syntax errors without executing it.</p>
+<pre><code>php script.php</code></pre>
+<p>Execute a PHP script file.</p>
+<pre><code>php -a</code></pre>
+<p>Start the interactive PHP shell.</p>
+<pre><code>php -S localhost:8000 -t /var/www/html</code></pre>
+<p>Start the built-in PHP development web server.</p>
+<pre><code>php -d memory_limit=256M -d max_execution_time=60 script.php</code></pre>
+<p>Run a script with custom PHP configuration values.</p>
+<pre><code>php -r &#39;print_r(get_loaded_extensions());&#39;</code></pre>
+<p>Print all loaded PHP extensions.</p>
+<pre><code>php -n script.php</code></pre>
+<p>Run a script without loading any php.ini configuration (all defaults).</p>
+<pre><code>php -B &#39;print &quot;Starting\n&quot;;&#39; -R &#39;print strtoupper(&quot;$argn\n&quot;);&#39; -E &#39;print &quot;Done\n&quot;;&#39;</code></pre>
+<p>Process each input line: print before, uppercase each line, print after.</p>
+<pre><code>php --ini</code></pre>
+<p>Show which configuration files PHP is using.</p>
+<pre><code>#!/usr/bin/env php
+&lt;?php
+echo &quot;Command-line args:\n&quot;;
+foreach ($argv as $i =&gt; $arg) {
+    echo &quot;  \$argv[$i] = $arg\n&quot;;
+}</code></pre>
+<p>A standard PHP CLI script shebang line and argument processing.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>The built-in web server (<code>-S</code>) is for development only. It is single-threaded and not intended for production use.</li>
+<li>Use <code>php -l</code> (lint) as part of a pre-commit hook or CI pipeline to catch syntax errors before they reach production.</li>
+<li>The interactive shell (<code>-a</code>) requires the <code>readline</code> extension for line editing and history.</li>
+<li>For running scheduled tasks, use <code>php /path/to/script.php</code> in cron jobs. The CLI version has different ini settings from the web module (e.g., no time limit by default).</li>
+<li>Common CLI INI file is <code>/etc/php/8.x/cli/php.ini</code> on Debian/Ubuntu. Check with <code>php --ini</code>.</li>
+<li>PHP CLI scripts can access <code>$argv</code> (argument array) and <code>$argc</code> (argument count) for command-line argument handling.</li>
+<li>Use <code>php -r</code> for quick tests, but be careful with quoting on the shell command line.</li>
+<li>The <code>-d</code> option allows setting any php.ini directive at runtime without modifying configuration files.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ar/index.html"><strong>ar</strong><span>Create, modify, and inspect Unix archive files.</span></a>
+<a href="../as/index.html"><strong>as</strong><span>Assemble source code into object files with GNU assembler.</span></a>
+<a href="../diffstat/index.html"><strong>diffstat</strong><span>Display a histogram of diff output changes.</span></a>
+<a href="../docker/index.html"><strong>docker</strong><span>Manage containers, images, networks, and volumes.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

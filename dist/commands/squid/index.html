@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>squid command - Linux Command</title>
+    <meta name="description" content="Squid caching proxy server.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>squid</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>squid</h1>
+          <p>Squid caching proxy server.</p>
+          <div class="tag-row"><span>proxy</span><span>cache</span><span>web</span><span>squid</span><span>forward-proxy</span><span>reverse-proxy</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p>Squid is a high-performance caching proxy server for HTTP, HTTPS, FTP, and other network protocols. It can be deployed as a forward proxy (caching frequently accessed web content for client LANs), a reverse proxy (accelerating web servers by caching their responses), or a content filter (controlling and monitoring web access). Squid is one of the most widely used proxy servers on Unix-like systems.</p>
+<p>Squid improves performance by caching frequently requested content in memory and on disk, reducing bandwidth and response times. It supports access control lists (ACLs) for fine-grained traffic management, authentication via LDAP, NTLM, Kerberos, and basic auth, SSL/TLS interception, and advanced content filtering through Squid&#39;s redirector/rewriter framework and ICAP/eCAP protocols.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>squid [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>squid</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-a</code>: Disable the ICP (Internet Cache Protocol) port.</li>
+<li><code>-C</code>: Do not catch fatal signals (useful for debugging).</li>
+<li><code>-d level</code>: Enable debug output to stderr at the specified verbosity level (0-99).</li>
+<li><code>-f configfile</code>: Use an alternative configuration file (default: <code>/etc/squid/squid.conf</code>).</li>
+<li><code>-k signal</code>: Send a signal to the running Squid process. Signals: <code>reconfigure</code>, <code>rotate</code>, <code>shutdown</code>, <code>interrupt</code>, <code>kill</code>, <code>debug</code>, <code>check</code>, <code>parse</code>.</li>
+<li><code>-l</code>: Use syslog for logging instead of cache.log.</li>
+<li><code>-N</code>: Run in the foreground (do not daemonize).</li>
+<li><code>-n service_name</code>: Specify a service name for logging purposes.</li>
+<li><code>-s</code>: Enable syslog logging in addition to standard logs.</li>
+<li><code>-u port</code>: Specify the ICP port number.</li>
+<li><code>-v</code>: Show version information.</li>
+<li><code>-z</code>: Create swap directories (initialize the cache directory structure).</li>
+<li><code>-X</code>: Force full debugging (debug all sections).</li>
+<li><code>-Y</code>: Disable memory caching for initial rebuild.</li>
+</ul>
+<h2 id="squid-configuration-examples">Squid Configuration Examples</h2>
+<p>Basic forward proxy (in <code>/etc/squid/squid.conf</code>):</p>
+<pre><code>http_port 3128
+acl localnet src 192.168.1.0/24
+http_access allow localnet
+http_access deny all</code></pre>
+<p>Basic reverse proxy:</p>
+<pre><code>http_port 80 accel defaultsite=example.com
+cache_peer backend.example.com parent 80 0 no-query originserver
+http_access allow all</code></pre>
+<h2 id="examples">Examples</h2>
+<pre><code>squid -z</code></pre>
+<p>Initialize Squid&#39;s cache directory structure (required before first start).</p>
+<pre><code>squid -N -d 1</code></pre>
+<p>Run Squid in the foreground with debug level 1.</p>
+<pre><code>squid -k reconfigure</code></pre>
+<p>Reload the configuration without restarting Squid.</p>
+<pre><code>squid -k rotate</code></pre>
+<p>Rotate the log files (close current logs, open new ones).</p>
+<pre><code>squid -k shutdown</code></pre>
+<p>Gracefully shut down Squid.</p>
+<pre><code>squid -f /etc/squid/custom.conf</code></pre>
+<p>Start Squid with an alternative configuration file.</p>
+<pre><code>squid -k parse</code></pre>
+<p>Check the configuration file for syntax errors without starting Squid.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Squid&#39;s main configuration file is <code>/etc/squid/squid.conf</code>, which contains extensive documentation in comments.</li>
+<li>Access control is processed in order; the first matching rule determines access.</li>
+<li>Common ACL types: <code>src</code> (source IP), <code>dst</code> (destination IP), <code>dstdomain</code> (domain), <code>url_regex</code>, <code>time</code>, <code>port</code>, <code>method</code>.</li>
+<li>Squid logs are stored in <code>/var/log/squid/access.log</code>, <code>cache.log</code>, and <code>store.log</code>.</li>
+<li>Use <code>cachemgr.cgi</code> or <code>squidclient</code> for web-based management and statistics.</li>
+<li>For HTTPS inspection, Squid requires SSL certificate generation and configuration (<code>ssl_bump</code> feature).</li>
+<li>The <code>cache_mem</code> directive controls how much memory Squid uses for hot objects.</li>
+<li>Replacement policies: <code>heap LRU</code> (default), <code>heap GDSF</code>, <code>heap LFUDA</code>, or <code>heap M</code>-based algorithms.</li>
+<li>Squid&#39;s ICP and HTCP protocols enable hierarchical caching between multiple Squid servers.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lynx command - Linux Command</title>
+    <meta name="description" content="Text-based web browser for the terminal.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>lynx</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>lynx</h1>
+          <p>Text-based web browser for the terminal.</p>
+          <div class="tag-row"><span>web</span><span>browser</span><span>text</span><span>html</span><span>terminal</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>lynx</code> is a fully functional text-based web browser that renders HTML pages in the terminal. It displays web pages as formatted text, showing links as highlighted items that can be navigated with arrow keys or tab.</p>
+<p>It is invaluable for browsing the web over slow connections, on systems without a graphical environment, for accessibility (screen readers), and for testing how web pages render without JavaScript or CSS. It also functions as a command-line HTML-to-text converter.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>lynx [options] [url]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>url</code>: The URL to open. If omitted, <code>lynx</code> may load a default start page or a blank page.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-dump</code>: Render the page as formatted text to stdout and exit. Useful for piping.</li>
+<li><code>-stdin</code>: Read HTML from stdin and render it.</li>
+<li><code>-source</code>: Print the raw HTML source of the page.</li>
+<li><code>-accept_all_cookies</code>: Accept all cookies without prompting.</li>
+<li><code>-anonymous</code>: Disable all user-specific files and settings.</li>
+<li><code>-cache=N</code>: Set the cache size in kilobytes.</li>
+<li><code>-cfg=file</code>: Use an alternative configuration file.</li>
+<li><code>-nocolor</code>: Disable color output.</li>
+<li><code>-nopause</code>: Do not pause after each page.</li>
+<li><code>-scrollbar</code>: Show a scrollbar on the right side.</li>
+<li><code>-vikeys</code>: Use vi-style key bindings.</li>
+<li><code>-width=N</code>: Set the display width in characters (for <code>-dump</code>).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>lynx https://example.com</code></pre>
+<p>Open a URL in the interactive browser.</p>
+<pre><code>lynx -dump https://example.com</code></pre>
+<p>Render the page as plain text and print to stdout.</p>
+<pre><code>lynx -source https://example.com &gt; page.html</code></pre>
+<p>Download the raw HTML source.</p>
+<pre><code>curl https://example.com | lynx -stdin -dump</code></pre>
+<p>Pipe HTML into lynx and render as text.</p>
+<pre><code>lynx -dump -nolist https://example.com</code></pre>
+<p>Render as text without showing link references.</p>
+<h2 id="navigation-interactive-mode">Navigation (Interactive Mode)</h2>
+<ul>
+<li>Arrow keys or Tab/Shift+Tab: Move between links.</li>
+<li>Enter: Follow the selected link.</li>
+<li><code>g</code>: Go to a URL.</li>
+<li><code>b</code>: Go back to the previous page.</li>
+<li><code>p</code>: Print or save the current page.</li>
+<li><code>d</code>: Download the current link.</li>
+<li><code>o</code>: Open options menu.</li>
+<li><code>q</code>: Quit (with confirmation).</li>
+<li><code>Q</code>: Quit immediately.</li>
+<li><code>h</code>: Show help.</li>
+<li><code>/</code>: Search within the page.</li>
+</ul>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>-dump</code> to extract readable text from HTML in scripts or pipelines.</li>
+<li>Lynx respects the <code>NO_COLOR</code> environment variable if set.</li>
+<li>Configuration is stored in <code>~/.lynxrc</code> or system-wide in <code>/etc/lynx/lynx.cfg</code>.</li>
+<li>Lynx does not support JavaScript, CSS, or modern web features; many sites will not work properly.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

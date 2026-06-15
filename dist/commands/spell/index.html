@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>spell command - Linux Command</title>
+    <meta name="description" content="Check text for spelling errors.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>spell</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Text</p>
+          <h1>spell</h1>
+          <p>Check text for spelling errors.</p>
+          <div class="tag-row"><span>spell</span><span>spelling</span><span>text</span><span>dictionary</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>spell</code> is a spell-checking program that reads text from standard input and outputs words that are not found in the system dictionary. It is a legacy Unix command that has been largely replaced by more modern spelling tools like <code>aspell</code> and <code>hunspell</code>.</p>
+<p>The command applies a set of rules including dictionary lookup, morphological analysis, and suffix/prefix stripping. Words not recognized by any of these methods are printed one per line on standard output. On many modern Linux distributions, <code>spell</code> is a compatibility wrapper around <code>aspell</code> or <code>hunspell</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>spell [options] [file...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>file</code>: Text file(s) to spell-check. If omitted, reads from standard input.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-b</code>: Use British English dictionary instead of American English.</li>
+<li><code>-l</code>: Show all misspelled words in a list (default behavior).</li>
+<li><code>-i</code>: Ignore include files.</li>
+<li><code>-n</code>: Show the line number of each misspelled word.</li>
+<li><code>-v</code>: Show all words, including correctly spelled ones (verbose).</li>
+<li><code>-x</code>: Show suggestions for misspelled words (if supported by backend).</li>
+<li><code>-d dict</code>: Use an alternative dictionary file.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>spell document.txt</code></pre>
+<p>Check <code>document.txt</code> and output all misspelled words.</p>
+<pre><code>cat report.txt | spell</code></pre>
+<p>Check text piped from a file via standard input.</p>
+<pre><code>spell -b document.txt</code></pre>
+<p>Check spelling using British English dictionary.</p>
+<pre><code>spell -v document.txt</code></pre>
+<p>Show all words found in the document.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>spell</code> is not installed by default on many modern distributions. Install <code>aspell</code> or <code>hunspell</code> as alternatives.</li>
+<li>The output is a list of potentially misspelled words, one per line.</li>
+<li>System dictionaries are typically located in <code>/usr/share/dict/</code> or <code>/var/lib/hunspell/</code>.</li>
+<li>Proper nouns, technical terms, and acronyms may appear as false positives.</li>
+<li>For interactive spell-checking, use <code>aspell check file</code> or a text editor with spell-check built in.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ack/index.html"><strong>ack</strong><span>Search source code with an ack-style text searcher.</span></a>
+<a href="../ag/index.html"><strong>ag</strong><span>Search source code quickly with The Silver Searcher.</span></a>
+<a href="../awk/index.html"><strong>awk</strong><span>Process text files by fields and patterns.</span></a>
+<a href="../base64/index.html"><strong>base64</strong><span>Encode or decode Base64 data.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

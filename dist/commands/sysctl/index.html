@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sysctl command - Linux Command</title>
+    <meta name="description" content="Configure kernel parameters at runtime.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>sysctl</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">System</p>
+          <h1>sysctl</h1>
+          <p>Configure kernel parameters at runtime.</p>
+          <div class="tag-row"><span>kernel</span><span>parameters</span><span>sysctl</span><span>system</span><span>configuration</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>sysctl</code> reads and modifies kernel parameters at runtime. It interfaces with the <code>/proc/sys/</code> virtual filesystem, where each file corresponds to a kernel parameter. Parameters control a wide range of kernel behavior: networking (IP forwarding, buffer sizes), virtual memory (swappiness, dirty page ratios), security (kernel pointers, core dumps), filesystems, and more.</p>
+<p>Changes made with <code>sysctl</code> are immediate but do not persist across reboots unless written to <code>/etc/sysctl.conf</code> or a file under <code>/etc/sysctl.d/</code>. The <code>sysctl -p</code> command loads settings from configuration files. The kernel parameter namespace uses a dotted notation corresponding to the filesystem path (e.g., <code>net.ipv4.ip_forward</code> maps to <code>/proc/sys/net/ipv4/ip_forward</code>).</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>sysctl [options] [parameter[=value] ...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>parameter</code>: The name of a kernel parameter to read (e.g., <code>net.ipv4.ip_forward</code>).</li>
+<li><code>parameter=value</code>: Set a kernel parameter to the specified value.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-a</code>, <code>--all</code>: Display all currently available kernel parameters.</li>
+<li><code>-A</code>: Display all parameters in a table format (like <code>-a</code> but with more detail).</li>
+<li><code>-n</code>, <code>--values</code>: Print only the values, not the parameter names.</li>
+<li><code>-e</code>, <code>--ignore</code>: Ignore errors about unknown parameters.</li>
+<li><code>-N</code>, <code>--names</code>: Print only the parameter names, not the values.</li>
+<li><code>-q</code>, <code>--quiet</code>: Suppress output when setting parameters.</li>
+<li><code>-w</code>, <code>--write</code>: Enable writing a value to a parameter.</li>
+<li><code>-p file</code>, <code>--load=file</code>: Load settings from a file (default: <code>/etc/sysctl.conf</code>).</li>
+<li><code>-r</code>, <code>--pattern pattern</code>: Apply operations only to parameters matching the regular expression.</li>
+<li><code>--system</code>: Load settings from all system sysctl configuration files.</li>
+<li><code>-b</code>, <code>--binary</code>: Print values in binary form (for parameters with binary data).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sysctl -a</code></pre>
+<p>Display all kernel parameters and their current values.</p>
+<pre><code>sysctl net.ipv4.ip_forward</code></pre>
+<p>Check whether IP forwarding is enabled.</p>
+<pre><code>sysctl -w net.ipv4.ip_forward=1</code></pre>
+<p>Enable IP forwarding (routing) immediately.</p>
+<pre><code>sysctl -w vm.swappiness=10</code></pre>
+<p>Reduce the kernel&#39;s tendency to swap (lower = less swapping).</p>
+<pre><code>sysctl -p</code></pre>
+<p>Load settings from <code>/etc/sysctl.conf</code>.</p>
+<pre><code>sysctl --system</code></pre>
+<p>Load all sysctl configuration files from <code>/etc/sysctl.d/</code>, <code>/run/sysctl.d/</code>, <code>/usr/lib/sysctl.d/</code>.</p>
+<pre><code>sysctl -n kernel.hostname</code></pre>
+<p>Show only the hostname value (not the parameter name).</p>
+<pre><code>sysctl -w fs.file-max=100000</code></pre>
+<p>Increase the maximum number of open file descriptors system-wide.</p>
+<h2 id="common-parameters">Common Parameters</h2>
+<ul>
+<li><code>net.ipv4.ip_forward</code>: Enable IP forwarding (for routers/VPNs).</li>
+<li><code>net.ipv4.conf.all.rp_filter</code>: Enable reverse path filtering.</li>
+<li><code>net.ipv4.tcp_syncookies</code>: Enable SYN cookies (DoS protection).</li>
+<li><code>vm.swappiness</code>: Tendency to swap (0-100, default 60).</li>
+<li><code>vm.dirty_ratio</code>: Percentage of memory that can be dirty before blocking.</li>
+<li><code>vm.dirty_background_ratio</code>: Percentage of dirty memory before background writeback.</li>
+<li><code>kernel.hostname</code>: System hostname.</li>
+<li><code>kernel.core_uses_pid</code>: Append PID to core dump filenames.</li>
+<li><code>fs.file-max</code>: Maximum number of open file handles system-wide.</li>
+<li><code>net.core.somaxconn</code>: Maximum listen backlog.</li>
+<li><code>net.ipv4.tcp_keepalive_time</code>: TCP keepalive interval.</li>
+</ul>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>sysctl -a</code> output can be very long; pipe to <code>less</code> or <code>grep</code> for filtering.</li>
+<li>Persistent settings go in <code>/etc/sysctl.conf</code> or <code>/etc/sysctl.d/*.conf</code>.</li>
+<li>The <code>--system</code> flag loads files in alphanumeric order from multiple directories.</li>
+<li>Boolean parameters use <code>0</code> (false/off) and <code>1</code> (true/on).</li>
+<li>Changing some parameters (like network buffers) can significantly impact performance.</li>
+<li>Some kernel parameters are read-only and cannot be modified at runtime.</li>
+<li>Rule of thumb: set <code>vm.swappiness=10</code> for desktops/servers to reduce unnecessary swapping.</li>
+<li>In containers, some sysctl parameters may be restricted for security reasons.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../apachectl/index.html"><strong>apachectl</strong><span>Control and inspect the Apache HTTP server.</span></a>
+<a href="../arch/index.html"><strong>arch</strong><span>Print the machine hardware architecture.</span></a>
+<a href="../at/index.html"><strong>at</strong><span>Schedule a command to run once at a later time.</span></a>
+<a href="../atq/index.html"><strong>atq</strong><span>List queued jobs scheduled with at.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

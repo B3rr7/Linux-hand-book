@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>smbclient command - Linux Command</title>
+    <meta name="description" content="SMB/CIFS filesystem access client.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>smbclient</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>smbclient</h1>
+          <p>SMB/CIFS filesystem access client.</p>
+          <div class="tag-row"><span>smb</span><span>cifs</span><span>samba</span><span>file-sharing</span><span>network</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>smbclient</code> is a client tool from the Samba suite that provides FTP-like access to SMB/CIFS shares on Windows and Samba servers. It can list shares, transfer files, and perform basic filesystem operations using the Server Message Block protocol, which is the standard network file sharing protocol used by Windows systems.</p>
+<p>Beyond interactive file browsing, <code>smbclient</code> supports scripted file transfers, share discovery (<code>-L</code>), and authentication with both NTLM and Kerberos. It is useful for accessing network shares from the command line without mounting them, especially in automation scripts and troubleshooting scenarios.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>smbclient [//server/share] [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>//server/share</code>: The UNC path to the SMB share to connect to.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-U username[%password]</code>: Specify the username (and optionally password) for authentication.</li>
+<li><code>-L server</code>: List all available shares on the server (does not connect to a specific share).</li>
+<li><code>-I ip</code>: Connect to the specified IP address instead of resolving the hostname.</li>
+<li><code>-N</code>: Suppress the password prompt (use for anonymous or guest access).</li>
+<li><code>-P port</code>: Connect to the specified port (default: 445 or 139).</li>
+<li><code>-d level</code>: Set debug level (0-10, higher is more verbose).</li>
+<li><code>-W workgroup</code>: Specify the workgroup or domain.</li>
+<li><code>-c command_string</code>: Execute a semicolon-separated list of commands without entering interactive mode.</li>
+<li><code>-m max_protocol</code>: Set the maximum protocol level (NT1, SMB2, SMB3).</li>
+<li><code>-A authfile</code>: Read credentials from a file in the format <code>username = user</code>, <code>password = pass</code>, <code>domain = domain</code>.</li>
+<li><code>-k</code>: Use Kerberos authentication (ticket required).</li>
+<li><code>-O socket_options</code>: Set TCP socket options.</li>
+<li><code>-t terminal_code</code>: Set the terminal code page for displaying filenames.</li>
+</ul>
+<h2 id="interactive-commands">Interactive Commands</h2>
+<ul>
+<li><code>ls</code>: List files in the current remote directory.</li>
+<li><code>cd dir</code>: Change remote directory.</li>
+<li><code>get file [local]</code>: Download a file.</li>
+<li><code>put file [remote]</code>: Upload a file.</li>
+<li><code>mget pattern</code>: Download multiple matching files.</li>
+<li><code>mput pattern</code>: Upload multiple matching files.</li>
+<li><code>rm file</code>: Delete a remote file.</li>
+<li><code>mkdir dir</code>: Create a remote directory.</li>
+<li><code>rmdir dir</code>: Remove a remote directory.</li>
+<li><code>prompt</code>: Toggle interactive prompting for multi-file operations.</li>
+<li><code>recurse</code>: Toggle directory recursion for multi-file operations.</li>
+<li><code>exit</code> or <code>quit</code>: Close the connection.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>smbclient -L //fileserver -U alice</code></pre>
+<p>List all available shares on <code>fileserver</code>.</p>
+<pre><code>smbclient //fileserver/shared -U alice</code></pre>
+<p>Connect interactively to the <code>shared</code> share on <code>fileserver</code>.</p>
+<pre><code>smbclient //server/share -U alice -c &quot;ls; get report.pdf&quot;</code></pre>
+<p>Connect, list files, download <code>report.pdf</code>, and exit.</p>
+<pre><code>smbclient //server/share -N</code></pre>
+<p>Connect anonymously (no password) to a guest-accessible share.</p>
+<pre><code>smbclient -L //192.168.1.100 -U alice -d 5</code></pre>
+<p>List shares with debug level 5 for troubleshooting.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>SMB port 445 (direct SMB) is preferred over port 139 (NetBIOS-based SMB).</li>
+<li>Use <code>-k</code> for Kerberos authentication when connected to an Active Directory domain.</li>
+<li>The <code>-c</code> option is useful for scripts; command strings use semicolons as separators.</li>
+<li>Anonymous access (<code>-N</code>) only works if the server allows guest connections.</li>
+<li>For mounting SMB shares persistently, use <code>mount -t cifs</code> instead.</li>
+<li>SMB2/3 protocol versions provide better performance and security than the older SMB1/CIFS.</li>
+<li>Use <code>smbclient -m SMB3</code> to force SMB3 protocol for encrypted connections.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

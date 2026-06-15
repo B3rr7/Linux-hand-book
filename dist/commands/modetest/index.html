@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>modetest command - Linux Command</title>
+    <meta name="description" content="Test DRM/KMS display modes on Linux.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>modetest</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Development</p>
+          <h1>modetest</h1>
+          <p>Test DRM/KMS display modes on Linux.</p>
+          <div class="tag-row"><span>drm</span><span>kms</span><span>display</span><span>gpu</span><span>mode</span><span>test</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>modetest</code> is a utility for testing the Direct Rendering Manager (DRM) and Kernel Mode Setting (KMS) subsystems on Linux. It can enumerate display connectors, CRTCs, planes, and encoders, and it can set display modes for testing.</p>
+<p>It is primarily used by developers working on graphics drivers, display servers (Wayland, Xorg), or embedded display systems. It can force a specific resolution, refresh rate, or display configuration to verify hardware functionality.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>modetest [options] [driver]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>driver</code>: The DRM driver to use (e.g., <code>i915</code>, <code>amdgpu</code>, <code>nouveau</code>, <code>virtio</code>). If omitted, the first available driver is used.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-M module</code>: Specify the DRM driver module by name.</li>
+<li><code>-e</code>: Only enumerate (list) connectors, CRTCs, encoders, and planes.</li>
+<li><code>-a</code>: Atomic mode setting test.</li>
+<li><code>-s connector:mode</code>: Set a display mode on a connector (e.g., <code>-s 32:1920x1080</code>).</li>
+<li><code>-P plane:format</code>: Test a plane with a specific pixel format.</li>
+<li><code>-v</code>: Verbose output.</li>
+<li><code>-D device</code>: Use a specific DRM device (e.g., <code>/dev/dri/card0</code>).</li>
+<li><code>-w</code>: Wait for vertical blank before updating.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>modetest -e</code></pre>
+<p>List all connectors, CRTCs, encoders, and planes.</p>
+<pre><code>modetest -M i915 -e</code></pre>
+<p>List display hardware for the Intel i915 driver.</p>
+<pre><code>modetest -s 32:1920x1080</code></pre>
+<p>Set connector 32 to 1920x1080 resolution.</p>
+<pre><code>modetest -v -D /dev/dri/card1</code></pre>
+<p>Show verbose information for the second DRM device.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>modetest</code> is part of the <code>libdrm</code> utilities package. Install with <code>apt install libdrm-utils</code> or equivalent.</li>
+<li>The connector, CRTC, and plane IDs are dynamic and can change. Run <code>-e</code> first to enumerate them.</li>
+<li>Setting a mode with <code>-s</code> may change your display; use with caution on production systems.</li>
+<li>For Wayland compositor or Xorg debugging, <code>modetest</code> provides raw DRM access that can help isolate driver issues.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ar/index.html"><strong>ar</strong><span>Create, modify, and inspect Unix archive files.</span></a>
+<a href="../as/index.html"><strong>as</strong><span>Assemble source code into object files with GNU assembler.</span></a>
+<a href="../diffstat/index.html"><strong>diffstat</strong><span>Display a histogram of diff output changes.</span></a>
+<a href="../docker/index.html"><strong>docker</strong><span>Manage containers, images, networks, and volumes.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

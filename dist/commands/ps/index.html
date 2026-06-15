@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ps command - Linux Command</title>
+    <meta name="description" content="Show running processes.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>ps</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Processes</p>
+          <h1>ps</h1>
+          <p>Show running processes.</p>
+          <div class="tag-row"><span>process</span><span>pid</span><span>inspect</span><span>system</span><span>troubleshoot</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>ps</code> shows a snapshot of running processes. It helps you find process IDs, owners, commands, CPU usage, memory usage, and process state.</p>
+<p>Unlike <code>top</code> or <code>htop</code>, <code>ps</code> does not keep updating. It prints a point-in-time view.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>ps [options]</code></pre>
+<p>Different Unix styles exist, so you will see options with and without dashes.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>ps</code> behaves.</li>
+<li><code>pid</code>: Process ID to inspect or signal.</li>
+<li><code>job</code>: Shell job ID such as <code>%1</code> when job control is involved.</li>
+<li><code>command</code>: Command name or pattern to match.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>aux</code>: Show processes for all users with useful details.</li>
+<li><code>-ef</code>: Show all processes in full-format listing.</li>
+<li><code>-u USER</code>: Show processes for a user.</li>
+<li><code>-p PID</code>: Show a specific process ID.</li>
+<li><code>-o FORMAT</code>: Choose output columns.</li>
+<li><code>--sort FIELD</code>: Sort output.</li>
+<li><code>f</code>: Show process tree style in some formats.</li>
+</ul>
+<h2 id="useful-columns">Useful Columns</h2>
+<ul>
+<li><code>USER</code>: Process owner.</li>
+<li><code>PID</code>: Process ID.</li>
+<li><code>%CPU</code>: CPU usage.</li>
+<li><code>%MEM</code>: Memory usage.</li>
+<li><code>VSZ</code>: Virtual memory size.</li>
+<li><code>RSS</code>: Resident memory in RAM.</li>
+<li><code>TTY</code>: Terminal associated with the process.</li>
+<li><code>STAT</code>: Process state.</li>
+<li><code>START</code>: Start time.</li>
+<li><code>TIME</code>: CPU time used.</li>
+<li><code>COMMAND</code>: Command that started the process.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>ps</code></pre>
+<p>Show processes attached to the current terminal.</p>
+<pre><code>ps aux</code></pre>
+<p>Show a broad list of running processes.</p>
+<pre><code>ps -ef</code></pre>
+<p>Show all processes in full format.</p>
+<pre><code>ps aux | grep nginx</code></pre>
+<p>Find processes related to <code>nginx</code>.</p>
+<pre><code>ps -p 1234 -o pid,ppid,user,stat,cmd</code></pre>
+<p>Show selected columns for one process.</p>
+<pre><code>ps aux --sort=-%mem | head</code></pre>
+<p>Show memory-heavy processes.</p>
+<pre><code>ps aux --sort=-%cpu | head</code></pre>
+<p>Show CPU-heavy processes.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>ps aux</code> for a quick full-system view.</li>
+<li>Use <code>pgrep</code> when you only need process IDs by name.</li>
+<li>Use <code>kill PID</code> to signal a process after confirming the PID.</li>
+<li>Process names can be misleading; inspect the full command when possible.</li>
+<li>For live monitoring, use <code>top</code> or <code>htop</code>.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../atop/index.html"><strong>atop</strong><span>Monitor system and process activity over time.</span></a>
+<a href="../bg/index.html"><strong>bg</strong><span>Resume a suspended shell job in the background.</span></a>
+<a href="../dirs/index.html"><strong>dirs</strong><span>Display the directory stack.</span></a>
+<a href="../disown/index.html"><strong>disown</strong><span>Remove shell jobs from the current shell&#39;s job table.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

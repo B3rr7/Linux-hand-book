@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>timedatectl command - Linux Command</title>
+    <meta name="description" content="Control system time, date, and timezone.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>timedatectl</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Administration</p>
+          <h1>timedatectl</h1>
+          <p>Control system time, date, and timezone.</p>
+          <div class="tag-row"><span>time</span><span>date</span><span>timezone</span><span>ntp</span><span>systemd</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>timedatectl</code> is part of the systemd suite and manages the system clock, date, time zone, and NTP synchronization. It replaces traditional tools like <code>date</code>, <code>hwclock</code>, <code>tzselect</code>, and <code>ntpdate</code> for most administrative tasks on modern Linux systems.</p>
+<p>It can query and set the system time, the real-time clock (RTC), the time zone, and enable or disable automatic NTP synchronization. Changes made with <code>timedatectl</code> persist across reboots and apply system-wide.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>timedatectl [options] [command]</code></pre>
+<h2 id="commands">Commands</h2>
+<ul>
+<li><code>(no command)</code>: Show current time, date, time zone, RTC status, and NTP status.</li>
+<li><code>status</code>: Same as default, display current settings.</li>
+<li><code>set-time &quot;YYYY-MM-DD HH:MM:SS&quot;</code>: Set the system time.</li>
+<li><code>set-timezone TIMEZONE</code>: Set the system time zone.</li>
+<li><code>set-local-rtc BOOL</code>: Control whether the RTC uses local time (<code>1</code>) or UTC (<code>0</code>).</li>
+<li><code>set-ntp BOOL</code>: Enable (<code>1</code>) or disable (<code>0</code>) automatic NTP synchronization.</li>
+<li><code>list-timezones</code>: List all available time zones.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>timedatectl</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>--no-pager</code>: Show output inline instead of using a pager.</li>
+<li><code>-H</code>, <code>--host USER@HOST</code>: Operate on a remote host over SSH.</li>
+<li><code>-M</code>, <code>--machine CONTAINER</code>: Operate on a local container.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>timedatectl</code></pre>
+<p>Display current time, date, time zone, and NTP status.</p>
+<pre><code>timedatectl list-timezones | grep -i &quot;los_angeles&quot;</code></pre>
+<p>Search for a specific time zone.</p>
+<pre><code>sudo timedatectl set-timezone America/New_York</code></pre>
+<p>Change the system time zone.</p>
+<pre><code>sudo timedatectl set-time &quot;2026-06-09 14:30:00&quot;</code></pre>
+<p>Manually set the system time (disables NTP).</p>
+<pre><code>sudo timedatectl set-ntp true</code></pre>
+<p>Enable automatic NTP synchronization.</p>
+<pre><code>sudo timedatectl set-local-rtc 1</code></pre>
+<p>Tell the system that the hardware clock uses local time (not recommended).</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>timedatectl set-ntp true</code> to enable NTP; <code>systemd-timesyncd</code> handles it automatically.</li>
+<li>Setting the time manually disables NTP. Re-enable it with <code>set-ntp true</code> afterward.</li>
+<li>The hardware clock (RTC) should generally use UTC (<code>set-local-rtc 0</code>). Using local time can cause issues with dual-boot and time zone changes.</li>
+<li>To configure a custom NTP server, edit <code>/etc/systemd/timesyncd.conf</code> and restart <code>systemd-timesyncd</code>.</li>
+<li>Always use <code>sudo</code> when changing time or date settings.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../logsave/index.html"><strong>logsave</strong><span>Save command output to a log file while displaying on the terminal.</span></a>
+<a href="../logwatch/index.html"><strong>logwatch</strong><span>Summarize and report system log activity.</span></a>
+<a href="../lpadmin/index.html"><strong>lpadmin</strong><span>Configure CUPS printers and classes.</span></a>
+<a href="../lpc/index.html"><strong>lpc</strong><span>Line printer control; manage printer queues in CUPS/LPD.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

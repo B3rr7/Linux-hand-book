@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ip6tables-save command - Linux Command</title>
+    <meta name="description" content="Save current IPv6 firewall rules for later restoration.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>ip6tables-save</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>ip6tables-save</h1>
+          <p>Save current IPv6 firewall rules for later restoration.</p>
+          <div class="tag-row"><span>ipv6</span><span>firewall</span><span>netfilter</span><span>save</span><span>rules</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>ip6tables-save</code> dumps the current IPv6 netfilter rules to standard output in a format that can be read back by <code>ip6tables-restore</code>. It outputs rules for all tables with counters and policy information.</p>
+<p>The saved output is a structured text format that includes table headers (<code>*filter</code>, <code>*nat</code>, etc.), chain default policies (<code>:INPUT ACCEPT [0:0]</code>), individual rules with their full specifications, and <code>COMMIT</code> markers. This format is the standard way to persistently store and distribute <code>ip6tables</code> configurations.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>ip6tables-save [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>ip6tables-save</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-c</code>, <code>--counters</code>: Include the current packet and byte counters in the output.</li>
+<li><code>-t table</code>, <code>--table table</code>: Save only the specified table instead of all tables.</li>
+<li><code>-M</code>, <code>--modprobe command</code>: Use a specific modprobe command for loading kernel modules.</li>
+<li><code>-h</code>, <code>--help</code>: Display help.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sudo ip6tables-save</code></pre>
+<p>Dump all current IPv6 rules to stdout.</p>
+<pre><code>sudo ip6tables-save &gt; /etc/ip6tables.rules</code></pre>
+<p>Save the current IPv6 firewall rules to a file.</p>
+<pre><code>sudo ip6tables-save -t filter</code></pre>
+<p>Save only the filter table rules.</p>
+<pre><code>sudo ip6tables-save -c | less</code></pre>
+<p>View the current rules with packet and byte counters.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>ip6tables-save &gt; file</code> to create a backup before making changes.</li>
+<li>Rules saved with <code>-c</code> include counter data that help with debugging traffic patterns.</li>
+<li>The output of <code>ip6tables-save</code> is designed to be machine-readable; use <code>ip6tables -L -v</code> for human-readable output.</li>
+<li>Combine with <code>ip6tables-restore</code> in init scripts to make firewall rules persistent.</li>
+<li>On Debian/Ubuntu, the <code>iptables-persistent</code> package automates saving and restoring for both <code>iptables</code> and <code>ip6tables</code>.</li>
+<li>IPv4 rules must be saved separately using <code>iptables-save</code>.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

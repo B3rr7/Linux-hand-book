@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nano command - Linux Command</title>
+    <meta name="description" content="Simple, terminal-based text editor.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>nano</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Text</p>
+          <h1>nano</h1>
+          <p>Simple, terminal-based text editor.</p>
+          <div class="tag-row"><span>editor</span><span>text</span><span>terminal</span><span>nano</span><span>pico</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>nano</code> is a simple, easy-to-use terminal text editor. It is designed as a free replacement for the Pico editor (from the Pine email client) and is included by default in most Linux distributions. It provides on-screen shortcut hints, making it accessible for beginners who find <code>vim</code> or <code>emacs</code> intimidating.</p>
+<p>Nano is ideal for quick configuration file edits, writing short notes, and general-purpose terminal editing. It supports syntax highlighting for many file types, search and replace, undo/redo, line numbers, and mouse support. While it lacks the power of <code>vim</code> or <code>emacs</code> for heavy development, its simplicity and zero-learning-curve startup make it the go-to editor for many system administration tasks.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>nano [options] [file...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>file</code>: One or more files to open for editing.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-c</code>, <code>--constantshow</code>: Show the cursor position constantly.</li>
+<li><code>-i</code>, <code>--autoindent</code>: Auto-indent new lines to match the previous line.</li>
+<li><code>-l</code>, <code>--linenumbers</code>: Show line numbers on the left side.</li>
+<li><code>-m</code>, <code>--mouse</code>: Enable mouse support.</li>
+<li><code>-S</code>, <code>--softwrap</code>: Soft-wrap long lines instead of truncating.</li>
+<li><code>-T n</code>, <code>--tabsize=n</code>: Set tab width to <code>n</code> spaces.</li>
+<li><code>-u</code>, <code>--undo</code>: Enable undo functionality.</li>
+<li><code>-v</code>, <code>--view</code>: View-only mode (read-only).</li>
+<li><code>-w</code>, <code>--nowrap</code>: Disable line wrapping.</li>
+<li><code>-x</code>, <code>--nohelp</code>: Hide the help lines at the bottom.</li>
+<li><code>-Y name</code>, <code>--syntax=name</code>: Specify the syntax highlighting to use.</li>
+<li><code>-E</code>, <code>--tabstospaces</code>: Convert typed tabs to spaces.</li>
+<li><code>-F</code>, <code>--multibuffer</code>: Read a file into a new buffer.</li>
+<li><code>-K</code>, <code>--rebinddelete</code>: Fix keypad Delete key behavior.</li>
+<li><code>-b</code>, <code>--breaklonglines</code>: Automatically break long lines.</li>
+<li><code>-d</code>, <code>--rebindkeypad</code>: Fix numeric keypad key behavior.</li>
+</ul>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<h3 id="file-operations">File Operations</h3>
+<ul>
+<li><code>Ctrl+O</code>: Save (WriteOut) the file.</li>
+<li><code>Ctrl+S</code>: Save file (modern nano).</li>
+<li><code>Ctrl+X</code>: Exit nano. Prompts to save if unsaved changes exist.</li>
+<li><code>Ctrl+R</code>: Insert a file into the current buffer.</li>
+<li><code>Ctrl+W</code>: Search for text.</li>
+</ul>
+<h3 id="navigation">Navigation</h3>
+<ul>
+<li><code>Ctrl+A</code>: Go to beginning of line.</li>
+<li><code>Ctrl+E</code>: Go to end of line.</li>
+<li><code>Ctrl+Y</code>: Page up.</li>
+<li><code>Ctrl+V</code>: Page down.</li>
+<li><code>Alt+\</code>: Go to the first line.</li>
+<li><code>Alt+/</code>: Go to the last line.</li>
+<li><code>Alt+G</code>: Go to a specific line number.</li>
+</ul>
+<h3 id="editing">Editing</h3>
+<ul>
+<li><code>Ctrl+K</code>: Cut the current line (or selected text).</li>
+<li><code>Ctrl+U</code>: Paste (uncut) the cut text.</li>
+<li><code>Alt+6</code>: Copy the current line (or selected text).</li>
+<li><code>Ctrl+J</code>: Justify the current paragraph.</li>
+<li><code>Ctrl+D</code>: Delete character under cursor.</li>
+<li><code>Ctrl+Shift+Minus</code>: Undo (or <code>Alt+U</code>).</li>
+<li><code>Alt+E</code>: Redo (or <code>Alt+Shift+U</code>).</li>
+<li><code>Ctrl+T</code>: Run a spell checker (if available).</li>
+</ul>
+<h3 id="selection">Selection</h3>
+<ul>
+<li><code>Alt+A</code>: Start/end selecting text.</li>
+<li><code>Ctrl+6</code>: Same as <code>Alt+A</code>.</li>
+<li><code>Shift+Arrow</code>: Select with arrow keys (modern nano).</li>
+</ul>
+<h3 id="search-and-replace">Search and Replace</h3>
+<ul>
+<li><code>Ctrl+W</code>: Start a forward search.</li>
+<li><code>Alt+W</code>: Repeat the last search.</li>
+<li><code>Ctrl+\</code>: Search and replace.</li>
+<li><code>Alt+R</code>: Search and replace (modern nano).</li>
+</ul>
+<h3 id="info-and-help">Info and Help</h3>
+<ul>
+<li><code>Ctrl+G</code>: Show help screen.</li>
+<li><code>Ctrl+C</code>: Show cursor position.</li>
+<li><code>Ctrl+T</code>: Invoke the spell checker.</li>
+<li><code>Alt+D</code>: Show the word count.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>nano notes.txt</code></pre>
+<p>Open <code>notes.txt</code> for editing. Creates the file if it does not exist.</p>
+<pre><code>nano -l -c notes.txt</code></pre>
+<p>Open with line numbers and cursor position display.</p>
+<pre><code>nano -w /etc/fstab</code></pre>
+<p>Edit <code>/etc/fstab</code> with line wrapping disabled (recommended for config files).</p>
+<pre><code>nano -m /etc/ssh/sshd_config</code></pre>
+<p>Edit with mouse support enabled.</p>
+<pre><code>nano -v /etc/passwd</code></pre>
+<p>Open <code>/etc/passwd</code> in read-only view mode.</p>
+<pre><code>nano -E -T 4 script.sh</code></pre>
+<p>Edit a shell script with tabs converted to spaces and tab width of 4.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>The two-line shortcut bar at the bottom shows <code>^</code> for Ctrl and <code>M-</code> for Alt/Meta.</li>
+<li><code>nano -w</code> disables line wrapping, which is essential when editing configuration files that should not be reformatted.</li>
+<li>Syntax highlighting configuration is stored in <code>/etc/nano/</code> or <code>~/.nanorc</code>.</li>
+<li>Use <code>nano -l -c</code> as a default by adding <code>set linenumbers</code> and <code>set constantshow</code> to <code>~/.nanorc</code>.</li>
+<li>Nano saves backup files as <code>filename~</code> when <code>set backup</code> is configured in <code>~/.nanorc</code>.</li>
+<li>For development, consider <code>vim</code> or <code>emacs</code>; for quick edits, <code>nano</code> is the fastest option.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ack/index.html"><strong>ack</strong><span>Search source code with an ack-style text searcher.</span></a>
+<a href="../ag/index.html"><strong>ag</strong><span>Search source code quickly with The Silver Searcher.</span></a>
+<a href="../awk/index.html"><strong>awk</strong><span>Process text files by fields and patterns.</span></a>
+<a href="../base64/index.html"><strong>base64</strong><span>Encode or decode Base64 data.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

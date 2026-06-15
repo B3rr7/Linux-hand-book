@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>wget command - Linux Command</title>
+    <meta name="description" content="Download files from the web.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>wget</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>wget</h1>
+          <p>Download files from the web.</p>
+          <div class="tag-row"><span>download</span><span>web</span><span>http</span><span>mirror</span><span>recursive</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>wget</code> downloads files from URLs. It is commonly used for direct downloads, scripts, recursive downloads, and simple mirroring.</p>
+<p>It is less focused on API testing than <code>curl</code>, but it is very convenient for saving files.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>wget [options] URL</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>wget</code> behaves.</li>
+<li><code>URL</code>: The URL of the file to download.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-O FILE</code>: Save as a specific filename.</li>
+<li><code>-P DIR</code>: Save into a directory.</li>
+<li><code>-c</code>: Continue a partial download.</li>
+<li><code>-q</code>: Quiet mode.</li>
+<li><code>--show-progress</code>: Show progress in quiet-friendly output.</li>
+<li><code>-r</code>: Recursive download.</li>
+<li><code>-np</code>: Do not ascend to parent directories during recursive download.</li>
+<li><code>-N</code>: Timestamping; download only if remote is newer.</li>
+<li><code>--limit-rate=RATE</code>: Limit download speed.</li>
+<li><code>--user-agent=TEXT</code>: Set user agent.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>wget https://example.com/file.iso</code></pre>
+<p>Download a file.</p>
+<pre><code>wget -O ubuntu.iso https://example.com/download</code></pre>
+<p>Save with a chosen filename.</p>
+<pre><code>wget -P ~/Downloads https://example.com/file.zip</code></pre>
+<p>Save into <code>~/Downloads</code>.</p>
+<pre><code>wget -c https://example.com/big.iso</code></pre>
+<p>Continue a partial download.</p>
+<pre><code>wget --limit-rate=1M https://example.com/big.iso</code></pre>
+<p>Limit download speed.</p>
+<pre><code>wget -r -np -N https://example.com/docs/</code></pre>
+<p>Recursively mirror a documentation path without going to parent directories.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>wget -c</code> for unreliable connections or large files.</li>
+<li>Be respectful with recursive downloads; they can stress servers.</li>
+<li><code>wget</code> saves files by default, while <code>curl</code> prints responses by default.</li>
+<li>For APIs and custom HTTP headers, <code>curl</code> is usually better.</li>
+<li>Check file hashes after downloading security-sensitive files.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pv command - Linux Command</title>
+    <meta name="description" content="Monitor the progress of data through a pipeline.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>pv</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Files</p>
+          <h1>pv</h1>
+          <p>Monitor the progress of data through a pipeline.</p>
+          <div class="tag-row"><span>progress</span><span>pipe</span><span>monitoring</span><span>throughput</span><span>transfer</span><span>dd</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>pv</code> (Pipe Viewer) monitors the progress of data flowing through a pipeline. It shows the current transfer rate, total transferred data, elapsed time, estimated remaining time, and a progress bar. It sits between two commands in a pipe, measuring data as it passes through.</p>
+<p><code>pv</code> is invaluable for long-running operations like disk imaging (<code>dd</code>), file compression, database dumps, backups, and large file transfers where visual feedback helps estimate completion time. It adds no output of its own to the data stream, simply passing data through while displaying progress information on stderr.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>source | pv [options] [destination]
+pv [options] [source] &gt; destination
+pv [options] source &gt; destination</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>source</code>: Input file or device. If omitted, reads from stdin.</li>
+<li><code>destination</code>: Output file or device, specified via redirection or pipe.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-p</code>, <code>--progress</code>: Show the progress bar (default on).</li>
+<li><code>-t</code>, <code>--timer</code>: Show elapsed time.</li>
+<li><code>-e</code>, <code>--eta</code>: Show estimated time remaining.</li>
+<li><code>-r</code>, <code>--rate</code>: Show current transfer rate.</li>
+<li><code>-a</code>, <code>--average-rate</code>: Show average transfer rate.</li>
+<li><code>-b</code>, <code>--bytes</code>: Show total bytes transferred.</li>
+<li><code>-n</code>, <code>--numeric</code>: Numeric percentage output (machine-parseable).</li>
+<li><code>-q</code>, <code>--quiet</code>: No output. Useful for timing-only purposes.</li>
+<li><code>-s size</code>, <code>--size size</code>: Set the expected total data size for percentage calculation.</li>
+<li><code>-L rate</code>, <code>--rate-limit rate</code>: Limit the transfer to a maximum rate (e.g., <code>10m</code> for 10 MiB/s).</li>
+<li><code>-B bytes</code>, <code>--buffer-size bytes</code>: Set the buffer size for transferring data.</li>
+<li><code>-N name</code>, <code>--name name</code>: Show a label before the progress display.</li>
+<li><code>-F format</code>, <code>--format format</code>: Specify the output format string.</li>
+<li><code>-W</code>, <code>--wait</code>: Wait for the first byte before displaying progress.</li>
+<li><code>-D interval</code>, <code>--delay-start interval</code>: Delay display by the specified number of seconds.</li>
+<li><code>-c</code>, <code>--cursor</code>: Use cursor positioning instead of newlines for updates.</li>
+<li><code>-S</code>, <code>--stop-at-size</code>: Stop transferring once the specified size is reached.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>pv bigfile.tar.gz | tar xz</code></pre>
+<p>Monitor decompression of a tarball through a pipe.</p>
+<pre><code>pv backup.sql | mysql database</code></pre>
+<p>Monitor a MySQL database import.</p>
+<pre><code>pv /dev/sda &gt; /dev/sdb</code></pre>
+<p>Monitor a raw disk copy with progress information.</p>
+<pre><code>dd if=/dev/sda | pv | dd of=/dev/sdb</code></pre>
+<p>Monitor a <code>dd</code> disk clone operation.</p>
+<pre><code>pv -s 10G bigfile.iso &gt; /dev/null</code></pre>
+<p>Simulate reading a 10 GiB file, showing progress against the expected size.</p>
+<pre><code>cat largefile | pv -L 5m &gt; /dev/null</code></pre>
+<p>Read a file but limit throughput to 5 MiB/s.</p>
+<pre><code>pv -n access.log | wc -l</code></pre>
+<p>Show numeric percentage progress, suitable for piping to <code>dialog</code> or <code>zenity</code>.</p>
+<pre><code>pv -tpreb /path/to/bigfile &gt; /dev/null</code></pre>
+<p>Show all indicators: progress bar, timer, rate, ETA, and bytes.</p>
+<pre><code>pv -N &quot;Copying&quot; source.iso &gt; dest.iso</code></pre>
+<p>Show a custom label before the progress display.</p>
+<pre><code>tar cf - /data | pv -s $(du -sb /data | awk &#39;{print $1}&#39;) | gzip &gt; backup.tar.gz</code></pre>
+<p>Create a compressed backup with accurate progress based on total bytes.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>pv</code> does not modify data passing through it. It is safe to insert into any pipeline.</li>
+<li>Use <code>-s</code> (--size) when <code>pv</code> cannot determine the total size automatically (e.g., from stdin). This enables percentage and ETA display.</li>
+<li>For <code>dd</code> operations, replace <code>dd status=progress</code> with <code>dd if=/dev/sda | pv | dd of=/dev/sdb</code> for more detailed progress.</li>
+<li>The rate limiter (<code>-L</code>) is useful for preventing backups from saturating network links or I/O.</li>
+<li><code>pv</code> reads from <code>stdin</code> and writes to <code>stdout</code> by default. If you provide a filename argument, it reads from the file.</li>
+<li>Install with <code>sudo apt install pv</code> on Debian/Ubuntu or <code>sudo yum install pv</code> on RHEL/CentOS.</li>
+<li>For monitoring in scripts, use <code>-n</code> for numeric output and parse the percentage value programmatically.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../basename/index.html"><strong>basename</strong><span>Strip directory and optional suffix from a path.</span></a>
+<a href="../chattr/index.html"><strong>chattr</strong><span>Change extended file attributes on Linux filesystems.</span></a>
+<a href="../chmod/index.html"><strong>chmod</strong><span>Change file and directory permissions.</span></a>
+<a href="../cksum/index.html"><strong>cksum</strong><span>Print CRC checksum and byte count for files.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

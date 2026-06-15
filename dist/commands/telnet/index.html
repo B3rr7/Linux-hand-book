@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>telnet command - Linux Command</title>
+    <meta name="description" content="User interface to the Telnet remote login protocol.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>telnet</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>telnet</h1>
+          <p>User interface to the Telnet remote login protocol.</p>
+          <div class="tag-row"><span>telnet</span><span>remote</span><span>terminal</span><span>network</span><span>protocol</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>telnet</code> is a command-line client for the Telnet protocol (TCP port 23), used for remote terminal connections to other systems. Telnet is one of the oldest application-layer protocols on the Internet and was the standard method for remote shell access before SSH became widespread.</p>
+<p>Telnet transmits all data, including usernames and passwords, in cleartext with no encryption. This makes it completely insecure for use over untrusted networks. Despite this, <code>telnet</code> remains useful as a generic TCP client for debugging text-based protocols (HTTP, SMTP, POP3, IMAP, etc.) and testing connectivity to arbitrary ports.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>telnet [host [port]]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>host</code>: The remote hostname or IP address to connect to.</li>
+<li><code>port</code>: The TCP port number to connect to (default: 23 for Telnet).</li>
+</ul>
+<h2 id="interactive-commands">Interactive Commands</h2>
+<p>While connected, press <code>Ctrl+]</code> to enter the telnet command mode, then type:</p>
+<ul>
+<li><code>close</code>: Close the current connection.</li>
+<li><code>quit</code>: Exit telnet.</li>
+<li><code>open host [port]</code>: Open a connection to a new host.</li>
+<li><code>status</code>: Show current connection status.</li>
+<li><code>send arguments</code>: Send special sequences (e.g., <code>send break</code>, <code>send escape</code>).</li>
+<li><code>set variable value</code>: Set variables like <code>escape</code>, <code>term</code>, <code>echo</code>, etc.</li>
+<li><code>unset variable</code>: Unset a variable.</li>
+<li><code>mode type</code>: Try to enter line or character mode.</li>
+<li><code>display</code>: Display operating parameters.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-4</code>: Force IPv4.</li>
+<li><code>-6</code>: Force IPv6.</li>
+<li><code>-a</code>: Attempt automatic login (uses the local username).</li>
+<li><code>-b hostname</code>: Use a specific source address (for multihomed hosts).</li>
+<li><code>-d</code>: Enable debug mode.</li>
+<li><code>-e escape_char</code>: Set the escape character (default: <code>Ctrl+]</code>).</li>
+<li><code>-l user</code>: Specify the remote user for automatic login.</li>
+<li><code>-n tracefile</code>: Record network data to a trace file.</li>
+<li><code>-K</code>: Do not automatically log in.</li>
+<li><code>-r</code>: Use a user-interface similar to rlogin.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>telnet host.example.com</code></pre>
+<p>Connect to the Telnet service on the default port 23.</p>
+<pre><code>telnet mail.example.com 25</code></pre>
+<p>Connect to an SMTP server on port 25 for manual testing.</p>
+<pre><code>telnet web.example.com 80</code></pre>
+<p>Connect to an HTTP server to manually send HTTP requests.</p>
+<pre><code>telnet -l alice host.example.com</code></pre>
+<p>Connect to a Telnet server with automatic login as user <code>alice</code>.</p>
+<pre><code>telnet 192.168.1.1 22</code></pre>
+<p>Test whether SSH port 22 is open on the target host.</p>
+<pre><code>telnet -e ^C host.example.com</code></pre>
+<p>Use <code>Ctrl+C</code> as the escape character instead of <code>Ctrl+]</code>.</p>
+<h2 id="example-http-test">Example HTTP Test</h2>
+<pre><code>$ telnet web.example.com 80
+Trying 93.184.216.34...
+Connected to web.example.com.
+Escape character is &#39;^]&#39;.
+GET / HTTP/1.1
+Host: web.example.com
+
+HTTP/1.1 200 OK
+...
+</code></pre>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Telnet transmits everything in cleartext. Never use it for remote administration over public networks.</li>
+<li>The escape sequence (<code>Ctrl+]</code>) returns you to the telnet command prompt. Type <code>quit</code> to exit.</li>
+<li>Telnet is still an excellent tool for manual protocol debugging (SMTP, HTTP, POP3, IMAP, etc.).</li>
+<li>Most modern systems do not run a Telnet server. Use SSH for remote access.</li>
+<li>On many distributions, the Telnet client is not installed by default; install with <code>apt install telnet</code> or <code>yum install telnet</code>.</li>
+<li>For encrypted protocol debugging, use <code>openssl s_client</code> for TLS services or <code>ncat --ssl</code>.</li>
+<li><code>telnet</code> can be used to quickly test if a TCP port is reachable: <code>telnet host port</code>.</li>
+<li>If the port is closed, telnet reports <code>Connection refused</code>. If filtered by a firewall, it hangs or times out.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

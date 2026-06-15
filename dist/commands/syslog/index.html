@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>syslog command - Linux Command</title>
+    <meta name="description" content="System logging and syslog daemon management.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>syslog</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Administration</p>
+          <h1>syslog</h1>
+          <p>System logging and syslog daemon management.</p>
+          <div class="tag-row"><span>log</span><span>syslog</span><span>rsyslog</span><span>syslog-ng</span><span>logging</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>syslog</code> refers to both the standard system logging protocol and the traditional syslog daemon that collects, processes, and stores log messages from the kernel, services, and applications. On modern Linux systems, <code>rsyslogd</code> or <code>syslog-ng</code> typically provide the syslog service, with <code>journald</code> (part of systemd) often running alongside for structured logging.</p>
+<p>Log messages are categorized by facility (kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, local0-local7, etc.) and priority (emerg, alert, crit, err, warning, notice, info, debug). Configuration files (typically <code>/etc/rsyslog.conf</code> and <code>/etc/rsyslog.d/</code>) define where different message categories are logged.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code># Traditional syslog commands
+logger [options] message</code></pre>
+<h2 id="key-concepts">Key Concepts</h2>
+<p><strong>Facilities:</strong> kern, user, mail, daemon, auth, syslog, lpr, news, uucp, cron, authpriv, ftp, local0-local7.</p>
+<p><strong>Priorities:</strong> emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), debug (7).</p>
+<h2 id="commands">Commands</h2>
+<p>The primary user-facing command for syslog is <code>logger</code>, which sends messages to the syslog system.</p>
+<h2 id="logger-options">logger Options</h2>
+<ul>
+<li><code>-p facility.priority</code>: Specify the facility and priority (default: <code>user.notice</code>).</li>
+<li><code>-t tag</code>: Mark the message with a specific tag.</li>
+<li><code>-i</code>: Include the PID of the logger process.</li>
+<li><code>-f file</code>: Log the contents of a file.</li>
+<li><code>-s</code>: Also output the message to stderr.</li>
+<li><code>-n server</code>: Send the message to a remote syslog server.</li>
+<li><code>-P port</code>: Specify the remote syslog server port (default: 514).</li>
+<li><code>--id</code>: Include the current process PID.</li>
+<li><code>--rfc3164</code>: Use the older BSD syslog format.</li>
+<li><code>--rfc5424</code>: Use the newer RFC 5424 syslog format.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>syslog</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>logger &quot;Backup completed successfully&quot;</code></pre>
+<p>Send a simple log message.</p>
+<pre><code>logger -p mail.info -t sendmail &quot;Queue processed&quot;</code></pre>
+<p>Send a log message with mail facility and info priority, tagged as <code>sendmail</code>.</p>
+<pre><code>logger -s -p local0.err -t myapp &quot;Application error occurred&quot;</code></pre>
+<p>Log an error on local0 facility tagged <code>myapp</code>, also printing to stderr.</p>
+<pre><code>logger -n logserver.example.com -P 514 &quot;Remote log entry&quot;</code></pre>
+<p>Send a log message to a remote syslog server.</p>
+<pre><code>logger -f /var/log/audit.log -t audit-restore</code></pre>
+<p>Send the contents of a file to syslog.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>journalctl</code> reads the systemd journal; <code>tail -f /var/log/syslog</code> or <code>tail -f /var/log/messages</code> reads traditional syslog files.</li>
+<li>Syslog-ng and rsyslog both support TCP transport, TLS encryption, and database logging.</li>
+<li>Log rotation is handled by <code>logrotate</code> to prevent logs from filling the disk.</li>
+<li>The syslog protocol uses UDP port 514 by default, but TCP port 6514 is common for encrypted syslog.</li>
+<li>Centralized logging architectures forward logs from multiple hosts to a dedicated syslog server.</li>
+<li>Modern logging infrastructure often combines syslog with tools like Logstash, Graylog, or Splunk.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../logsave/index.html"><strong>logsave</strong><span>Save command output to a log file while displaying on the terminal.</span></a>
+<a href="../logwatch/index.html"><strong>logwatch</strong><span>Summarize and report system log activity.</span></a>
+<a href="../lpadmin/index.html"><strong>lpadmin</strong><span>Configure CUPS printers and classes.</span></a>
+<a href="../lpc/index.html"><strong>lpc</strong><span>Line printer control; manage printer queues in CUPS/LPD.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

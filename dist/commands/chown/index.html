@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>chown command - Linux Command</title>
+    <meta name="description" content="Change file owner and group.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>chown</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Permissions</p>
+          <h1>chown</h1>
+          <p>Change file owner and group.</p>
+          <div class="tag-row"><span>permissions</span><span>owner</span><span>group</span><span>files</span><span>admin</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>chown</code> changes who owns a file or directory. Ownership matters because Linux permissions are checked against the owner, group, and others.</p>
+<p>Most ownership changes require administrator privileges. A normal user usually cannot give files to another user.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>chown [options] OWNER[:GROUP] file...
+chown [options] :GROUP file...</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>OWNER</code>: New owner username or numeric UID.</li>
+<li><code>GROUP</code>: New group name or numeric GID.</li>
+<li><code>file</code>: File or directory to change.</li>
+<li><code>OWNER:GROUP</code>: Change both owner and group.</li>
+<li><code>:GROUP</code>: Change only the group.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-R</code>, <code>--recursive</code>: Change ownership recursively.</li>
+<li><code>-v</code>, <code>--verbose</code>: Print processed files.</li>
+<li><code>-c</code>, <code>--changes</code>: Print only changed files.</li>
+<li><code>--reference=FILE</code>: Copy owner and group from another file.</li>
+<li><code>-h</code>, <code>--no-dereference</code>: Change a symbolic link itself instead of the link target when supported.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>sudo chown rani notes.txt</code></pre>
+<p>Make <code>rani</code> the owner of <code>notes.txt</code>.</p>
+<pre><code>sudo chown rani:developers app.log</code></pre>
+<p>Change both owner and group.</p>
+<pre><code>sudo chown :www-data site.conf</code></pre>
+<p>Change only the group.</p>
+<pre><code>sudo chown -R www-data:www-data /var/www/site</code></pre>
+<p>Recursively assign a web directory to the web-server user and group.</p>
+<pre><code>sudo chown --reference=old.conf new.conf</code></pre>
+<p>Copy owner and group from <code>old.conf</code>.</p>
+<pre><code>ls -l file.txt</code></pre>
+<p>Check ownership after changing it.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Use <code>ls -l</code> to inspect current owner and group.</li>
+<li>Avoid recursive ownership changes from <code>/</code> or a broad path.</li>
+<li>Web servers often need ownership or group access to specific directories, not the whole system.</li>
+<li><code>chown</code> changes ownership; <code>chmod</code> changes permissions.</li>
+<li>Use groups when several users or services need controlled shared access.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../chage/index.html"><strong>chage</strong><span>View and change user password aging information.</span></a>
+<a href="../chfn/index.html"><strong>chfn</strong><span>Change user finger information.</span></a>
+<a href="../chgrp/index.html"><strong>chgrp</strong><span>Change group ownership of files and directories.</span></a>
+<a href="../chpasswd/index.html"><strong>chpasswd</strong><span>Update passwords in batch mode.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>vi command - Linux Command</title>
+    <meta name="description" content="The classic modal text editor.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>vi</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Text</p>
+          <h1>vi</h1>
+          <p>The classic modal text editor.</p>
+          <div class="tag-row"><span>editor</span><span>text</span><span>modal</span><span>ex</span><span>terminal</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>vi</code> (short for visual) is a modal text editor and the standard editor on virtually all Unix and Linux systems. It was originally written by Bill Joy in 1976 and is the direct ancestor of Vim (Vi IMproved). Most modern systems ship <code>vim</code> when <code>vi</code> is invoked, but the traditional <code>nvi</code> (new vi) or <code>elvis</code> variants are still available.</p>
+<p>Vi uses a modal interface: different keystrokes have different meanings depending on the current mode. The modes are: Normal mode (for navigation and manipulation), Insert mode (for entering text), Command-line mode (for ex commands like <code>:wq</code>), and Visual mode (for text selection). This design allows efficient text editing without lifting hands from the home row.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>vi [options] [file...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>file</code>: One or more files to edit. Multiple files can be navigated with <code>:n</code> (next) and <code>:prev</code> (previous).</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-R</code>: Read-only mode (like <code>view</code>).</li>
+<li><code>-r</code>: Recover a file from a swap file after a crash.</li>
+<li><code>-c command</code>: Run an ex command after opening the file.</li>
+<li><code>-s script</code>: Source a script file of ex commands.</li>
+<li><code>-w N</code>: Set the window size to N lines.</li>
+<li><code>+N</code>: Open the file at line N (e.g. <code>vi +50 file.txt</code>).</li>
+<li><code>+/pattern</code>: Open at the first line matching pattern.</li>
+</ul>
+<h2 id="modes">Modes</h2>
+<ul>
+<li><strong>Normal mode</strong>: Default mode. Keys move the cursor, delete text, copy/paste, and enter other modes.</li>
+<li><strong>Insert mode</strong>: Entered with <code>i</code>, <code>a</code>, <code>o</code>, <code>I</code>, <code>A</code>, <code>O</code>, etc. Text typed goes into the buffer. Press <code>Esc</code> to return to Normal mode.</li>
+<li><strong>Command-line mode</strong>: Entered with <code>:</code>, <code>/</code>, or <code>?</code>. Used for ex commands, searches, and substitutions.</li>
+<li><strong>Visual mode</strong>: Entered with <code>v</code> (character), <code>V</code> (line), or <code>Ctrl+v</code> (block). Select text for operations.</li>
+</ul>
+<h2 id="essential-normal-mode-commands">Essential Normal Mode Commands</h2>
+<h3 id="movement">Movement</h3>
+<ul>
+<li><code>h j k l</code>: Left, down, up, right (arrow keys also work).</li>
+<li><code>w b</code>: Next/previous word.</li>
+<li><code>0 ^ $</code>: Start of line, first non-whitespace, end of line.</li>
+<li><code>gg G</code>: First line, last line.</li>
+<li><code>Ngg</code> or <code>N G</code>: Go to line N.</li>
+<li><code>Ctrl+f Ctrl+b</code>: Page down, page up.</li>
+<li><code>Ctrl+d Ctrl+u</code>: Half page down, half page up.</li>
+<li><code>%</code>: Jump to matching bracket.</li>
+<li><code>{ }</code>: Previous/next paragraph.</li>
+</ul>
+<h3 id="editing">Editing</h3>
+<ul>
+<li><code>i</code>: Insert before cursor.</li>
+<li><code>a</code>: Append after cursor.</li>
+<li><code>I</code>: Insert at beginning of line.</li>
+<li><code>A</code>: Append at end of line.</li>
+<li><code>o</code>: Open a new line below.</li>
+<li><code>O</code>: Open a new line above.</li>
+<li><code>x</code>: Delete character under cursor.</li>
+<li><code>dd</code>: Delete current line.</li>
+<li><code>D</code>: Delete from cursor to end of line.</li>
+<li><code>yy</code>: Yank (copy) current line.</li>
+<li><code>p P</code>: Paste after/before cursor.</li>
+<li><code>u</code>: Undo.</li>
+<li><code>Ctrl+r</code>: Redo.</li>
+<li><code>.</code>: Repeat last change.</li>
+</ul>
+<h3 id="search-and-replace">Search and Replace</h3>
+<ul>
+<li><code>/pattern</code>: Search forward.</li>
+<li><code>?pattern</code>: Search backward.</li>
+<li><code>n N</code>: Next/previous match.</li>
+<li><code>:s/old/new/g</code>: Substitute on current line.</li>
+<li><code>:%s/old/new/g</code>: Substitute in entire file.</li>
+<li><code>:%s/old/new/gc</code>: Substitute with confirmation.</li>
+</ul>
+<h3 id="file-operations">File Operations</h3>
+<ul>
+<li><code>:w</code>: Write (save) the file.</li>
+<li><code>:q</code>: Quit.</li>
+<li><code>:wq</code> or <code>ZZ</code>: Save and quit.</li>
+<li><code>:q!</code>: Quit without saving.</li>
+<li><code>:e file</code>: Open another file.</li>
+<li><code>:e!</code>: Reload the current file.</li>
+<li><code>:n</code>: Edit the next file.</li>
+<li><code>:prev</code>: Edit the previous file.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>vi file.txt</code></pre>
+<p>Open <code>file.txt</code> for editing.</p>
+<pre><code>vi +100 /etc/hosts</code></pre>
+<p>Open <code>/etc/hosts</code> at line 100.</p>
+<pre><code>vi -R /etc/passwd</code></pre>
+<p>Open <code>/etc/passwd</code> in read-only mode.</p>
+<pre><code>vi +/error app.log</code></pre>
+<p>Open <code>app.log</code> at the first occurrence of <code>error</code>.</p>
+<pre><code>vi -c &quot;set number&quot; -c &quot;/TODO&quot; file.py</code></pre>
+<p>Open <code>file.py</code> with line numbers and jump to the first <code>TODO</code>.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>When unsure which mode you are in, press <code>Esc</code> twice to return to Normal mode.</li>
+<li>Use <code>:help</code> in Vim to access the built-in tutorial and documentation.</li>
+<li>Start with <code>vimtutor</code> (or <code>vim -c Tutor</code>) for an interactive 30-minute tutorial.</li>
+<li>Many distributions ship <code>vim</code> as <code>vi</code>. Check <code>vi --version</code> or <code>readlink -f $(which vi)</code> to see what is installed.</li>
+<li>Set options temporarily with <code>:set option</code> (e.g. <code>:set number</code>, <code>:set ignorecase</code>).</li>
+<li><code>:set paste</code> disables auto-indent for pasting text, <code>:set nopaste</code> re-enables it.</li>
+<li>Swap files (<code>.file.swp</code>) handle crash recovery. Use <code>vi -r</code> to recover.</li>
+<li>Learn touch-typing; it dramatically improves vi efficiency.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ack/index.html"><strong>ack</strong><span>Search source code with an ack-style text searcher.</span></a>
+<a href="../ag/index.html"><strong>ag</strong><span>Search source code quickly with The Silver Searcher.</span></a>
+<a href="../awk/index.html"><strong>awk</strong><span>Process text files by fields and patterns.</span></a>
+<a href="../base64/index.html"><strong>base64</strong><span>Encode or decode Base64 data.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

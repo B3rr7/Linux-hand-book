@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ssh-keyscan command - Linux Command</title>
+    <meta name="description" content="Gather SSH public host keys from remote servers.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>ssh-keyscan</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Network</p>
+          <h1>ssh-keyscan</h1>
+          <p>Gather SSH public host keys from remote servers.</p>
+          <div class="tag-row"><span>ssh</span><span>keyscan</span><span>host-key</span><span>known-hosts</span><span>security</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>ssh-keyscan</code> collects SSH public host keys from remote servers without requiring a full SSH connection or authentication. It is used to populate <code>known_hosts</code> files, verify host key changes, and automate the setup of SSH trust relationships in scripts.</p>
+<p>The tool sends SSH protocol messages to request the server&#39;s public host keys, supporting SSH protocol version 2 (and legacy version 1). It can scan multiple hosts in parallel and output keys in the format expected by <code>~/.ssh/known_hosts</code> or <code>/etc/ssh/ssh_known_hosts</code>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>ssh-keyscan [options] hostname [hostname...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>hostname</code>: Hostname or IP address of the SSH server to scan. Can also specify <code>hostname:port</code> or use <code>-p</code>.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-p port</code>: Specify the port to connect to (default: 22). Repeatable for multiple ports.</li>
+<li><code>-4</code>: Use IPv4 addresses only.</li>
+<li><code>-6</code>: Use IPv6 addresses only.</li>
+<li><code>-t type</code>: Key type(s) to fetch: <code>rsa</code>, <code>ecdsa</code>, <code>ed25519</code>, <code>dsa</code>. Can be comma-separated or specified multiple times.</li>
+<li><code>-D</code>: Do not print the host name in the output (useful for generating hashed known_hosts).</li>
+<li><code>-H</code>: Hash the hostnames in the output (for privacy).</li>
+<li><code>-c</code>: Output in a chroot-compatible format.</li>
+<li><code>-T timeout</code>: Set a timeout in seconds for each connection attempt (default: 5).</li>
+<li><code>-f file</code>: Read hostnames or <code>host:port</code> pairs from a file (one per line).</li>
+<li><code>-v</code>: Verbose output (show debugging information).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>ssh-keyscan server.example.com</code></pre>
+<p>Fetch all host key types from <code>server.example.com</code>.</p>
+<pre><code>ssh-keyscan -t rsa,ed25519 server.example.com</code></pre>
+<p>Fetch only RSA and Ed25519 host keys.</p>
+<pre><code>ssh-keyscan -H -t ed25519 server.example.com &gt;&gt; ~/.ssh/known_hosts</code></pre>
+<p>Append hashed Ed25519 host key to the user&#39;s known_hosts file.</p>
+<pre><code>ssh-keyscan -p 2222 -t rsa server.example.com</code></pre>
+<p>Scan a server on port 2222 for its RSA host key.</p>
+<pre><code>ssh-keyscan -f servers.txt</code></pre>
+<p>Scan all hosts listed in the file <code>servers.txt</code>.</p>
+<pre><code>ssh-keyscan -T 10 -4 192.168.1.100</code></pre>
+<p>Scan an IPv4 address with a 10-second timeout.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li><code>ssh-keyscan</code> is non-interactive and does not prompt for passwords or confirmations.</li>
+<li>For automated provisioning, pipe the output directly into <code>/etc/ssh/ssh_known_hosts</code>.</li>
+<li>Hashed hostnames (<code>-H</code>) prevent disclosure of which hosts a user connects to.</li>
+<li>The first time a host is scanned, manually verify the key fingerprint out-of-band.</li>
+<li>The <code>-t</code> option with no argument fetches all key types supported by the server.</li>
+<li>Compromised host keys cannot be detected by <code>ssh-keyscan</code> alone; it retrieves whatever the server presents.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../ab/index.html"><strong>ab</strong><span>Benchmark HTTP server performance with ApacheBench.</span></a>
+<a href="../arp/index.html"><strong>arp</strong><span>Display or modify the ARP neighbor cache.</span></a>
+<a href="../arpd/index.html"><strong>arpd</strong><span>User-space ARP cache daemon for Linux neighbor entries.</span></a>
+<a href="../arping/index.html"><strong>arping</strong><span>Send ARP requests to a host on the local network.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

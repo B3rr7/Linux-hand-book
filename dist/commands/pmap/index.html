@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pmap command - Linux Command</title>
+    <meta name="description" content="Display memory map of a process.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>pmap</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Processes</p>
+          <h1>pmap</h1>
+          <p>Display memory map of a process.</p>
+          <div class="tag-row"><span>memory</span><span>process</span><span>mapping</span><span>address space</span><span>mmap</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>pmap</code> reports the memory map of a running process. It shows each mapped memory region, its size, permissions, offset, device, inode, and the mapped file or mapping name (if any). This reveals exactly how a process uses memory: heap, stack, shared libraries, anonymous mappings, and mmap&#39;d files.</p>
+<p>System administrators and developers use <code>pmap</code> to diagnose memory leaks, understand memory usage patterns, find which shared libraries are loaded, identify large memory-mapped files, and troubleshoot out-of-memory conditions. It reads data from <code>/proc/PID/maps</code> and <code>/proc/PID/smaps</code> and presents it in a readable format.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>pmap [options] [pid...]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>pid</code>: Process ID(s) to inspect.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>-x</code>, <code>--extended</code>: Show extended output with RSS, dirty, and shared memory details.</li>
+<li><code>-XX</code>: Show all available memory information (very detailed).</li>
+<li><code>-d</code>, <code>--device</code>: Show device format output with offset and device numbers.</li>
+<li><code>-q</code>, <code>--quiet</code>: Suppress header and footer lines.</li>
+<li><code>-A</code>, <code>--range low,high</code>: Restrict output to a specific address range.</li>
+<li><code>-c</code>: Read configuration from file.</li>
+<li><code>-p</code>: Show PID in the footer.</li>
+<li><code>--help</code>: Show help and exit.</li>
+<li><code>--version</code>: Show version information.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>pmap 1234</code></pre>
+<p>Show the memory map of PID 1234.</p>
+<pre><code>pmap -x 1234</code></pre>
+<p>Show extended memory details: RSS (resident set size), dirty pages, and mapping mode.</p>
+<pre><code>pmap -d 1234</code></pre>
+<p>Show the memory map in device format with read/write permissions.</p>
+<pre><code>pmap $(pidof bash)</code></pre>
+<p>Show the memory map of all running bash processes.</p>
+<pre><code>pmap -x -q 1234</code></pre>
+<p>Show extended output without headers, useful for scripts.</p>
+<pre><code>pmap -XX 1234 | sort -k2 -rn | head -10</code></pre>
+<p>Show the 10 largest memory mappings of a process.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>The first column shows the virtual address of each mapping. The last column shows the mapped file (or <code>[anon]</code> for anonymous mappings, <code>[heap]</code> for heap, <code>[stack]</code> for stack, <code>[vdso]</code>, <code>[vvar]</code>, etc.).</li>
+<li>The RSS (Resident Set Size) column in <code>-x</code> mode shows how much of each mapping is currently in physical RAM.</li>
+<li>Heap growth over time can indicate memory leaks. Run <code>pmap</code> at intervals to compare.</li>
+<li>Shared libraries appear as read-only executable (<code>r-x</code>) mappings. Each loaded library adds one or more segments to the process map.</li>
+<li>Large anonymous mappings (<code>[anon]</code>) may indicate memory-mapped buffers, thread stacks, or JIT-compiled code.</li>
+<li>For a real-time memory usage overview, use <code>top</code> or <code>htop</code>. For detailed per-process maps, use <code>pmap</code>.</li>
+<li>The total memory shown by <code>pmap</code> may differ from <code>ps</code> or <code>top</code> because they account for shared pages differently.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../atop/index.html"><strong>atop</strong><span>Monitor system and process activity over time.</span></a>
+<a href="../bg/index.html"><strong>bg</strong><span>Resume a suspended shell job in the background.</span></a>
+<a href="../dirs/index.html"><strong>dirs</strong><span>Display the directory stack.</span></a>
+<a href="../disown/index.html"><strong>disown</strong><span>Remove shell jobs from the current shell&#39;s job table.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>

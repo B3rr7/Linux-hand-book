@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>poweroff command - Linux Command</title>
+    <meta name="description" content="Power off the system.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("linux-command-theme") || "default";
+        const autoTheme = () => {
+          const hour = new Date().getHours();
+          if (hour >= 20 || hour < 5) {
+            const saved = localStorage.getItem("linux-command-auto-dark");
+            return saved === "moon" || saved === "electricity" ? saved : "moon";
+          }
+          if (hour >= 17) return "night";
+          return "default";
+        };
+        document.documentElement.dataset.theme = savedTheme === "auto" ? autoTheme() : savedTheme;
+      })();
+    </script>
+    <link rel="stylesheet" href="../../assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Linux Command home">
+        <span class="brand-mark">$</span>
+        <span>Linux Command</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a  href="../../index.html">Home</a>
+        <a  href="../../commands/index.html">Commands</a>
+        <a  href="../../linux-tree/index.html">Linux Tree</a>
+        <a  href="../../tools/index.html">Tools</a>
+        <a  href="../../about/index.html">About</a>
+      </nav>
+    </header>
+    <main class="detail-shell">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>poweroff</span></nav>
+      <article class="command-detail">
+        <header class="detail-header">
+          <p class="eyebrow">Administration</p>
+          <h1>poweroff</h1>
+          <p>Power off the system.</p>
+          <div class="tag-row"><span>shutdown</span><span>poweroff</span><span>halt</span><span>reboot</span><span>system</span></div>
+        </header>
+        <div class="prose">
+          <h2 id="additional-notes">Additional Notes</h2>
+<p><code>poweroff</code> shuts down the system and powers it off. It sends a signal to the init system (systemd or SysV init) to begin an orderly shutdown sequence: running shutdown scripts, stopping services, unmounting filesystems, and finally powering off the hardware.</p>
+<p>On modern Linux distributions using systemd, <code>poweroff</code> is equivalent to <code>systemctl poweroff</code>. On SysV init systems, it calls the <code>halt</code> or <code>shutdown</code> commands to perform the shutdown. The command requires root privileges or systemd-logind session permissions.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>poweroff [options]</code></pre>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>options</code>: Flags that change how <code>poweroff</code> behaves.</li>
+<li><code>target</code>: Optional file, device, interface, user, service, or command target when the command supports one.</li>
+</ul>
+<h2 id="common-options">Common Options</h2>
+<ul>
+<li><code>--help</code>: Show help and exit.</li>
+<li><code>--version</code>: Show version information.</li>
+<li><code>--no-wall</code>: Do not send a wall message before shutdown.</li>
+<li><code>-f</code>, <code>--force</code>: Force immediate poweroff without calling shutdown scripts.</li>
+<li><code>-i</code>, <code>--init</code>: Shut down using the init system (SysV compatibility).</li>
+<li><code>-w</code>, <code>--wtmp-only</code>: Write wtmp record only; do not actually power off.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre><code>poweroff</code></pre>
+<p>Power off the system immediately.</p>
+<pre><code>sudo poweroff</code></pre>
+<p>Power off as root (or via sudo for non-root users).</p>
+<pre><code>poweroff --no-wall</code></pre>
+<p>Power off without notifying logged-in users.</p>
+<pre><code>poweroff -f</code></pre>
+<p>Force immediate poweroff without service shutdown.</p>
+<h2 id="practical-notes">Practical Notes</h2>
+<ul>
+<li>Non-root users may need to be in the <code>wheel</code> or <code>sudo</code> group to run <code>poweroff</code>.</li>
+<li>On systemd systems, <code>poweroff</code> is the same as <code>systemctl poweroff</code>.</li>
+<li>To schedule a shutdown, use <code>shutdown -h +5</code> (shutdown in 5 minutes) instead of <code>poweroff</code>.</li>
+<li>Running <code>poweroff</code> from an SSH session may hang if the system does not handle the session properly; use <code>shutdown</code> or <code>systemctl</code> for cleaner remote shutdowns.</li>
+<li>The <code>-f</code> flag skips the shutdown process and forces immediate poweroff. Use it only if the system is unresponsive to normal shutdown.</li>
+<li>Use <code>reboot</code> instead of <code>poweroff</code> to restart the system.</li>
+</ul>
+        </div>
+      </article>
+      <aside class="related">
+        <h2>Related commands</h2>
+        <a href="../logsave/index.html"><strong>logsave</strong><span>Save command output to a log file while displaying on the terminal.</span></a>
+<a href="../logwatch/index.html"><strong>logwatch</strong><span>Summarize and report system log activity.</span></a>
+<a href="../lpadmin/index.html"><strong>lpadmin</strong><span>Configure CUPS printers and classes.</span></a>
+<a href="../lpc/index.html"><strong>lpc</strong><span>Line printer control; manage printer queues in CUPS/LPD.</span></a>
+      </aside>
+    </main>
+    <aside class="penguin-theme" aria-label="Display theme switcher">
+      <div class="penguin" aria-hidden="true">
+        <span class="penguin-head"></span>
+        <span class="penguin-face"></span>
+        <span class="penguin-eye left"></span>
+        <span class="penguin-eye right"></span>
+        <span class="penguin-beak"></span>
+        <span class="penguin-body"></span>
+        <span class="penguin-belly"></span>
+        <span class="penguin-foot left"></span>
+        <span class="penguin-foot right"></span>
+      </div>
+      <button class="penguin-device" type="button" aria-expanded="false" aria-controls="theme-menu" data-theme-device>
+        <span class="device-dot"></span>
+        <span class="device-line"></span>
+      </button>
+      <div class="theme-menu" id="theme-menu" hidden data-theme-menu>
+        <button type="button" data-theme-choice="auto">Auto</button>
+        <button type="button" data-theme-choice="night">Night Mode</button>
+        <button type="button" data-theme-choice="electricity">Dark Mode</button>
+        <button type="button" data-theme-choice="moon">Moon Night</button>
+        <button type="button" data-theme-choice="default">Default</button>
+      </div>
+      <div class="penguin-tip" hidden data-penguin-tip role="status" aria-live="polite"></div>
+      <time class="penguin-clock" data-penguin-clock aria-label="Current time"></time>
+    </aside>
+    <button class="moon-wallpaper-hotspot" type="button" data-wallpaper-cycle aria-label="Change Moon Night wallpaper" title="Change Moon Night wallpaper"></button>
+    <footer class="site-footer">
+      <span>No ads. Markdown-powered. Built for quick reference.</span>
+    </footer>
+    <script>
+      window.__SEARCH_INDEX__ = "../../search-index.json";
+      window.__TOOLS_INDEX__ = "../../tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "../../wallpapers-index.json";
+      window.__SITE_ROOT__ = "../../";
+    </script>
+    <script src="../../assets/search.js" type="module"></script>
+    <script src="../../assets/tools.js" type="module"></script>
+    <script src="../../assets/tree.js" type="module"></script>
+    <script src="../../assets/theme.js" type="module"></script>
+  </body>
+</html>
