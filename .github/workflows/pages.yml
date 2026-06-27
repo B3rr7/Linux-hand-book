@@ -28,7 +28,9 @@ jobs:
           node-version: 20
 
       - name: Build site
-        run: npm run build
+        run: npm run check
+        env:
+          SITE_BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -11,6 +11,14 @@ const site = {
   description: "A fast searchable Linux command handbook for learners and daily reference."
 };
 
+const normalizeBasePath = (value = "/") => {
+  const trimmed = String(value).trim();
+  if (!trimmed || trimmed === "/") return "/";
+  return `/${trimmed.replace(/^\/+|\/+$/g, "")}/`;
+};
+
+const siteBasePath = normalizeBasePath(process.env.SITE_BASE_PATH);
+
 const wallpaperExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif", ".svg"]);
 
 const escapeHtml = (value = "") =>
@@ -280,7 +288,7 @@ function layout({ title, description = site.description, body, current = "", dep
 }
 
 function commandCard(command, prefix = "") {
-  return `<a class="command-card" href="${prefix}commands/${command.slug}/index.html" data-command-card data-search="${escapeHtml(command.searchText)}">
+  return `<a class="command-card" href="${prefix}commands/${command.slug}/index.html" data-command-card>
     <span class="command-name">${escapeHtml(command.name)}</span>
     <span class="command-summary">${escapeHtml(command.summary)}</span>
     <span class="tag-row">${command.tags.slice(0, 4).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>
@@ -446,7 +454,7 @@ function notFoundPage() {
   return layout({
     title: `Page not found - ${site.title}`,
     description: "The requested Linux Command page could not be found.",
-    prefixOverride: "/",
+    prefixOverride: siteBasePath,
     body: `<main class="page-shell">
       <section class="page-intro">
         <p class="eyebrow">404</p>
@@ -455,15 +463,15 @@ function notFoundPage() {
       </section>
       <section class="results-section">
         <div class="command-grid">
-          <a class="command-card" href="/index.html">
+          <a class="command-card" href="${siteBasePath}index.html">
             <span class="command-name">Home</span>
             <span class="command-summary">Return to the main search page.</span>
           </a>
-          <a class="command-card" href="/commands/index.html">
+          <a class="command-card" href="${siteBasePath}commands/index.html">
             <span class="command-name">Commands</span>
             <span class="command-summary">Browse every Linux command page.</span>
           </a>
-          <a class="command-card" href="/linux-tree/index.html">
+          <a class="command-card" href="${siteBasePath}linux-tree/index.html">
             <span class="command-name">Linux Tree</span>
             <span class="command-summary">Explore the Linux filesystem guide.</span>
           </a>

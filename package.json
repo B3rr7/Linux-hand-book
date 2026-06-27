@@ -5,6 +5,7 @@
   "description": "A fast static Linux command handbook powered by markdown files.",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "check": "npm run build && node scripts/check.mjs",
     "dev": "node scripts/dev-server.mjs",
     "clean": "node scripts/clean.mjs"
   },
