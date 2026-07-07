@@ -274,10 +274,10 @@ function layout({ title, description = site.description, body, current = "", dep
       <span>No ads. Markdown-powered. Built for quick reference.</span>
     </footer>
     <script>
-      window.__SEARCH_INDEX__ = "${prefix}search-index.json";
-      window.__TOOLS_INDEX__ = "${prefix}tools-index.json";
-      window.__WALLPAPERS_INDEX__ = "${prefix}wallpapers-index.json";
-      window.__SITE_ROOT__ = "${prefix}";
+      window.__SEARCH_INDEX__ = "${siteBasePath}search-index.json";
+      window.__TOOLS_INDEX__ = "${siteBasePath}tools-index.json";
+      window.__WALLPAPERS_INDEX__ = "${siteBasePath}wallpapers-index.json";
+      window.__SITE_ROOT__ = "${siteBasePath}";
     </script>
     <script src="${prefix}assets/search.js" type="module"></script>
     <script src="${prefix}assets/tools.js" type="module"></script>
