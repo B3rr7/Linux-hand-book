@@ -201,7 +201,7 @@ async function loadCommands() {
 
 const relativePrefix = (depth) => (depth === 0 ? "" : "../".repeat(depth));
 
-function layout({ title, description = site.description, body, current = "", depth = 0, prefixOverride = null }) {
+function layout({ title, description = site.description, keywords = "Linux, commands, terminal, bash, shell, reference, handbook", body, current = "", depth = 0, prefixOverride = null }) {
   const prefix = prefixOverride ?? relativePrefix(depth);
   return `<!doctype html>
 <html lang="en">
@@ -210,6 +210,7 @@ function layout({ title, description = site.description, body, current = "", dep
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeHtml(description)}">
+    <meta name="keywords" content="${escapeHtml(keywords)}">
     <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
     <script>
       (() => {
@@ -374,6 +375,7 @@ function detailPage(command, commands) {
   return layout({
     title: `${command.name} command - ${site.title}`,
     description: command.summary,
+    keywords: ["Linux", "command", command.name, command.category, ...command.tags].join(", "),
     depth: 2,
     body: `<main class="detail-shell">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>${escapeHtml(command.name)}</span></nav>
