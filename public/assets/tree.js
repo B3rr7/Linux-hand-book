@@ -81,7 +81,7 @@ const treeInfo = {
   },
   "/home/rani": {
     kind: "User home example",
-    description: "An example user home. A real system uses account names from that machine.",
+    description: "An example user home for the account named `rani`. A real system uses whatever username exists on that machine.",
     example: "cd ~"
   },
   "/home/guest": {
@@ -264,9 +264,9 @@ const treeInfo = {
     description: "Stores loadable kernel modules, usually organized by kernel version.",
     example: "ls /lib/modules"
   },
-  "/lib/ld-linux.so": {
+  "/lib/ld-linux.so.2": {
     kind: "Dynamic linker example",
-    description: "Represents the dynamic loader/linker used to start dynamically linked programs. Exact filename varies by architecture.",
+    description: "Represents the dynamic loader/linker used to start dynamically linked programs. The exact name varies by architecture (for example ld-linux-x86-64.so.2).",
     example: "ls /lib*/*ld-linux*"
   },
   "/run": {
@@ -378,7 +378,7 @@ const treeAliases = {
   local: "/usr/local",
   modules: "/lib/modules",
   module: "/lib/modules",
-  linker: "/lib/ld-linux.so",
+  linker: "/lib/ld-linux.so.2",
   runtime: "/run",
   locks: "/run/lock",
   lock: "/run/lock",
