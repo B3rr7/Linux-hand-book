@@ -168,6 +168,8 @@
 :root[data-theme="moon"] .about-panels article,
 :root[data-theme="moon"] .related a,
 :root[data-theme="moon"] .empty-state,
+:root[data-theme="moon"] .filesystem-tree,
+:root[data-theme="moon"] .tree-info-panel,
 :root[data-theme="moon"] .theme-menu,
 :root[data-theme="moon"] .penguin-tip,
 :root[data-theme="moon"] .penguin-clock,
@@ -1189,7 +1191,9 @@ label {
   min-height: 620px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+  backdrop-filter: blur(18px) saturate(1.12);
   box-shadow: var(--shadow);
 }
 
@@ -1336,7 +1340,9 @@ label {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: clamp(22px, 4vw, 34px);
-  background: var(--surface-soft);
+  background: color-mix(in srgb, var(--surface-soft) 82%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
   box-shadow: 0 24px 68px rgba(15, 23, 42, 0.22);
   transform: scale(1);
   transform-origin: center;
