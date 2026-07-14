@@ -2,59 +2,79 @@
 name: csplit
 summary: Split files into sections based on context patterns.
 category: Text
-tags: split, text, pattern, file
+tags: split, text, pattern, line, file
 popular: false
 ---
 
 ## Additional Notes
 
-`csplit` splits a file into pieces based on line numbers or matching patterns. It is useful for breaking structured text into separate files.
+`csplit` splits a file into multiple output files based on line numbers, repeating counts, or context patterns such as a heading line. It is ideal for breaking one large document into chapters, sections, or records.
 
-Use it when simple byte or line counts from `split` are not enough.
+Unlike `split`, which cuts by fixed size, `csplit` cuts by content you describe with a pattern or line position.
 
 ## Syntax
 
 ```bash
-csplit [options] file pattern...
+csplit [options] FILE PATTERN...
 ```
 
 ## Parameters
 
-- `file`: Input file to split.
-- `pattern`: Line number, regular expression, or repeat expression that defines split points.
-- `options`: Output prefix, suffix, quiet, and keep controls.
+- `options`: Flags that change naming and behavior.
+- `FILE`: The file to split (use `-` for standard input).
+- `PATTERN`: How to find each split point: a line number, a count, or a regular expression.
+
+## Pattern Forms
+
+- `N`: Split before line number `N`.
+- `/REGEX/`: Split before each line matching the regular expression.
+- `/REGEX/[OFFSET]`: Apply an offset (such as `+1` or `-1`) to the match line.
+- `{N}`: Repeat the previous pattern `N` times, or `{*}` to repeat until the end.
 
 ## Common Options
 
-- `-f PREFIX`: Use PREFIX for output files.
-- `-b FORMAT`: Use FORMAT for output suffixes.
-- `-n DIGITS`: Use DIGITS in output numbering.
-- `-k`: Keep output files on errors.
-- `-s`: Silent mode.
-- `-z`: Remove empty output files.
+- `-f PREFIX`: Set the output filename prefix (default `xx`).
+- `-b FORMAT`: Set the suffix format, such as `%02d`.
+- `-n N`: Use `N` digists in the suffix.
+- `-k`, `--keep-files`: Keep output files even on errors.
+- `-z`: Use NUL instead of newline as the line delimiter.
+- `-s`: Suppress counts that are normally printed.
 
 ## Examples
 
 ```bash
-csplit document.txt 100
+csplit -z manual.txt /Chapter/ "{*}"
 ```
 
-Split before line 100.
+Split `manual.txt` before every line containing `Chapter`, repeating to the end.
 
 ```bash
-csplit -f part- document.txt '/^Chapter/' '{*}'
+csplit data.txt 20
 ```
 
-Split at each line beginning with `Chapter`.
+Split before line 20, producing a first file with lines 1–19.
 
 ```bash
-csplit -z -f section- input.txt '/^---$/' '{*}'
+csplit -f part- -b "%03d.txt" log.txt /ERROR/ "{*}"
 ```
 
-Split on separator lines and remove empty files.
+Split `log.txt` before each `ERROR` line into `part-000.txt`, `part-001.txt`, and so on.
+
+```bash
+csplit -z report.txt /SECTION/ +1
+```
+
+Split before each `SECTION` line, then shift the cut one line down.
+
+```bash
+csplit big.txt 100 {10}
+```
+
+Split before line 100, then repeat that every 100 lines 10 more times.
 
 ## Practical Notes
 
-- Patterns are evaluated in order.
-- Quote regex patterns so the shell does not interpret them.
-- Use `split` for fixed-size splitting and `csplit` for content-aware splitting.
+- Patterns are tried in order; each splits the file at a point.
+- `{*}` keeps splitting until the input ends, which is the usual case for documents.
+- Use `-f` and `-b` to control the output filenames.
+- `csplit` is content-aware, unlike `split`, which only cuts by size.

@@ -11,6 +11,15 @@ const site = {
   description: "A fast searchable Linux command handbook for learners and daily reference."
 };
 
+const siteUrl = (process.env.SITE_URL || "").replace(/\/+$/, "");
+
+const absoluteUrl = (relativePath = "") => {
+  if (!siteUrl) return "";
+  const base = siteBasePath === "/" ? siteUrl + "/" : siteUrl + siteBasePath;
+  const tail = String(relativePath).replace(/^\/+/, "");
+  return tail ? base + tail : base;
+};
+
 const normalizeBasePath = (value = "/") => {
   const trimmed = String(value).trim();
   if (!trimmed || trimmed === "/") return "/";
@@ -201,8 +210,12 @@ async function loadCommands() {
 
 const relativePrefix = (depth) => (depth === 0 ? "" : "../".repeat(depth));
 
-function layout({ title, description = site.description, keywords = "Linux, commands, terminal, bash, shell, reference, handbook", body, current = "", depth = 0, prefixOverride = null }) {
+function layout({ title, description = site.description, keywords = "Linux, commands, terminal, bash, shell, reference, handbook", body, current = "", depth = 0, prefixOverride = null, pagePath = "", ogType = "website", jsonLd = null }) {
   const prefix = prefixOverride ?? relativePrefix(depth);
+  const canonical = absoluteUrl(pagePath);
+  const structuredData = jsonLd
+    ? `\n    <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>`
+    : "";
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -211,7 +224,26 @@ function layout({ title, description = site.description, keywords = "Linux, comm
     <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeHtml(description)}">
     <meta name="keywords" content="${escapeHtml(keywords)}">
+    <meta name="author" content="Linux Command">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0f766e">
     <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="${prefix}favicon.svg">
+    <link rel="manifest" href="${prefix}manifest.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="${escapeHtml(site.title)}">
+    <meta name="msapplication-TileColor" content="#0f766e">
+    <meta name="msapplication-config" content="none">${canonical ? `\n    <link rel="canonical" href="${escapeHtml(canonical)}">` : ""}${siteUrl ? `\n    <link rel="sitemap" type="application/xml" title="Sitemap" href="${escapeHtml(absoluteUrl("sitemap.xml"))}">` : ""}
+    <meta property="og:type" content="${escapeHtml(ogType)}">
+    <meta property="og:site_name" content="${escapeHtml(site.title)}">
+    <meta property="og:title" content="${escapeHtml(title)}">
+    <meta property="og:description" content="${escapeHtml(description)}">
+    <meta property="og:locale" content="en_US">${canonical ? `\n    <meta property="og:url" content="${escapeHtml(canonical)}">` : ""}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${escapeHtml(title)}">
+    <meta name="twitter:description" content="${escapeHtml(description)}">${structuredData}
     <script>
       (() => {
         const savedTheme = localStorage.getItem("linux-command-theme") || "default";
@@ -298,9 +330,18 @@ function commandCard(command, prefix = "") {
 
 function homePage(commands) {
   const popular = commands.filter((command) => command.popular);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": site.title,
+    "description": site.description,
+    "url": absoluteUrl("")
+  };
   return layout({
     title: `${site.title} - Searchable Linux command handbook`,
     current: "home",
+    pagePath: "",
+    jsonLd,
     body: `<main>
       <section class="hero">
         <div class="hero-copy">
@@ -338,6 +379,7 @@ function commandsPage(commands) {
     title: `All commands - ${site.title}`,
     current: "commands",
     depth: 1,
+    pagePath: "commands/",
     body: `<main class="page-shell">
       <section class="page-intro">
         <p class="eyebrow">Command index</p>
@@ -372,11 +414,27 @@ function detailPage(command, commands) {
     .filter((item) => item.slug !== command.slug && item.category === command.category)
     .slice(0, 4);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": `${command.name} command`,
+    "description": command.summary,
+    "keywords": command.tags.join(", "),
+    "articleSection": command.category,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`commands/${command.slug}/`)
+    }
+  };
+
   return layout({
     title: `${command.name} command - ${site.title}`,
     description: command.summary,
     keywords: ["Linux", "command", command.name, command.category, ...command.tags].join(", "),
     depth: 2,
+    pagePath: `commands/${command.slug}/`,
+    ogType: "article",
+    jsonLd,
     body: `<main class="detail-shell">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Commands</a><span>/</span><span>${escapeHtml(command.name)}</span></nav>
       <article class="command-detail">
@@ -404,6 +462,7 @@ function aboutPage() {
     description: "About Linux Command — a searchable handbook of 620+ Linux command references built from personal learning, open resources, and AI assistance.",
     current: "about",
     depth: 1,
+    pagePath: "about/",
     body: `<main class="about-shell">
       <section class="about-hero">
         <p class="eyebrow">About the project</p>
@@ -457,6 +516,7 @@ function notFoundPage() {
     title: `Page not found - ${site.title}`,
     description: "The requested Linux Command page could not be found.",
     prefixOverride: siteBasePath,
+    pagePath: "404.html",
     body: `<main class="page-shell">
       <section class="page-intro">
         <p class="eyebrow">404</p>
@@ -489,6 +549,7 @@ function linuxTreePage() {
     description: "A visual guide to the Linux filesystem tree and what common top-level directories are for.",
     current: "tree",
     depth: 1,
+    pagePath: "linux-tree/",
     body: `<main class="linux-tree-shell">
       <section class="page-intro">
         <p class="eyebrow">Linux filesystem</p>
@@ -1842,6 +1903,7 @@ function toolsPage() {
     description: "A student-friendly cybersecurity tools directory for authorized lab work and defensive learning.",
     current: "tools",
     depth: 1,
+    pagePath: "tools/",
     body: `<main class="tools-shell">
       <section class="tools-hero">
         <p class="eyebrow">Cybersecurity student tools</p>
@@ -1914,11 +1976,28 @@ function toolsPage() {
 }
 
 function toolDetailPage(tool) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": tool.name,
+    "description": tool.summary,
+    "applicationCategory": tool.category,
+    "url": tool.link,
+    "sameAs": tool.link,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`tools/${tool.slug}/`)
+    }
+  };
+
   return layout({
     title: `${tool.name} - Cybersecurity Tools - ${site.title}`,
     description: tool.summary,
     current: "tools",
     depth: 2,
+    pagePath: `tools/${tool.slug}/`,
+    ogType: "article",
+    jsonLd,
     body: `<main class="detail-shell tool-detail-shell">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Tools</a><span>/</span><span>${escapeHtml(tool.name)}</span></nav>
       <article class="command-detail">
@@ -2035,6 +2114,36 @@ for (const tool of tools) {
   const dir = path.join(distDir, "tools", tool.slug);
   await mkdir(dir, { recursive: true });
   await writeFile(path.join(dir, "index.html"), toolDetailPage(tool));
+}
+
+const sitemapPaths = [
+  "",
+  "commands/",
+  "about/",
+  "linux-tree/",
+  "tools/",
+  "404.html",
+  ...commands.map((command) => `commands/${command.slug}/`),
+  ...tools.map((tool) => `tools/${tool.slug}/`)
+];
+
+if (siteUrl) {
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapPaths
+    .map((pagePath) => `  <url><loc>${escapeHtml(absoluteUrl(pagePath))}</loc></url>`)
+    .join("\n")}
+</urlset>
+`;
+  await writeFile(path.join(distDir, "sitemap.xml"), sitemap);
+
+  const robots = `User-agent: *
+Allow: /
+
+Sitemap: ${absoluteUrl("sitemap.xml")}
+`;
+  await writeFile(path.join(distDir, "robots.txt"), robots);
+  console.log(`Wrote sitemap.xml (${sitemapPaths.length} urls) and robots.txt`);
 }
 
 console.log(`Built ${commands.length} command pages and ${tools.length} tool pages in dist/`);

@@ -2,43 +2,75 @@
 name: iostat
 summary: Report CPU and disk IO statistics.
 category: System
-tags: performance, disk, cpu, monitoring
+tags: performance, disk, cpu, monitoring, sysstat
 popular: false
 ---
 
 ## Additional Notes
 
-`iostat` is a system command used to report CPU and disk IO statistics. It helps diagnose performance issues by showing CPU utilization and per-device I/O statistics.
+`iostat` reports CPU utilization and device I/O statistics such as read/write throughput and the number of operations per second. It comes from the `sysstat` package and is a standard tool for spotting disk bottlenecks.
 
-`iostat` is typically provided by the `sysstat` package. Running it repeatedly with an interval (e.g., `iostat 1`) produces continuous monitoring output.
+With no interval it prints since-boot averages; with an interval it prints live updates, which is how you watch current load.
 
 ## Syntax
 
 ```bash
-iostat [options] [arguments]
+iostat [options] [interval [count]]
 ```
 
 ## Parameters
 
-- `options`: Flags that change how `iostat` behaves.
-- `'interval'`: Seconds between reports.
-- `'count'`: Number of reports (optional).
+- `options`: Flags that choose what to report.
+- `interval`: Seconds between reports when watching live.
+- `count`: Number of reports to print, then exit.
 
 ## Common Options
 
-- `-x`: Extended disk statistics.
-- `-d`: Device utilization report.
-- `-c`: CPU report.
-- `N`: Repeat every N seconds.
+- `-x`: Extended, more detailed device statistics.
+- `-d`: Show device (disk) statistics only.
+- `-p [DEVICE]`: Include per-partition statistics.
+- `-m`: Show rates in megabytes per second.
+- `-k`: Show rates in kilobytes per second.
+- `-c`: Show CPU statistics only.
+- `-N`: Show device mapper names when available.
+- `-t`: Add a timestamp to each report.
+- `-z`: Omit devices with no activity during the interval.
 
 ## Examples
 
 ```bash
 iostat
-iostat -xz 1
-iostat -d 2 5
 ```
+
+Show since-boot CPU and device summary.
+
+```bash
+iostat -x 1
+```
+
+Print detailed device stats every second until stopped.
+
+```bash
+iostat -xz 2 5
+```
+
+Print five extended reports, two seconds apart, skipping idle devices.
+
+```bash
+iostat -d sda 1
+```
+
+Watch only the `sda` device once per second.
+
+```bash
+iostat -m -p ALL 1 3
+```
+
+Show per-partition throughput in MB/s, three times.
 
 ## Practical Notes
 
-`iostat` is often provided by the `sysstat` package.
+- Without an interval, numbers are averages since boot, not current load.
+- Use `-x` to see `await`, `util`, and `svctm` for real bottleneck clues.
+- High `%util` near 100% with high `await` often means the disk is saturated.
+- Install `sysstat` first if the command is missing; enable its collector for history.

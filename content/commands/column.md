@@ -2,58 +2,73 @@
 name: column
 summary: Format text into aligned columns or tables.
 category: Text
-tags: text, table, format, columns
+tags: text, table, format, columns, align
 popular: false
 ---
 
 ## Additional Notes
 
-`column` formats text into columns. It is useful for making command output, lists, and delimited data easier to read in a terminal.
+`column` formats input into aligned, easy-to-read columns. It is especially useful for turning delimiter-separated output (such as `mount` or a CSV) into a tidy table.
 
-It is commonly used with `-t` to align table-like input.
+By default it fills columns down each column; the `-t` (table) mode aligns by a separator and spreads columns across the page.
 
 ## Syntax
 
 ```bash
-column [options] [file...]
+column [options] [file ...]
 ```
 
 ## Parameters
 
-- `file`: Optional input file. If omitted, standard input is used.
-- `options`: Table, separator, width, and output controls.
+- `options`: Flags that change the layout.
+- `file`: File to read; if omitted, reads standard input.
 
 ## Common Options
 
-- `-t`: Create a table by aligning columns.
-- `-s SEP`: Use SEP as the input separator.
-- `-o SEP`: Use SEP as the output separator when supported.
-- `-x`: Fill rows before columns.
-- `-c WIDTH`: Set output width.
-- `-N NAMES`: Set column names on newer util-linux versions.
+- `-t`, `--table`: Create a table by detecting column separators.
+- `-s SEP`, `--separator SEP`: Use a specific column separator.
+- `-o SEP`, `--output-separator SEP`: Set the separator between output columns.
+- `-x`: Fill rows across instead of down columns.
+- `-n`: Do not merge multiple adjacent separators.
+- `-e`: Do not ignore empty lines.
+- `-c WIDTH`: Format for a given display width.
+- `-L LEVELS`: For `-t`, how many separators to trust per line.
 
 ## Examples
-
-```bash
-printf 'name:uid:shell\nrani:1000:bash\n' | column -t -s ':'
-```
-
-Format colon-separated text as a table.
 
 ```bash
 mount | column -t
 ```
 
-Align whitespace-separated output.
+Turn `mount` output into an aligned, readable table.
 
 ```bash
-cat /etc/passwd | column -t -s ':' | less
+column -t -s, data.csv
 ```
 
-Inspect passwd fields in aligned columns.
+Format a comma-separated CSV into aligned columns.
+
+```bash
+column -t -s: -o " | " /etc/passwd
+```
+
+Align `/etc/passwd` fields, separating output with ` | `.
+
+```bash
+ls -l | column -x
+```
+
+List entries filled across rows instead of down columns.
+
+```bash
+column -t -s, -n report.csv
+```
+
+Treat repeated commas as separate empty fields.
 
 ## Practical Notes
 
-- `column` is for display, not reliable machine parsing.
-- Quote separators that have shell meaning.
-- Options differ between BSD and util-linux implementations.
+- `-t` is the most useful mode; pair it with `-s` for non-whitespace delimiters.
+- `mount | column -t` is a quick way to read mount points.
+- Use `-o` to choose how output columns are visually separated.
+- When columns look misaligned, check that every line has the same number of separators.

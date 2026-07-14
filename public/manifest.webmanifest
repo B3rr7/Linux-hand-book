@@ -1,0 +1,27 @@
+{
+  "name": "Linux Command",
+  "short_name": "Linux Cmd",
+  "description": "A fast searchable Linux command handbook for learners and daily reference.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f7f7f4",
+  "theme_color": "#0f766e",
+  "lang": "en",
+  "orientation": "portrait-primary",
+  "categories": ["education", "reference", "utilities"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

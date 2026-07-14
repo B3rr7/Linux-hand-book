@@ -2,66 +2,79 @@
 name: comm
 summary: Compare two sorted files line by line.
 category: Text
-tags: compare, sorted, text, lines
+tags: compare, sorted, text, lines, diff
 popular: false
 ---
 
 ## Additional Notes
 
-`comm` compares two sorted files and prints three columns: lines only in the first file, lines only in the second file, and lines common to both.
+`comm` compares two already-sorted files line by line and prints three columns: lines only in the first file, lines only in the second file, and lines in both. It is faster and simpler than `diff` when both inputs are sorted.
 
-Use it when comparing sets of lines, such as package lists, usernames, hostnames, or file inventories.
+Both input files must be sorted the same way, or the output is unreliable. Use `sort` first when the files are not already sorted.
 
 ## Syntax
 
 ```bash
-comm [options] file1 file2
+comm [options] FILE1 FILE2
 ```
 
 ## Parameters
 
-- `file1`: First sorted file.
-- `file2`: Second sorted file.
-- `options`: Controls for suppressing output columns.
+- `options`: Flags that suppress columns.
+- `FILE1`, `FILE2`: The two sorted files to compare.
 
 ## Common Options
 
-- `-1`: Suppress lines unique to file1.
-- `-2`: Suppress lines unique to file2.
-- `-3`: Suppress lines common to both files.
-- `--check-order`: Check that input is sorted.
-- `--nocheck-order`: Do not check sort order.
+- `-1`: Suppress column 1 (lines unique to FILE1).
+- `-2`: Suppress column 2 (lines unique to FILE2).
+- `-3`: Suppress column 3 (lines common to both).
+- `--check-order`: Warn if the input is not sorted.
+- `--nocheck-order`: Do not warn about sort order.
+
+## Output Layout
+
+- Column 1: lines only in FILE1.
+- Column 2: lines only in FILE2.
+- Column 3: lines in both files.
 
 ## Examples
 
 ```bash
-comm old.txt new.txt
+comm a.txt b.txt
 ```
 
-Compare two sorted files in three columns.
+Show all three columns.
 
 ```bash
-comm -12 old.txt new.txt
+comm -23 a.txt b.txt
 ```
 
-Show only lines common to both files.
+Print lines only in `a.txt` (suppress columns 2 and 3).
 
 ```bash
-comm -23 old.txt new.txt
+comm -13 a.txt b.txt
 ```
 
-Show lines only in `old.txt`.
+Print lines only in `b.txt`.
 
 ```bash
-sort a.txt > a.sorted
-sort b.txt > b.sorted
-comm -13 a.sorted b.sorted
+comm -12 a.txt b.txt
 ```
 
-Show lines only in `b.txt` after sorting.
+Print only the lines common to both files.
+
+```bash
+sort list-a.txt > a.sorted
+sort list-b.txt > b.sorted
+comm -23 a.sorted b.sorted
+```
+
+Sort both files first, then show what is unique to the first.
 
 ## Practical Notes
 
-- Inputs must be sorted using the same collation rules.
-- Set `LC_ALL=C` for bytewise predictable sorting in scripts.
-- Use `diff` when order and changed blocks matter.
+- Both files must be sorted identically; otherwise the result is wrong.
+- Use `sort` on both inputs before comparing.
+- `comm -23` / `comm -13` are handy for set-difference operations.
+- `comm -12` gives the set intersection of two sorted lists.
+- For unsorted or patch-style comparison, use `diff` instead.

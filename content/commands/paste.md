@@ -2,40 +2,68 @@
 name: paste
 summary: Merge lines from files side by side.
 category: Text
-tags: text, columns, merge, files
+tags: text, columns, merge, files, join
 popular: false
 ---
 
 ## Additional Notes
 
-`paste` is a text-processing command used to merge lines from files side by side. It lets you combine files column-wise, which is useful for creating reports or tabular output without a spreadsheet.
+`paste` merges lines from multiple files, writing them side by side with a tab between columns. It is the inverse of `cut` and a quick way to build tables from separate column files.
 
-`paste` reads line by line in parallel from each input file. It is part of POSIX and works consistently across systems.
+When given one file, `paste` places one input line per output line with a chosen delimiter. Use `-` to read one column from standard input.
 
 ## Syntax
 
 ```bash
-paste [options] [file...]
+paste [options] [file ...]
 ```
 
 ## Parameters
 
-- `options`: Flags that change how `paste` behaves.
-- `file`: Text file to read or process.
+- `options`: Flags that change the delimiter or mode.
+- `file`: One or more files to merge (use `-` for standard input).
 
 ## Common Options
 
-- `-d LIST`: Use custom delimiters.
-- `-s`: Paste one file at a time instead of in parallel.
+- `-d LIST`, `--delimiters=LIST`: Use characters from LIST as column separators (cycled per column).
+- `-s`, `--serial`: Paste one file at a time, its lines becoming one output row.
+- `-z`: Lines end with NUL instead of newline.
 
 ## Examples
 
 ```bash
-paste names.txt scores.txt
-paste -d, first.csv second.csv
-seq 3 | paste -s -d+
+paste first.txt second.txt
 ```
+
+Join the two files as two side-by-side columns separated by tabs.
+
+```bash
+paste -d, a.txt b.txt c.txt
+```
+
+Merge three files using commas as the column separator.
+
+```bash
+ls | paste - - -
+```
+
+Read three items per row from standard input.
+
+```bash
+paste -s -d, numbers.txt
+```
+
+Turn one file's lines into a single comma-separated row.
+
+```bash
+cut -d: -f1 /etc/passwd | paste -d, - names2.txt
+```
+
+Combine a column from a file with a stdin column.
 
 ## Practical Notes
 
-`paste` is handy for simple column joining without needing a spreadsheet.
+- The default column separator is a tab; change it with `-d`.
+- `-s` is useful for turning a vertical list into a horizontal one.
+- `paste` pairs naturally with `cut` and `column` for table building.
+- When inputs have different line counts, shorter columns simply stop early.

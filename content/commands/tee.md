@@ -2,41 +2,69 @@
 name: tee
 summary: Read standard input and write it to files and standard output.
 category: Shell
-tags: pipe, output, files, logging
+tags: pipe, output, files, logging, redirect
 popular: false
 ---
 
 ## Additional Notes
 
-`tee` is a shell command used to read standard input and write it to files and standard output. It splits a command's output so you can see it on screen and save it to a file simultaneously.
+`tee` reads from standard input and writes the same data to standard output and to one or more files. It is the "T" junction of a pipeline: it lets you both display a command's output and save it at the same time.
 
-Use `-a` to append to files instead of overwriting. `tee` is often used with `sudo` to write to protected files: `command | sudo tee file`.
+A common trick is `sudo tee FILE > /dev/null` to write to a root-owned file from a normal user's pipeline, since `>` redirection happens before `sudo` applies.
 
 ## Syntax
 
 ```bash
-tee [arguments]
+command | tee [options] [file ...]
 ```
 
 ## Parameters
 
 - `options`: Flags that change how `tee` behaves.
-- `arguments`: Values consumed by the shell builtin or script command.
-- `command`: Command line to run, test, wrap, or control.
+- `file`: One or more files to write the input to.
 
 ## Common Options
 
-- `-a`: Append to files instead of overwriting.
-- `-i`: Ignore interrupt signals.
+- `-a`, `--append`: Append to files instead of overwriting them.
+- `-i`, `--ignore-interrupts`: Ignore interrupt signals so a Ctrl-c does not stop the write.
+- `--output-error`: Control behavior on write errors.
+- `-p`: Diagnose errors writing to non-pipes.
 
 ## Examples
 
 ```bash
-echo "hello" | tee output.txt
-make | tee build.log
-echo "line" | sudo tee -a /etc/example.conf
+ls -l | tee listing.txt
 ```
+
+Print the listing and save a copy to `listing.txt`.
+
+```bash
+make 2>&1 | tee build.log
+```
+
+Save a build log while still watching output.
+
+```bash
+echo "config line" | sudo tee -a /etc/app.conf > /dev/null
+```
+
+Append a line to a root-owned file from a normal user's shell.
+
+```bash
+cat data.csv | tee part1.csv part2.csv
+```
+
+Write the same stream to two files and also show it.
+
+```bash
+./monitor.sh | tee -a run.log
+```
+
+Keep appending live output to a log file.
 
 ## Practical Notes
 
-`tee` is useful when you want to see command output and save it at the same time.
+- Without `-a`, `tee` overwrites the target file; use `-a` to keep history.
+- `tee > /dev/null` discards the screen copy and keeps only the file write.
+- `sudo tee` is the standard way to redirect into privileged files from a pipeline.
+- Useful in long-running pipelines where you want both a live view and a saved record.

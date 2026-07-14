@@ -2,40 +2,61 @@
 name: yes
 summary: Repeatedly print a string.
 category: Shell
-tags: shell, script, builtin
+tags: shell, script, builtin, repeat
 popular: false
 ---
 
 ## Additional Notes
 
-`yes` is a shell command used to repeatedly print a string. It outputs a string repeatedly until killed, commonly used to automate yes/no prompts in scripts.
+`yes` repeatedly prints a string (default `y`) to standard output, as fast as the pipe will accept. It is classically used to auto-answer prompts that expect a repeated confirmation.
 
-`yes` is useful for piping 'y' to commands that ask for confirmation, like `yes | apt-get install`. Without arguments, it outputs `y`.
+It keeps printing until the reading side closes the pipe, so it pairs well with commands that ask the same question many times.
 
 ## Syntax
 
 ```bash
-yes [arguments]
+yes [string ...]
 ```
 
 ## Parameters
 
-- `options`: Flags that change how `yes` behaves.
-- `arguments`: Values consumed by the shell builtin or script command.
-- `command`: Command line to run, test, wrap, or control.
-
-## Common Options
-
-- `--help`: Show command help when supported.
-- `--version`: Show version information when supported.
+- `string`: Text to repeat. If omitted, prints `y` (a single `y` per line).
 
 ## Examples
 
 ```bash
-yes --help
-man yes
+yes | head
 ```
+
+Print a few `y` lines (use `head` to stop it in a demo).
+
+```bash
+yes | rm -r dir
+```
+
+Auto-confirm a recursive removal that asks `rm: remove ...?`.
+
+```bash
+yes "no" | command-that-prompts
+```
+
+Feed `no` repeatedly instead of `y`.
+
+```bash
+yes n | cp -i a b
+```
+
+Answer `n` to each interactive `cp` prompt.
+
+```bash
+for i in $(seq 1 3); do yes "line $i"; done | head -3
+```
+
+Build a repeating label inside a loop, then cap it with `head`.
 
 ## Practical Notes
 
-Options can vary by distribution and package version. Use `man yes`, `yes --help`, or the package documentation for exact syntax.
+- Without `head` or a reader that stops, `yes` runs forever; pipe it to something bounded.
+- Use it for non-interactive installs that repeatedly prompt for confirmation.
+- A safer habit is to prefer flags that skip prompts (such as `rm -rf` or `cp -n`) when available.
+- `yes` is also handy for generating test data, such as `yes "test" | head -1000 > sample.txt`.
