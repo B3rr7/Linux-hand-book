@@ -500,7 +500,7 @@ function aboutPage() {
         </article>
         <article>
           <h2>Learning path</h2>
-          <p>While learning Linux, I also started learning about footprinting, cybersecurity tools, filesystems, and command-line workflows. This is why the site now includes command pages, the Linux tree, tool lists, operating systems, programming languages, and student security resources.</p>
+          <p>While learning Linux, I also started learning about footprinting, cybersecurity tools, filesystems, and command-line workflows. This is why the site now includes command pages, the Linux tree, a cybersecurity tools directory, and a programming languages section for learners.</p>
         </article>
         <article>
           <h2>How it is built</h2>
@@ -594,7 +594,6 @@ function linuxTreePage() {
                     <button class="tree-node" type="button" data-tree-path="/home"><code>home/</code><small>regular users</small></button>
                     <ul>
                       <li><button class="tree-leaf" type="button" data-tree-path="/home/rani"><code>rani/</code></button></li>
-                      <li><button class="tree-leaf" type="button" data-tree-path="/home/guest"><code>guest/</code></button></li>
                       <li><button class="tree-leaf" type="button" data-tree-path="/home/rani/.config"><code>.config/</code></button></li>
                       <li><button class="tree-leaf" type="button" data-tree-path="/home/rani/Downloads"><code>Downloads/</code></button></li>
                     </ul>
@@ -709,6 +708,14 @@ function linuxTreePage() {
           </div>
           <svg class="tree-cable-layer" aria-hidden="true" hidden data-tree-cable>
             <path data-tree-cable-path></path>
+            <path data-tree-cable-stray-a></path>
+            <path data-tree-cable-stray-b></path>
+            <text class="tree-cable-label" data-tree-cable-label-a></text>
+            <text class="tree-cable-label" data-tree-cable-label-b></text>
+            <circle class="tree-cable-pad" data-tree-cable-start r="5.5"></circle>
+            <circle class="tree-cable-pad" data-tree-cable-end r="5.5"></circle>
+            <circle class="tree-cable-pad tree-cable-stray-pad" data-tree-cable-pad-a r="4"></circle>
+            <circle class="tree-cable-pad tree-cable-stray-pad" data-tree-cable-pad-b r="4"></circle>
           </svg>
           <aside class="tree-info-panel" aria-live="polite" hidden data-tree-panel>
             <button class="tree-info-close" type="button" aria-label="Close selected path details" data-tree-close>Close</button>

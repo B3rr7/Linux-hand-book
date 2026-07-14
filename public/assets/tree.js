@@ -6,6 +6,14 @@ const treeStage = document.querySelector("[data-tree-stage]");
 const treeScroll = document.querySelector("[data-tree-scroll]");
 const treeCable = document.querySelector("[data-tree-cable]");
 const treeCablePath = document.querySelector("[data-tree-cable-path]");
+const treeCableStart = document.querySelector("[data-tree-cable-start]");
+const treeCableEnd = document.querySelector("[data-tree-cable-end]");
+const treeCableStrayA = document.querySelector("[data-tree-cable-stray-a]");
+const treeCableStrayB = document.querySelector("[data-tree-cable-stray-b]");
+const treeCableStrayPadA = document.querySelector("[data-tree-cable-pad-a]");
+const treeCableStrayPadB = document.querySelector("[data-tree-cable-pad-b]");
+const treeCableLabelA = document.querySelector("[data-tree-cable-label-a]");
+const treeCableLabelB = document.querySelector("[data-tree-cable-label-b]");
 const treePanel = document.querySelector("[data-tree-panel]");
 const treeClose = document.querySelector("[data-tree-close]");
 const treeTitle = document.querySelector("[data-tree-title]");
@@ -447,19 +455,83 @@ function positionTreePanel() {
 function drawTreeCable() {
   if (!treeStage || !treePanel || !treeCable || !treeCablePath || !selectedTreeButton || treePanel.hidden) return;
 
-  const stageRect = treeStage.getBoundingClientRect();
+  const cableRect = treeCable.getBoundingClientRect();
+  const stageLeft = treeStage.getBoundingClientRect().left;
   const buttonRect = selectedTreeButton.getBoundingClientRect();
   const panelRect = treePanel.getBoundingClientRect();
-  const startX = buttonRect.left + buttonRect.width / 2 - stageRect.left;
-  const startY = buttonRect.top + buttonRect.height / 2 - stageRect.top;
-  const endX = panelRect.left + panelRect.width / 2 - stageRect.left;
-  const endY = panelRect.top + panelRect.height / 2 - stageRect.top;
-  const bendX = startX + (endX - startX) * 0.52;
+  const openOnRight = buttonRect.left + buttonRect.width / 2 < stageLeft + treeStage.clientWidth / 2;
+  const dirX = openOnRight ? 1 : -1;
+  const exitX = openOnRight
+    ? buttonRect.right - cableRect.left
+    : buttonRect.left - cableRect.left;
+  const bTop = buttonRect.top - cableRect.top;
+  const bH = buttonRect.height;
+  const yMid = bTop + bH / 2;
+  const yTop = bTop + bH * 0.3;
+  const yBot = bTop + bH * 0.7;
+  const endY = panelRect.top + panelRect.height / 2 - cableRect.top;
+  const endX = openOnRight
+    ? panelRect.left - cableRect.left
+    : panelRect.right - cableRect.left;
 
-  treeCable.style.width = `${treeStage.clientWidth}px`;
-  treeCable.style.height = `${treeStage.clientHeight}px`;
-  treeCable.setAttribute("viewBox", `0 0 ${treeStage.clientWidth} ${treeStage.clientHeight}`);
-  treeCablePath.setAttribute("d", `M ${startX} ${startY} C ${bendX} ${startY}, ${bendX} ${endY}, ${endX} ${endY}`);
+  const overlap =
+    buttonRect.left < panelRect.right &&
+    buttonRect.right > panelRect.left &&
+    buttonRect.top < panelRect.bottom &&
+    buttonRect.bottom > panelRect.top;
+
+  let connD;
+  if (overlap) {
+    connD = `M ${exitX} ${yMid} L ${endX} ${endY}`;
+  } else {
+    const bendX = exitX + (endX - exitX) * 0.55;
+    const vDir = endY > yMid ? 1 : -1;
+    const chamfer = Math.min(22, Math.max(0, Math.abs(endY - yMid) / 2 - 3));
+    connD = `M ${exitX} ${yMid} L ${bendX - dirX * chamfer} ${yMid} L ${bendX} ${yMid + vDir * chamfer} L ${bendX} ${endY - vDir * chamfer} L ${bendX + dirX * chamfer} ${endY} L ${endX} ${endY}`;
+  }
+
+  const step = 16;
+  const reach = 30;
+  const maxY = cableRect.height - 6;
+  const aEndY = Math.max(6, yTop - 2 * step);
+  const bEndY = Math.min(maxY, yBot + 2 * step);
+  const strayAD = `M ${exitX} ${yTop} L ${exitX + dirX * reach} ${yTop} L ${exitX + dirX * (reach + step)} ${yTop - step} L ${exitX + dirX * (reach + 2 * step)} ${yTop - step} L ${exitX + dirX * (reach + 3 * step)} ${aEndY} L ${exitX + dirX * (reach + 4 * step)} ${aEndY}`;
+  const strayBD = `M ${exitX} ${yBot} L ${exitX + dirX * reach} ${yBot} L ${exitX + dirX * (reach + step)} ${yBot + step} L ${exitX + dirX * (reach + 2 * step)} ${yBot + step} L ${exitX + dirX * (reach + 3 * step)} ${bEndY} L ${exitX + dirX * (reach + 4 * step)} ${bEndY}`;
+
+  treeCable.setAttribute("viewBox", `0 0 ${cableRect.width} ${cableRect.height}`);
+  treeCable.setAttribute("width", cableRect.width);
+  treeCable.setAttribute("height", cableRect.height);
+  treeCablePath.setAttribute("d", connD);
+  if (treeCableStrayA) treeCableStrayA.setAttribute("d", strayAD);
+  if (treeCableStrayB) treeCableStrayB.setAttribute("d", strayBD);
+  if (treeCableStart) {
+    treeCableStart.setAttribute("cx", exitX);
+    treeCableStart.setAttribute("cy", yMid);
+  }
+  if (treeCableEnd) {
+    treeCableEnd.setAttribute("cx", endX);
+    treeCableEnd.setAttribute("cy", endY);
+  }
+  if (treeCableStrayPadA) {
+    treeCableStrayPadA.setAttribute("cx", exitX + dirX * (reach + 4 * step));
+    treeCableStrayPadA.setAttribute("cy", aEndY);
+  }
+  if (treeCableStrayPadB) {
+    treeCableStrayPadB.setAttribute("cx", exitX + dirX * (reach + 4 * step));
+    treeCableStrayPadB.setAttribute("cy", bEndY);
+  }
+  if (treeCableLabelA) {
+    treeCableLabelA.setAttribute("x", exitX + dirX * (reach + 1.5 * step));
+    treeCableLabelA.setAttribute("y", yTop - step - 5);
+    treeCableLabelA.setAttribute("text-anchor", "middle");
+    treeCableLabelA.textContent = "rani";
+  }
+  if (treeCableLabelB) {
+    treeCableLabelB.setAttribute("x", exitX + dirX * (reach + 1.5 * step));
+    treeCableLabelB.setAttribute("y", yBot + step + 14);
+    treeCableLabelB.setAttribute("text-anchor", "middle");
+    treeCableLabelB.textContent = "vfs";
+  }
 }
 
 function syncTreePanel() {
@@ -485,7 +557,7 @@ function updateTreeInfo(path) {
   });
 
   if (treePanel) treePanel.hidden = false;
-  if (treeCable) treeCable.hidden = false;
+  if (treeCable) treeCable.removeAttribute("hidden");
   requestAnimationFrame(syncTreePanel);
 }
 
@@ -503,7 +575,7 @@ function selectTreePath(path, { scroll = false } = {}) {
 
 function closeTreeInfo() {
   if (treePanel) treePanel.hidden = true;
-  if (treeCable) treeCable.hidden = true;
+  if (treeCable) treeCable.setAttribute("hidden", "");
   selectedTreeButton = null;
   treeButtons.forEach((button) => {
     button.classList.remove("is-selected");
