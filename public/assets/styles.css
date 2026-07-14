@@ -206,6 +206,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 84px;
 }
 
 body {
@@ -214,6 +215,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   line-height: 1.5;
+  overflow-x: clip;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -1114,6 +1116,8 @@ label {
 .prose p,
 .prose li {
   color: #303842;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .prose code {
@@ -1345,6 +1349,9 @@ label {
   left: 24px;
   z-index: 4;
   width: min(430px, calc(100% - 48px));
+  max-height: calc(100% - 48px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   min-width: 0;
   border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
   border-radius: 8px;
@@ -1855,7 +1862,7 @@ label {
 
   .site-header {
     gap: 10px 14px;
-    padding: 12px clamp(14px, 4vw, 32px);
+    padding: 12px max(14px, env(safe-area-inset-left)) 12px max(14px, env(safe-area-inset-right));
   }
 
   .brand {
@@ -1879,7 +1886,10 @@ label {
 
   .site-nav a {
     flex: 0 0 auto;
-    padding: 8px 10px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
     white-space: nowrap;
   }
 
@@ -1920,21 +1930,29 @@ label {
     grid-template-columns: 1fr;
   }
 
+  .tree-info-panel {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+    width: auto;
+    max-height: calc(100% - 24px);
+  }
+
   .penguin-theme {
-    right: 8px;
-    bottom: 10px;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: calc(10px + env(safe-area-inset-bottom));
     transform: scale(0.86);
     transform-origin: right bottom;
   }
 
   .theme-menu {
-    right: 0;
-    bottom: 116px;
+    right: max(0px, env(safe-area-inset-right));
+    bottom: calc(116px + env(safe-area-inset-bottom));
   }
 
   .penguin-tip {
-    right: 70px;
-    bottom: 86px;
+    right: calc(70px + env(safe-area-inset-right));
+    bottom: calc(86px + env(safe-area-inset-bottom));
     width: min(210px, calc(100vw - 124px));
   }
 
@@ -1942,7 +1960,7 @@ label {
 
 @media (max-width: 380px) {
   .site-header {
-    padding: 10px 12px;
+    padding: 10px max(12px, env(safe-area-inset-left)) 10px max(12px, env(safe-area-inset-right));
   }
 
   .brand-mark {

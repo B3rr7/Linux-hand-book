@@ -456,10 +456,10 @@ function drawTreeCable() {
   if (!treeStage || !treePanel || !treeCable || !treeCablePath || !selectedTreeButton || treePanel.hidden) return;
 
   const cableRect = treeCable.getBoundingClientRect();
-  const stageLeft = treeStage.getBoundingClientRect().left;
+  const stageRect = treeStage.getBoundingClientRect();
   const buttonRect = selectedTreeButton.getBoundingClientRect();
   const panelRect = treePanel.getBoundingClientRect();
-  const openOnRight = buttonRect.left + buttonRect.width / 2 < stageLeft + treeStage.clientWidth / 2;
+  const openOnRight = buttonRect.left + buttonRect.width / 2 < stageRect.left + treeStage.clientWidth / 2;
   const dirX = openOnRight ? 1 : -1;
   const exitX = openOnRight
     ? buttonRect.right - cableRect.left
@@ -469,10 +469,18 @@ function drawTreeCable() {
   const yMid = bTop + bH / 2;
   const yTop = bTop + bH * 0.3;
   const yBot = bTop + bH * 0.7;
-  const endY = panelRect.top + panelRect.height / 2 - cableRect.top;
-  const endX = openOnRight
-    ? panelRect.left - cableRect.left
-    : panelRect.right - cableRect.left;
+  const isTopSheet = panelRect.top - stageRect.top <= 16 && panelRect.width > treeStage.clientWidth * 0.7;
+  let endY;
+  let endX;
+  if (isTopSheet) {
+    endY = panelRect.bottom - cableRect.top;
+    endX = Math.min(Math.max(exitX, panelRect.left - cableRect.left + 10), panelRect.right - cableRect.left - 10);
+  } else {
+    endY = panelRect.top + panelRect.height / 2 - cableRect.top;
+    endX = openOnRight
+      ? panelRect.left - cableRect.left
+      : panelRect.right - cableRect.left;
+  }
 
   const overlap =
     buttonRect.left < panelRect.right &&
@@ -481,7 +489,7 @@ function drawTreeCable() {
     buttonRect.bottom > panelRect.top;
 
   let connD;
-  if (overlap) {
+  if (overlap || isTopSheet) {
     connD = `M ${exitX} ${yMid} L ${endX} ${endY}`;
   } else {
     const bendX = exitX + (endX - exitX) * 0.55;
