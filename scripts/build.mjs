@@ -243,7 +243,11 @@ function layout({ title, description = site.description, keywords = "Linux, comm
     <meta property="og:locale" content="en_US">${canonical ? `\n    <meta property="og:url" content="${escapeHtml(canonical)}">` : ""}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${escapeHtml(title)}">
-    <meta name="twitter:description" content="${escapeHtml(description)}">${structuredData}
+    <meta name="twitter:description" content="${escapeHtml(description)}">${siteUrl ? `\n    <meta property="og:image" content="${escapeHtml(absoluteUrl("og-image.png"))}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="${escapeHtml(title)}">
+    <meta name="twitter:image" content="${escapeHtml(absoluteUrl("og-image.png"))}">` : ""}${structuredData}
     <script>
       (() => {
         const savedTheme = localStorage.getItem("linux-command-theme") || "default";

@@ -58,6 +58,19 @@ Most command pages follow this simple structure:
 
 This keeps every page easy to scan and simple to update.
 
+## Getting Started
+
+The project has zero npm dependencies. You only need Node.js (>=20).
+
+```bash
+npm run dev      # build and serve the site on http://localhost:4173
+npm run check    # build and validate everything (run before committing)
+npm run clean    # remove the dist/ output folder
+```
+
+Set `PORT` to change the dev server port, and set `SITE_BASE_PATH` when deploying
+under a subpath (CI sets this automatically for GitHub Pages).
+
 ## How The Website Works
 
 The command content is written as Markdown files inside `content/commands/`.
@@ -66,14 +79,19 @@ During build, the project creates static HTML pages inside `dist/`. It also crea
 
 Because the final output is static, it can be hosted on GitHub Pages or any normal static hosting service.
 
+## Themes
+
+The site has a built-in theme switcher with three modes: **light**, **dark**, and
+**moon**. Your choice is saved locally and applies across all pages, including the
+Linux filesystem tree and command pages.
+
 ## Project Structure
 
 ```text
 content/commands/     Markdown files for Linux command pages
 public/               CSS, JavaScript, icons, wallpapers, and other static assets
 scripts/              Build scripts for generating the static website
-dist/                 Generated website output for hosting
-trash/                Local notes, audits, and temporary project files
+dist/                 Generated website output for hosting (gitignored)
 ```
 
 ## Current Content
@@ -101,6 +119,18 @@ Possible improvements for later:
 - Add more Linux learning pages
 - Improve SEO text on important pages
 - Add screenshots or diagrams where useful
+
+## Contributing
+
+Contributions are welcome, especially better examples and clearer explanations for
+command pages.
+
+1. Add or edit a Markdown file in `content/commands/`. Each file needs frontmatter
+   (`name`, `summary`, `category`, `tags`, `popular`) and the body sections
+   `## Additional Notes`, `## Syntax`, `## Parameters`, `## Examples`, and
+   `## Practical Notes`.
+2. Make sure the filename matches the slugified `name` field.
+3. Run `npm run check` and fix any validation errors before committing.
 
 ## License
 
