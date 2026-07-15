@@ -461,12 +461,21 @@ function detailPage(command, commands) {
 }
 
 function aboutPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": `About - ${site.title}`,
+    "description": "About Linux Command — a searchable handbook of 620+ Linux command references built from personal learning, open resources, and AI assistance.",
+    "url": absoluteUrl("about/"),
+    "mainEntity": { "@type": "WebSite", "name": site.title, "url": absoluteUrl("") }
+  };
   return layout({
     title: `About - ${site.title}`,
     description: "About Linux Command — a searchable handbook of 620+ Linux command references built from personal learning, open resources, and AI assistance.",
     current: "about",
     depth: 1,
     pagePath: "about/",
+    jsonLd,
     body: `<main class="about-shell">
       <section class="about-hero">
         <p class="eyebrow">About the project</p>
@@ -1908,6 +1917,13 @@ function toolsPage() {
   const operatingSystems = cyberOperatingSystems();
   const virtualLabs = virtualLabPlatforms();
   const languages = programmingLanguages();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `Cybersecurity Tools - ${site.title}`,
+    "description": "A student-friendly cybersecurity tools directory for authorized lab work and defensive learning.",
+    "url": absoluteUrl("tools/")
+  };
 
   return layout({
     title: `Cybersecurity Tools - ${site.title}`,
@@ -1915,6 +1931,7 @@ function toolsPage() {
     current: "tools",
     depth: 1,
     pagePath: "tools/",
+    jsonLd,
     body: `<main class="tools-shell">
       <section class="tools-hero">
         <p class="eyebrow">Cybersecurity student tools</p>
@@ -2139,10 +2156,17 @@ const sitemapPaths = [
 ];
 
 if (siteUrl) {
+  const buildDate = new Date().toISOString().split("T")[0];
+  const sitemapPriority = (pagePath) => {
+    if (pagePath === "") return "1.0";
+    if (pagePath === "404.html") return "0.2";
+    if (pagePath.endsWith("/") || pagePath === "commands/" || pagePath === "about/" || pagePath === "linux-tree/" || pagePath === "tools/") return "0.8";
+    return "0.6";
+  };
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapPaths
-    .map((pagePath) => `  <url><loc>${escapeHtml(absoluteUrl(pagePath))}</loc></url>`)
+    .map((pagePath) => `  <url><loc>${escapeHtml(absoluteUrl(pagePath))}</loc><lastmod>${buildDate}</lastmod><priority>${sitemapPriority(pagePath)}</priority></url>`)
     .join("\n")}
 </urlset>
 `;
